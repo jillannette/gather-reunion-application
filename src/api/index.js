@@ -3,6 +3,7 @@ const dotenv = require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 
+const commentRoutes = require('./routes/comments.js')
 const memberRoutes = require('./routes/members.js');
 const memoryRoutes = require('./routes/memories.js');
 
@@ -18,6 +19,7 @@ app.use((req, res, next) => {
 })
 
 //routes
+app.use('/api/comments', commentRoutes)
 app.use('/api/members', memberRoutes)
 app.use('/api/memories', memoryRoutes)
 

@@ -1,19 +1,18 @@
 const {Member} = require('../models/model');
 const mongoose = require('mongoose');
 
-//get all members
 const getMembers = async (req, res) => {
   console.log('you are here member')
   const members = await Member.find({}).sort({createdAt: -1})
   console.log('members', members)
   res.status(200).json(members);
 }
-//get a single member
+
 const getMember = async (req, res) => {
   console.log('you are here get single member');
   const {id} = req.params
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
+  if (!Schema.Types.ObjectId.isValid(id)) {
     return res.status(404).json({error: 'Invalid ID used to retrieve member profile'})
   }
 
@@ -26,14 +25,12 @@ const getMember = async (req, res) => {
   res.status(200).json(member)
 }
 
-//create a new member
 const createMember = async (req, res) => {
-  const {nameAtGraduation, currentName, email, phone} = req.body
+  const {nameAtGraduation, currentName, email, phone, memories} = req.body
 
-  //add doc to db
   try {
     const member = await Member.create({
-      nameAtGraduation, currentName, email, phone
+      nameAtGraduation, currentName, email, phone, memories
     })
     res.status(200).json(member)
     } catch (error) {
@@ -41,11 +38,10 @@ const createMember = async (req, res) => {
   }
 }
 
-//delete a member
 const deleteMember = async (req, res) => {
   const {id} = req.params
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
+  if (!Schema.Types.ObjectId.isValid(id)) {
     return res.status(400).json({error: 'Invalid ID used to retrieve member profile'})
   }
 
@@ -58,12 +54,11 @@ const deleteMember = async (req, res) => {
   res.status(200).json({message: 'Member has been deleted from database'})
 }
 
-//update a member
 const updateMember = async (req, res) => {
   const {id} = req.params
   console.log({id})
   
-  if (!mongoose.Types.ObjectId.isValid(id)) {
+  if (!Schema.Types.ObjectId.isValid(id)) {
     return res.status(404).json({error: 'Invalid ID used to retrieve member profile'})
   }
 
@@ -78,11 +73,10 @@ const updateMember = async (req, res) => {
   res.status(200).json({message: 'Member updated!'})
   }
 
-
   module.exports = {
   getMembers, 
   getMember,
   createMember,
   deleteMember,
   updateMember
-}
+};

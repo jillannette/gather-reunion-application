@@ -1,4 +1,7 @@
 const express = require('express');
+const router = express.Router();
+router.use(express.json());
+
 const {
   getMemories, 
   getMemory,
@@ -7,22 +10,22 @@ const {
   updateMemory
 } = require('../controllers/memoryController')
 
-const router = express.Router();
+
 
 //GET all memories
-router.get('/memories', getMemories)
+router.get('/', getMemories)
 
 //GET a single memory
-router.get('/memories/:id', getMemory);
+router.get('/:id', getMemory);
 
 //POST a new memory
-router.post('/memories', createMemory);
+router.post('/', createMemory);
 
 //DELETE a new memory
-router.delete('/memories/:id', deleteMemory);
+router.delete('/:id', deleteMemory);
 
 //UPDATE a new memory
-router.patch('/memories/:id', updateMemory);
+router.patch('/:id', updateMemory);
 
 
 module.exports = router;

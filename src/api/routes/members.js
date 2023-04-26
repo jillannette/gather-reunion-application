@@ -1,4 +1,7 @@
 const express = require('express');
+const router = express.Router();
+router.use(express.json());
+
 const {
   getMembers, 
   getMember,
@@ -7,7 +10,7 @@ const {
   updateMember
 } = require('../controllers/memberController')
 
-const router = express.Router();
+
 
 //GET all members
 router.get('/', getMembers)

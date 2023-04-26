@@ -1,14 +1,16 @@
-const Member = require('../models/model');
+const {Member} = require('../models/model');
 const mongoose = require('mongoose');
 
 //get all members
 const getMembers = async (req, res) => {
+  console.log('you are here member')
   const members = await Member.find({}).sort({createdAt: -1})
-
+  console.log('members', members)
   res.status(200).json(members);
 }
 //get a single member
 const getMember = async (req, res) => {
+  console.log('you are here get single member');
   const {id} = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -20,7 +22,7 @@ const getMember = async (req, res) => {
   if (!member) {
     return res.status(404).json({error: 'Member does not exist in database'})
   }
-
+  console.log('you are here get single member')
   res.status(200).json(member)
 }
 

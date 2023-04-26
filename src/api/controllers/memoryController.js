@@ -1,10 +1,11 @@
-const Memory = require('../models/model');
+const {Memory} = require('../models/model');
 const mongoose = require('mongoose');
 
 //get all memories
 const getMemories = async (req, res) => {
+  console.log('you are here memory')
   const memories = await Memory.find({}).sort({createdAt: -1})
-
+  console.log('memories', memories)
   res.status(200).json(memories);
 }
 //get a single memory

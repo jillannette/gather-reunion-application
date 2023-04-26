@@ -14,8 +14,10 @@ const memberSchema = new Schema({
   phone: {type: String, required: true},
 }, { timestamps: true });
 
-module.exports = mongoose.model('Memory', memorySchema);
-module.exports = mongoose.model('Member', memberSchema);
+const Memory = mongoose.model('Memory', memorySchema);
+const Member = mongoose.model('Member', memberSchema);
+
+module.exports = {Memory, Member};
 
 // const memorySchema = new Schema({
 //   text: {type: String, required: true},

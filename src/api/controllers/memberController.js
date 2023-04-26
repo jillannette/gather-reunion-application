@@ -1,4 +1,4 @@
-const Member = require('../models/memberModel');
+const Member = require('../models/model');
 const mongoose = require('mongoose');
 
 //get all members
@@ -26,18 +26,19 @@ const getMember = async (req, res) => {
 
 //create a new member
 const createMember = async (req, res) => {
-  const {nameAtGraduation, currentName, email, phone, memories} = req.body
+  const {nameAtGraduation, currentName, email, phone} = req.body
 
   //add doc to db
   try {
     const member = await Member.create({
-      nameAtGraduation, currentName, email, phone, memories
+      nameAtGraduation, currentName, email, phone
     })
     res.status(200).json(member)
     } catch (error) {
       res.status(400).json({error: error.message})
   }
 }
+
 //delete a member
 const deleteMember = async (req, res) => {
   const {id} = req.params
@@ -54,7 +55,6 @@ const deleteMember = async (req, res) => {
 
   res.status(200).json({message: 'Member has been deleted from database'})
 }
-
 
 //update a member
 const updateMember = async (req, res) => {
@@ -77,8 +77,7 @@ const updateMember = async (req, res) => {
   }
 
 
-
-module.exports = {
+  module.exports = {
   getMembers, 
   getMember,
   createMember,

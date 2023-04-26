@@ -2,7 +2,9 @@ require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
-const memberRoutes = require('./routes/members.js');
+//changing variable from memberRoutes, memoryRoutes to members, users
+const members = require('./routes/members.js');
+const memories = require('./routes/memories.js');
 
 //express app
 const app = express();
@@ -16,7 +18,10 @@ app.use((req, res, next) => {
 })
 
 //routes
-app.use('/api/members', memberRoutes)
+//changing from '/api/members', memberRoutes to '/api/members, members
+//changing from '/api/memories', memoryRoutes to '/api/memories, memories
+app.use('/api/members', members)
+app.use('/api/memories', memories)
 
 //connect to db
 mongoose.connect(process.env.MONGO_URI)

@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const commentSchema = new Schema({
+  memory: { type: Schema.Types.ObjectId, ref: 'Memory' },
   text: {type: String, required: true},
   written_by: { type: Schema.Types.ObjectId, ref: 'Member'},
 }, {timestamps: true});
@@ -10,8 +11,8 @@ const commentSchema = new Schema({
 const memorySchema = new Schema({
   subject: {type: String, required: true},
   text: {type: String, required: true},
-  member: { type: Schema.Types.ObjectId, ref: 'Member' },
-  comments: [{ type: String }]
+  shared_by: { type: Schema.Types.ObjectId, ref: 'Member' },
+  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
 }, {timestamps: true});
 
 const memberSchema = new Schema({

@@ -26,12 +26,12 @@ const getComment = async (req, res) => {
 
 //create a new memory
 const createComment = async (req, res) => {
-  const {text, written_by} = req.body
+  const {memory, text, written_by} = req.body
 
   //add doc to db
   try {
     const comment = await Comment.create({
-      text, written_by
+      memory, text, written_by
     })
     res.status(200).json(comment)
     } catch (error) {

@@ -26,11 +26,11 @@ const getMember = async (req, res) => {
 }
 
 const createMember = async (req, res) => {
-  const {nameAtGraduation, currentName, email, phone, memories} = req.body
+  const {nameAtGraduation, currentName, email, phone, memories, comments} = req.body
 
   try {
     const member = await Member.create({
-      nameAtGraduation, currentName, email, phone, memories
+      nameAtGraduation, currentName, email, phone, memories, comments
     })
     res.status(200).json(member)
     } catch (error) {

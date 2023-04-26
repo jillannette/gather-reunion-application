@@ -25,11 +25,11 @@ const getMemory = async (req, res) => {
 }
 
 const createMemory = async (req, res) => {
-  const {subject, text, member, comments} = req.body
+  const {subject, text, shared_by, comments} = req.body
 
   try {
     const memory = await Memory.create({
-      subject, text, member, comments
+      subject, text, shared_by, comments
     })
     res.status(200).json(memory)
     } catch (error) {

@@ -1,21 +1,20 @@
 const {Memory} = require('../models/model');
 const mongoose = require('mongoose');
 
-const getMemories = async (req, res) => {
-  console.log('you are here memory')
-  const memories = await Memory.find({}).sort({createdAt: -1})
-  console.log('memories', memories)
-  res.status(200).json(memories);
+const getAllMemories = async (req, res) => {
+
+  const memories = await Memory.find({})
+  res.status(200).json(memories)
 }
 
 const getMemory = async (req, res) => {
   const {id} = req.params
 
-  if (!Schema.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({error: 'Invalid ID used to retrieve requested memory'})
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({error: 'ID used is invalid'})
   }
 
-  const memory = await Memory.findById(id);
+  const memory = await Memory.findById({_id: id});
 
   if (!memory) {
     return res.status(404).json({error: 'Memory not found'})
@@ -24,58 +23,91 @@ const getMemory = async (req, res) => {
   res.status(200).json(memories)
 }
 
-const createMemory = async (req, res) => {
-  const {subject, text, shared_by, comments} = req.body
+const getMemoryComments = async (req, res) => {
+  const {memoryId} = req.params
+
+  if (!mongoose.Types.ObjectId.isValid(memoryId)) {
+    return res.status(404).json({error: 'ID used is invalid'})
+  }
+
+  const comments = Comment.find({})
+  res.status(200).json(comments)
+}
+
+const getMemoryComment = async (req, res) => {
+  const {memoryId} = req.params
+
+  if (!mongoose.Types.ObjectId.isValid(memoryId)) {
+    return res.status(404).json({error: 'ID used is invalid'})
+  }
+
+  const comment = Comment.findById({_id: id}) 
+
+  if (!comment) {
+    return res.status(404).json({error: 'Comment not found'})
+  }
+  res.status(200).json(comment)
+}
+
+const createComment = async (req, res) => {
+  const {id} = req.params
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({error: 'ID used is not valid'})
+  }
+
+  const {member, memory, text} = req.body
 
   try {
-    const memory = await Memory.create({
-      subject, text, shared_by, comments
+    const memory = Memory.create({
+      member, memory, text
     })
+    
     res.status(200).json(memory)
-    } catch (error) {
-      res.status(400).json({error: error.message})
+  } catch (error) {
+    res.status(400).json({error: error.message})
   }
+  
 }
 
-const deleteMemory = async (req, res) => {
-  const {id} = req.params
+const deleteComment = async (req, res) => {
+  const {memoryId}  = req.params
 
-  if (!Schema.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({error: 'Invalid ID used to retrieve requested memory'})
+  if (!mongoose.Types.ObjectId.isValid(memoryId)) {
+    return res.status(404).json({error: 'ID used is invalid'})
   }
 
-  const memory = await Memory.findOneAndDelete({_id: id});
+  const comment = Comment.findById({_id: id})
 
-  if (!memory) {
-    return res.status(404).json({error: 'Memory not found'})
+  if (!comment) {
+    res.status(404).json({error: 'Comment not found'})
   }
 
-  res.status(200).json({message: 'Memory has been deleted from database'})
+  res.status(200).json({message: 'Comment deleted', comment})
 }
 
-const updateMemory = async (req, res) => {
+const updateComment = async (req, res) => {
   const {id} = req.params
-  console.log({id})
-  
-  if (!Schema.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({error: 'Invalid ID used to retrieve requested memory'})
+
+  if(!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({error: 'ID used is invalid'})
   }
 
-  const memory = await Memory.findOneAndUpdate({_id: id}, {
-    ...req.body
-  })
-  
-  if (!memory) {
-    return res.status(404).json({error: 'Memory not found'})
-  }
+  const comment = Comment.findById({_id: id}) 
 
-  res.status(200).json({message: 'Memory updated!'})
+    if(!comment) {
+      res.status(404).json({error: 'Comment not found'})
+    }
+
+    res.status(200).json({message: 'Comment updated', comment})
   }
 
 module.exports = {
-  getMemories, 
+  getAllMemories,
   getMemory,
-  createMemory,
-  deleteMemory,
-  updateMemory
+  getMemoryComments,
+  getMemoryComment,
+  createComment,
+  deleteComment,
+  updateComment
 }

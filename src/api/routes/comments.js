@@ -1,23 +1,17 @@
 const express = require('express');
 const router = express.Router();
-router.use(express.json());
 
 const {
-  getComments, 
-  getComment,
-  createComment,
-  deleteComment,
-  updateComment
+  getAllComments, 
+  getCommentById,
+  getCommentsByMemberId,
+  
 } = require('../controllers/commentController')
 
-router.get('/', getComments)
+router.get('/', getAllComments)
 
-router.get('/:id', getComment);
+router.get('/:id', getCommentById)
 
-router.post('/', createComment);
-
-router.delete('/:id', deleteComment);
-
-router.patch('/:id', updateComment);
+router.get('/:id', getCommentsByMemberId)   //believe this will not work without differentiating ":id" from previous path
 
 module.exports = router;

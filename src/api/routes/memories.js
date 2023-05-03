@@ -1,23 +1,29 @@
 const express = require('express');
 const router = express.Router();
-router.use(express.json());
+
 
 const {
-  getMemories, 
+  getAllMemories,
   getMemory,
-  createMemory,
-  deleteMemory,
-  updateMemory
+  getMemoryComments,
+  getMemoryComment,
+  createComment,
+  deleteComment,
+  updateComment
 } = require('../controllers/memoryController')
 
-router.get('/', getMemories)
+router.get('/', getAllMemories)
 
 router.get('/:id', getMemory);
 
-router.post('/', createMemory);
+router.get('/:id/comments', getMemoryComments)
 
-router.delete('/:id', deleteMemory);
+router.get('/:id/comments/:id', getMemoryComment)
 
-router.patch('/:id', updateMemory);
+router.post('/:id/comments/', createComment)
+
+router.delete('/:id/comments/:id', deleteComment)
+
+router.patch('/:id/comments/:id', updateComment)
 
 module.exports = router;

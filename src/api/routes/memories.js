@@ -1,29 +1,31 @@
 const express = require('express');
 const router = express.Router();
 
-
 const {
   getAllMemories,
-  getMemory,
-  getMemoryComments,
-  getMemoryComment,
+  getMemoryById,  
+  getMemoriesByMemberId,
+  getMemoryByMemberId,
+  createMemory,
   createComment,
-  deleteComment,
-  updateComment
+  deleteMemory,
+  updateMemory
 } = require('../controllers/memoryController')
 
 router.get('/', getAllMemories)
 
-router.get('/:id', getMemory);
+router.get('/:id', getMemoryById);
 
-router.get('/:id/comments', getMemoryComments)
+router.get('/members/:id', getMemoriesByMemberId);
 
-router.get('/:id/comments/:id', getMemoryComment)
+router.get('/:id/members/:id', getMemoryByMemberId)
 
-router.post('/:id/comments/', createComment)
+router.post('/', createMemory)
 
-router.delete('/:id/comments/:id', deleteComment)
+router.post('/:id/comments', createComment)
 
-router.patch('/:id/comments/:id', updateComment)
+router.delete('/:id', deleteMemory)
+
+router.patch('/:id', updateMemory)
 
 module.exports = router;

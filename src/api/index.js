@@ -5,13 +5,13 @@ const bodyParser = require('body-parser');
 
 const commentRoutes = require('./routes/comments.js')
 const memberRoutes = require('./routes/members.js');
-const memoryRoutes = require('./routes/members.js');
+const memoryRoutes = require('./routes/memories.js');
 
 const app = express();
 
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, '/index.html'));  
-});
+// app.get('/', function(req, res) {
+//   res.sendFile(path.join(__dirname, '/index.html'));  
+// });
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");

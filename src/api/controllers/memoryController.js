@@ -1,113 +1,155 @@
 const {Memory} = require('../models/model');
+const {Comment} = require('../models/model');
+const {Member} = require('../models/model')
 const mongoose = require('mongoose');
 
+//THIS WORKS 5-4
 const getAllMemories = async (req, res) => {
+  try {
+    await Memory.find({})
+    .sort({createdAt: -1}) 
+    .populate('comments', 'text')
+    .then(memories => {
+      res.status(200).json({memories});
+    })
+  } catch (err) {
+    res.status(500).json({err:  'Unable to complete request'})
+  }
+} 
 
-  const memories = await Memory.find({})
-  res.status(200).json(memories)
-}
-
-const getMemory = async (req, res) => {
+//THIS WORKS 5-4-23
+const getMemoryById = async (req, res) => {
   const {id} = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({error: 'ID used is invalid'})
+    return res.status(404).json({err: 'ID not found'})
   }
 
-  const memory = await Memory.findById({_id: id});
+  try {
+  const memory = await Memory.findById({_id: id})
+  .sort({createdAt: -1})
+  .populate('comments', 'text')
 
   if (!memory) {
-    return res.status(404).json({error: 'Memory not found'})
+    return res.status(404).json({err: 'Memory does not exist in database'})
   }
+  
+  res.status(200).json(memory)
 
-  res.status(200).json(memories)
+  } catch (err) {
+    res.status(500).json({err: 'Unable to complete request'})
+  }
 }
 
-const getMemoryComments = async (req, res) => {
-  const {memoryId} = req.params
+//THIS WORKS 5-4-23
+const createMemory = async (req, res) => {
+ 
+  const {member, subject, text, image_url} = req.body
 
-  if (!mongoose.Types.ObjectId.isValid(memoryId)) {
-    return res.status(404).json({error: 'ID used is invalid'})
+  const checkDuplicate = await Memory.find({ 
+    text: req.body.text
+  });
+
+  if (checkDuplicate.length > 0) {
+     return res.status(400).send({ 
+      message: "Memory already exists" 
+    });
+  } 
+
+  try {
+  const newMemory = await Memory.create({
+    member, subject, text, image_url
+  })
+  newMemory.save();
+
+  const newMemoryId = newMemory._id;
+  const memberId = req.body.member;
+   
+  const memberToUpdate = await Member.findById(memberId)
+  memberToUpdate.memories.push(newMemoryId)
+  memberToUpdate.save()
+  res.status(200).json(newMemory)
   }
 
-  const comments = Comment.find({})
-  res.status(200).json(comments)
+  catch (error) {
+    res.status(400).json({
+      err: 'Member could not be created'
+    })
+  }
 }
 
-const getMemoryComment = async (req, res) => {
-  const {memoryId} = req.params
-
-  if (!mongoose.Types.ObjectId.isValid(memoryId)) {
-    return res.status(404).json({error: 'ID used is invalid'})
-  }
-
-  const comment = Comment.findById({_id: id}) 
-
-  if (!comment) {
-    return res.status(404).json({error: 'Comment not found'})
-  }
-  res.status(200).json(comment)
-}
-
+//THIS WORKS!!!!!  5-4
 const createComment = async (req, res) => {
   const {id} = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({error: 'ID used is not valid'})
+    return res.status(404).json({error: 'ID not found'})
   }
 
-  const {member, memory, text} = req.body
+  const {memory, member, text} = req.body
+
+  const checkDuplicate = await Comment.find({ 
+    text: req.body.text
+  });
+
+  if (checkDuplicate.length > 0) {
+     return res.status(400).send({ 
+      message: "Comment already exists" 
+    });
+  } 
 
   try {
-    const memory = Memory.create({
-      member, memory, text
-    })
-    
-    res.status(200).json(memory)
+  const newComment = await new Comment({
+    memory, member, text
+  })
+  newComment.save();
+  
+  const newCommentId = newComment._id;
+  const memoryId = req.body.memory;
+  
+  const memoryToUpdate = await Memory.findById(memoryId)
+  memoryToUpdate.comments.push(newCommentId)
+  memoryToUpdate.save()
+
+    res.status(200).json(newComment)
+
   } catch (error) {
-    res.status(400).json({error: error.message})
+    res.status(500).json({
+      err: 'Unable to complete request'
+    })
+  }
+}
+  
+
+const getCommentByMemoryId = async (req, res) => {
+
+ 
+
+}
+
+const getMemoriesByMemberId = async (req, res) => {
+
+}
+  const getMemoryByMemberId = async (req, res) => {
+    
+    }
+    
+  const deleteMemory = async (req, res) => {
+  
   }
   
-}
-
-const deleteComment = async (req, res) => {
-  const {memoryId}  = req.params
-
-  if (!mongoose.Types.ObjectId.isValid(memoryId)) {
-    return res.status(404).json({error: 'ID used is invalid'})
+  const updateMemory = async (req, res) => {
+  
   }
-
-  const comment = Comment.findById({_id: id})
-
-  if (!comment) {
-    res.status(404).json({error: 'Comment not found'})
-  }
-
-  res.status(200).json({message: 'Comment deleted', comment})
-}
-
-const updateComment = async (req, res) => {
-  const {id} = req.params
-
-  if(!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({error: 'ID used is invalid'})
-  }
-
-  const comment = Comment.findById({_id: id}) 
-
-    if(!comment) {
-      res.status(404).json({error: 'Comment not found'})
-    }
-
-    res.status(200).json({message: 'Comment updated', comment})
-  }
-
 module.exports = {
   getAllMemories,
-  getMemory,
-  getMemoryComments,
-  getMemoryComment,
+  getMemoryById,
+  getCommentByMemoryId,
+  getMemoriesByMemberId,
+  getMemoryByMemberId,
+  createMemory,
   createComment,
-  deleteComment,
-  updateComment
+  deleteMemory,
+  updateMemory
+  
 }

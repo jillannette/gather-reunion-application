@@ -2,12 +2,18 @@ const {Comment} = require('../models/model');
 const mongoose = require('mongoose');
 
 const getAllComments = async (req, res) => {
-  console.log('you are here comment')
-  const comments = await Comment.find({}).sort({createdAt: -1})
-  console.log('comments', comments)
-  res.status(200).json(comments);
+  try {
+    const comments = await Comment.find({})
+    .sort({createdAt: -1})
+    .populate('member', 'currentName')
+  
+    res.status(200).json(comments);
+
+  } catch (err) {
+    res.status(500).json({err: 'Unable to complete request'})
+  }
 }
-//get a single memory
+
 const getCommentById = async (req, res) => {
   const {id} = req.params
 
@@ -15,6 +21,7 @@ const getCommentById = async (req, res) => {
     return res.status(404).json({error: 'Invalid ID used to retrieve requested comment'})
   }
 
+  try {
   const comment = await Comment.findById({_id: id});
 
   if (!comment) {
@@ -22,14 +29,43 @@ const getCommentById = async (req, res) => {
   }
 
   res.status(200).json(comment)
+} catch (err) {
+  res.status(500).json({err: 'Unable to complete request'})
+  }
+}
+
+
+const getCommentsByMemoryId = async (req, res) => {
+}
+
+const getCommentByMemoryId = async (req, res) => {
+  
 }
 
 const getCommentsByMemberId = async (req, res) => {
-  
+
 }
+
+const getCommentByMemberId = async (req, res) => {
+
+}
+
+const deleteComment = async (req, res) => {
+
+}
+
+const updateComment = async (req, res) => {
+
+}
+
 
 module.exports = {
   getAllComments, 
   getCommentById,
-  getCommentsByMemberId
+  getCommentsByMemoryId,
+  getCommentByMemoryId,
+  getCommentsByMemberId,
+  getCommentByMemberId,
+  deleteComment,
+  updateComment
 }

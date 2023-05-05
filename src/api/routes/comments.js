@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const {
-  getAllComments, 
-  getCommentById,
+  getComments, 
+  getComment,
   getCommentsByMemoryId,
   getCommentByMemoryId,
   getCommentsByMemberId,
@@ -13,9 +13,9 @@ const {
   
 } = require('../controllers/commentController')
 
-router.get('/', getAllComments)
+router.get('/', getComments)
 
-router.get('/:id', getCommentById)
+router.get('/:id', getComment)
 
 router.get('/memories/:id', getCommentsByMemoryId);
 

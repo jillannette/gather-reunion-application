@@ -31,25 +31,29 @@ const memberSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Comment'
   }],
-  aboutMe: {type: Schema.Types.ObjectId, ref: 'AboutMe'}
+  bios: [{type: Schema.Types.ObjectId, 
+    ref: 'Bio'
+  }]
 }, { timestamps: true });
 
-const aboutMeSchema = new Schema({
-  member: {type: Schema.Types.ObjectId, ref: 'Member'},
-  image_url: String,
-  text: {type: String, required: true}
-}, {timestamps: true});
-
-const reunionsSchema = new Schema({
-  year: {type: Number, required: true},
+const bioSchema = new Schema({
+  member: {type: Schema.Types.ObjectId, 
+    ref: 'Member'
+  },
   image_url: {type: String},
   text: {type: String, required: true}
 }, {timestamps: true});
 
+// const reunionsSchema = new Schema({
+//   year: {type: Number, required: true},
+//   image_url: {type: String},
+//   text: {type: String, required: true}
+// }, {timestamps: true});
+
 const Comment = mongoose.model('Comment', commentSchema);
 const Memory = mongoose.model('Memory', memorySchema);
 const Member = mongoose.model('Member', memberSchema);
-const AboutMe = mongoose.model('AboutMe', aboutMeSchema);
-const Reunions = mongoose.model('Reunions', reunionsSchema)
+const Bio = mongoose.model('Bio', bioSchema);
+//const Reunion = mongoose.model('Reunion', reunionSchema)
 
-module.exports = {Comment, Memory, Member, AboutMe, Reunions};
+module.exports = {Comment, Memory, Member, Bio};

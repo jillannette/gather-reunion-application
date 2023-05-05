@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const {
-  getAllMemories,
-  getMemoryById,  
+  getMemories,
+  getMemory,  
   getMemoriesByMemberId,
   getMemoryByMemberId,
   createMemory,
@@ -12,9 +12,9 @@ const {
   updateMemory
 } = require('../controllers/memoryController')
 
-router.get('/', getAllMemories)
+router.get('/', getMemories)
 
-router.get('/:id', getMemoryById);
+router.get('/:id', getMemory);
 
 router.get('/members/:id', getMemoriesByMemberId);
 

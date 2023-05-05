@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const commentRoutes = require('./routes/comments.js')
 const memberRoutes = require('./routes/members.js');
 const memoryRoutes = require('./routes/memories.js');
+const bioRoutes = require('./routes/bios.js')
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.use((req, res, next) => {
 app.use('/api/comments', commentRoutes)
 app.use('/api/members', memberRoutes)
 app.use('/api/memories', memoryRoutes)
+app.use('/api/bios', bioRoutes)
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {

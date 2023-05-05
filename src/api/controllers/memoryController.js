@@ -4,7 +4,7 @@ const {Member} = require('../models/model')
 const mongoose = require('mongoose');
 
 //THIS WORKS 5-4
-const getAllMemories = async (req, res) => {
+const getMemories = async (req, res) => {
   try {
     await Memory.find({})
     .sort({createdAt: -1}) 
@@ -18,7 +18,7 @@ const getAllMemories = async (req, res) => {
 } 
 
 //THIS WORKS 5-4-23
-const getMemoryById = async (req, res) => {
+const getMemory = async (req, res) => {
   const {id} = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -120,36 +120,68 @@ const createComment = async (req, res) => {
   }
 }
   
-
-const getCommentByMemoryId = async (req, res) => {
-
- 
-
-}
-
 const getMemoriesByMemberId = async (req, res) => {
 
 }
-  const getMemoryByMemberId = async (req, res) => {
-    
-    }
-    
-  const deleteMemory = async (req, res) => {
+const getMemoryByMemberId = async (req, res) => {
+}
   
+//THIS WORKS 5-5-23
+const deleteMemory = async (req, res) => {
+  const {id} = req.params
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({err: 'ID not found'})
   }
-  
-  const updateMemory = async (req, res) => {
-  
+
+  try {
+  const memory = await Memory.findOneAndDelete({_id: id});
+
+  if (!memory) {
+    return res.status(404).json({
+      err: 'Memory does not exist in database'
+    })
   }
+  res.status(200).json({
+    message: 'Memory has been deleted from database', 
+    memory
+  })
+  } catch (err) {
+  res.status(500).json({
+    err: 'Unable to complete request'
+  })
+  }
+}       
+
+//THIS WORKS 5-5-23
+const updateMemory = async (req, res) => {
+  const {id} = req.params
+ 
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({err: 'ID not found'})
+  }
+  try {
+  const memory = await Memory.findOneAndUpdate(
+    {_id: id}, 
+    req.body,
+    { new: true }
+  )
+  
+  res.status(200).json({message: 'Memory updated!', memory})   
+  
+    
+  } catch (err) {
+    res.status(500).json({err: 'Unable to complete request'})
+  }
+} 
+  
 module.exports = {
-  getAllMemories,
-  getMemoryById,
-  getCommentByMemoryId,
+  getMemories,
+  getMemory,
   getMemoriesByMemberId,
   getMemoryByMemberId,
   createMemory,
   createComment,
   deleteMemory,
   updateMemory
-  
 }

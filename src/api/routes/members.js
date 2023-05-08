@@ -2,12 +2,11 @@ const express = require('express');
 const router = express.Router();
 
 const {
-  getMembers, 
-  getMember,
-  createMember,
-  createMemory,
-  deleteMember,
-  updateMember, 
+  getMembers, //get list of all members 
+  getMember,  //get specific member page
+  createMember,  //part of signup, create member page
+  deleteMember,  //delete member altogether, should delete memories, comments, reunions?
+  updateMember,  //update member page info, username, password 
   
 } = require('../controllers/memberController')
 

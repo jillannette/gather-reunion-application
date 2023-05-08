@@ -22,7 +22,7 @@ const getBio = async (req, res) => {
   const {id} = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({err: 'ID not found'})
+    return res.status(404).json({err: 'The ID used to locate the resource is not valid'})
   }
 
   try {
@@ -40,19 +40,49 @@ const getBio = async (req, res) => {
   }
 }
 
+//THIS WORKS 5-8
+const getMemberByBio = async (req, res) => {  //:id/member
+  const {id} = req.params
+  
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({err: 'The ID used to locate the resource is not valid'})
+  }
+  try {
+  const selectedBio = await Bio.findById(id)
 
-//THIS WORKS 5-5-23
+
+  const member = selectedBio.member
+  
+  
+  res.status(200).json(member)     //THIS RETURNS THE MEMBER ID 
+  }
+catch (err) {
+  res.status(500).json({err: 'sample error msg'})
+}
+}
+
+
+    
+
+   
+
+  
+  
+  
+
+//THIS WORKS 5-8
 const createBio = async (req, res) => {
  
   const {member, image_url, text} = req.body
 
   const checkDuplicate = await Bio.find({ 
+    member: req.body.member,
     text: req.body.text
   });
 
   if (checkDuplicate.length > 0) {
      return res.status(400).send({ 
-      message: "Bio already exists" 
+      message: "A bio already exists.  Please update the existing bio instead" 
     });
   } 
 
@@ -68,20 +98,22 @@ const createBio = async (req, res) => {
   const memberId = req.body.member;
    
   const memberToUpdate = await Member.findById(memberId)
-  memberToUpdate.bios.push(bioId)
+  memberToUpdate.bio.push(bioId)
   memberToUpdate.save()
   res.status(200).json(bio)
   }
   catch (err) {
-    res.status(500).json({err: 'Unable to create resource'})
+    res.status(500).json({err: 'An unexpected error has occurred'})
   }
 }
+
+//THIS WORKS 5-5-23
 
 const deleteBio = async (req, res) => {
   const {id} = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({err: 'ID not found'})
+    return res.status(400).json({err: 'The ID used to locate the resource is not valid'})
   }
 
   try {
@@ -109,7 +141,7 @@ const updateBio = async (req, res) => {
 
  
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({err: 'ID not found'})
+    return res.status(404).json({err: 'The ID used to locate the resource is not valid'})
   }
   try {
   const bio = await Bio.findOneAndUpdate(
@@ -129,6 +161,7 @@ const updateBio = async (req, res) => {
 module.exports = {
   getBios,
   getBio,
+  getMemberByBio,
   createBio,
   deleteBio,
   updateBio,

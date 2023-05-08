@@ -18,7 +18,7 @@ const getComment = async (req, res) => {
   const {id} = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({error: 'Invalid ID used to retrieve requested comment'})
+    return res.status(404).json({error: 'The ID used to locate the resource is not valid'})
   }
 
   try {
@@ -35,27 +35,20 @@ const getComment = async (req, res) => {
 }
 
 
-const getCommentsByMemoryId = async (req, res) => {
-}
 
-const getCommentByMemoryId = async (req, res) => {
-  
-}
 
-const getCommentsByMemberId = async (req, res) => {
+const getMemberByCommentId = async (req, res) => {
 
 }
 
-const getCommentByMemberId = async (req, res) => {
 
-}
 
 //THIS WORKS 5-5-23
 const deleteComment = async (req, res) => {
   const {id} = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({err: 'ID not found'})
+    return res.status(400).json({err: 'The ID used to locate the resource is not valid'})
   }
 
   try {
@@ -82,7 +75,7 @@ const updateComment = async (req, res) => {
   const {id} = req.params
  
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({err: 'ID not found'})
+    return res.status(404).json({err: 'ID The ID used to locate the resource is not valid'})
   }
   try {
   const comment = await Comment.findOneAndUpdate(
@@ -103,10 +96,7 @@ const updateComment = async (req, res) => {
 module.exports = {
   getComments, 
   getComment,
-  getCommentsByMemoryId,
-  getCommentByMemoryId,
-  getCommentsByMemberId,
-  getCommentByMemberId,
+  getMemberByCommentId,
   deleteComment,
   updateComment
 }

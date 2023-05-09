@@ -4,10 +4,7 @@ const router = express.Router();
 const {
   getComments, 
   getComment,
-  getCommentsByMemoryId,
-  getCommentByMemoryId,
-  getCommentsByMemberId,
-  getCommentByMemberId,
+  getMemberByCommentId,
   deleteComment,
   updateComment
   
@@ -17,13 +14,8 @@ router.get('/', getComments)
 
 router.get('/:id', getComment)
 
-router.get('/memories/:id', getCommentsByMemoryId);
+router.get('/:id/member', getMemberByCommentId);
 
-router.get('/:id/memories/:id', getCommentByMemoryId,)
-
-router.get('/members/:id', getCommentsByMemberId)
-
-router.get('/:id/members/:id', getCommentByMemberId);
 
 router.delete('/:id', deleteComment)
 

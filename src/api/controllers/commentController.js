@@ -36,9 +36,25 @@ const getComment = async (req, res) => {
 
 
 
+const getMemberByCommentId = async (req, res) => {  //:id/comment
+  const {id} = req.params
+  
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({err: 'The ID used to locate the resource is not valid'})
+  }
+  try {
+  const selectedComment = await Comment.findById({_id: id})
+    console.log(selectedComment)
 
-const getMemberByCommentId = async (req, res) => {
-
+  const member = selectedComment.member
+  
+  console.log(member)
+  res.status(200).json(member)  
+  console.log(member)   //THIS RETURNS THE MEMBER ID 
+  }
+catch (err) {
+  res.status(500).json({err: 'sample error msg'})
+}
 }
 
 

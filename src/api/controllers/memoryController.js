@@ -96,9 +96,9 @@ const createMemory = async (req, res) => {
   }
 }
 
-//THIS WORKS!!!!!  5-4
-const createComment = async (req, res) => {
-  const {id} = req.params
+//REFACTORED 5-9, FORGOT TO PUSH NEW COMMENT TO MEMBER.COMMENTS
+const createComment = async (req, res) => {     //memories/:id/comments
+  const {id} = req.params   //memoryID
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({error: 'The ID used to locate the resource is not valid'})
@@ -121,13 +121,17 @@ const createComment = async (req, res) => {
     memory, member, text
   })
   newComment.save();
-  
+    
   const newCommentId = newComment._id;
   const memoryId = req.body.memory;
+  const memberId = req.body.member;
   
   const memoryToUpdate = await Memory.findById(memoryId)
   memoryToUpdate.comments.push(newCommentId)
-  memoryToUpdate.save()
+  memoryToUpdate.save();
+  const memberToUpdate = await Member.findById(memberId) 
+  memberToUpdate.comments.push(newCommentId)
+  memberToUpdate.save()
 
     res.status(200).json(newComment)
 

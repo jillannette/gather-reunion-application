@@ -48,9 +48,26 @@ const getMemory = async (req, res) => {
   }
 }
 
-const getMemberByMemoryId = (req, res) => {
- 
+//THIS WORKS - RETURNS MEMBERID
+const getMemberByMemoryId = async (req, res) => {  
+  const {id} = req.params    
+    
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({err: 'The ID used to locate the resource is not valid'})
+  }
+  try {
+  const selectedMemory = await Memory.findById({_id: id})
+  
+  const member = selectedMemory.member
+
+  res.status(200).json(member)  
+  //console.log(member)   //THIS RETURNS THE MEMBER ID 
+  }
+  catch (err) {
+    res.status(500).json({err: 'sample error msg'})
+  }
 }
+
 
 const getCommentsByMemoryId = async (req, res) => {
 }

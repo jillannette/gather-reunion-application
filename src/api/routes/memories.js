@@ -4,6 +4,7 @@ const router = express.Router();
 const {
   getMemories,
   getMemory,  
+  getMemberByMemoryId,
   createMemory,
   createComment,
   deleteMemory,
@@ -13,6 +14,8 @@ const {
 router.get('/', getMemories)
 
 router.get('/:id', getMemory);
+
+router.get('/:id/members', getMemberByMemoryId)
 
 router.post('/', createMemory)
 

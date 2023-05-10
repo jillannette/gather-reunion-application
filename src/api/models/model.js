@@ -48,7 +48,7 @@ const bioSchema = new Schema({
   text: {type: String, required: true}
 }, {timestamps: true});
 
-const reunionsSchema = new Schema({
+const reunionSchema = new Schema({
   nextReunionCounter: {type: Date, required: true},
   year: {type: Number, required: true},
   image_url: {type: String},
@@ -60,6 +60,6 @@ const Comment = mongoose.model('Comment', commentSchema);
 const Memory = mongoose.model('Memory', memorySchema);
 const Member = mongoose.model('Member', memberSchema);
 const Bio = mongoose.model('Bio', bioSchema);
-const Reunions = mongoose.model('Reunion', reunionsSchema)
+const Reunion = mongoose.model('Reunion', reunionSchema)
 
-module.exports = {Comment, Memory, Member, Bio, Reunions};
+module.exports = {Comment, Memory, Member, Bio, Reunion};

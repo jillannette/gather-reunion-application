@@ -1,9 +1,8 @@
-const {Memory} = require('../models/model');
-const {Comment} = require('../models/model');
-const {Member} = require('../models/model')
+const {Memory, Member, Comment} = require('../models/Model');
 const mongoose = require('mongoose');
 
-//THIS WORKS 5-4
+//THIS WORKS 5-10
+
 const getMemories = async (req, res) => {
   try {
     await Memory.find({})
@@ -14,20 +13,21 @@ const getMemories = async (req, res) => {
       res.status(200).json({memories});
     })
 
-    if (!memories) {
-      return res.status(404).json({err: 'Unable to find requested resource'})
-    }
   } catch (err) {
-    res.status(500).json({err: 'An unexpected error has occurred'})
+    res.status(500).json({
+      err: 'An unexpected error has occurred'
+    })
   }
 } 
 
-//THIS WORKS 5-4-23
+//THIS WORKS 5-10-23    BUT, MEMORY "64591787a913313e60d506e6" RETURNS MEMBER AS "NULL"
 const getMemory = async (req, res) => {
   const {id} = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({err: 'The ID used to locate the resource is not valid'})
+    return res.status(404).json({
+      err: 'The ID used to locate the resource is not valid'
+    })
   }
 
   try {
@@ -36,47 +36,44 @@ const getMemory = async (req, res) => {
   .populate('member', 'nameAtGraduation')
   .populate('comments', 'text')
 
-
   if (!memory) {
-    return res.status(404).json({err: 'Memory does not exist in database'})
+    return res.status(404).json({
+      err: 'Memory does not exist in database'
+    })
   }
   
   res.status(200).json(memory)
 
   } catch (err) {
-    res.status(500).json({err: 'An unexpected error has occurred'})
+      res.status(500).json({
+        err: 'An unexpected error has occurred'
+      })
   }
 }
 
-//THIS WORKS - RETURNS MEMBERID
-const getMemberByMemoryId = async (req, res) => {  
-  const {id} = req.params    
+//THIS WORKS 5-10   RETURNS MEMBER ID
+const getMemberByMemoryId = async (req, res) => {
+  const {id} = req.params
     
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({err: 'The ID used to locate the resource is not valid'})
+    return res.status(404).json({
+      err: 'The ID used to locate the resource is not valid'
+    })
   }
+
   try {
-  const selectedMemory = await Memory.findById({_id: id})
-  
-  const member = selectedMemory.member
-
-  res.status(200).json(member)  
-  //console.log(member)   //THIS RETURNS THE MEMBER ID 
+    const selectedMemory = await Memory.findById({_id: id})
+    const member = selectedMemory.member
+    
+    res.status(200).json(member)  
+  } catch (err) {
+      res.status(500).json({
+        err: 'An unexpected error has occurred'
+      })
   }
-  catch (err) {
-    res.status(500).json({err: 'sample error msg'})
-  }
 }
-
-
-const getCommentsByMemoryId = async (req, res) => {
-}
-
-const getCommentByMemoryId = async (req, res) => {
-  
-}
-
-//THIS WORKS 5-4-23
+ 
+//THIS WORKS 5-10-23
 const createMemory = async (req, res) => {
  
   const {member, subject, text, image_url} = req.body
@@ -96,7 +93,7 @@ const createMemory = async (req, res) => {
     member, subject, text, image_url
   })
   newMemory.save();
-
+  
   const newMemoryId = newMemory._id;
   const memberId = req.body.member;
    
@@ -107,18 +104,21 @@ const createMemory = async (req, res) => {
   }
   
   catch (error) {
-    res.status(400).json({
-      err: 'Memory could not be created'
+    res.status(500).json({
+      err: 'Unable to complete request'
     })
   }
 }
 
-//REFACTORED 5-9, FORGOT TO PUSH NEW COMMENT TO MEMBER.COMMENTS
+//REFACTORED 5-10, only works with memberId so far being passed in body
+//comment exists in memory and in member
 const createComment = async (req, res) => {     //memories/:id/comments
   const {id} = req.params   //memoryID
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({error: 'The ID used to locate the resource is not valid'})
+    return res.status(404).json({
+      err: 'The ID used to locate the resource is not valid'
+    })
   }
 
   const {memory, member, text} = req.body
@@ -128,7 +128,7 @@ const createComment = async (req, res) => {     //memories/:id/comments
   });
 
   if (checkDuplicate.length > 0) {
-     return res.status(400).send({ 
+    return res.status(400).send({ 
       message: "Comment already exists" 
     });
   } 
@@ -150,24 +150,23 @@ const createComment = async (req, res) => {     //memories/:id/comments
   memberToUpdate.comments.push(newCommentId)
   memberToUpdate.save()
 
-    res.status(200).json(newComment)
+  res.status(200).json(newComment)
 
   } catch (error) {
-    res.status(500).json({
-      err: 'Unable to complete request'
-    })
+      res.status(500).json({
+        err: 'Unable to complete request'
+      })
   }
 }
-  
-
-
-  
-//THIS WORKS 5-5-23
+ 
+//THIS WORKS 5-10-23
 const deleteMemory = async (req, res) => {
   const {id} = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({err: 'The ID used to locate the resource is not valid'})
+    return res.status(400).json({
+      err: 'The ID used to locate the resource is not valid'
+    })
   }
 
   try {
@@ -178,24 +177,29 @@ const deleteMemory = async (req, res) => {
       err: 'Memory does not exist in database'
     })
   }
+
   res.status(200).json({
     message: 'Memory has been deleted from database', 
     memory
   })
+
   } catch (err) {
-  res.status(500).json({
-    err: 'Unable to complete request'
-  })
+    res.status(500).json({
+      err: 'Unable to complete request'
+    })
   }
 }       
 
-//THIS WORKS 5-5-23
+//THIS WORKS 5-10-23
 const updateMemory = async (req, res) => {
   const {id} = req.params
  
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({err: 'The ID used to locate the resource is not valid'})
+    return res.status(404).json({
+      err: 'The ID used to locate the resource is not valid'
+    })
   }
+
   try {
   const memory = await Memory.findOneAndUpdate(
     {_id: id}, 
@@ -203,11 +207,16 @@ const updateMemory = async (req, res) => {
     { new: true }
   )
   
-  res.status(200).json({message: 'Memory updated!', memory})   
+  res.status(200).json({
+    message: 'Memory updated!',
+    memory
+  })   
   
     
   } catch (err) {
-    res.status(500).json({err: 'Unable to complete request'})
+    res.status(500).json({
+      err: 'Unable to complete request'
+    })
   }
 } 
   
@@ -215,8 +224,6 @@ module.exports = {
   getMemories,
   getMemory,
   getMemberByMemoryId,
-  getCommentsByMemoryId,  //not sure needed?
-  getCommentByMemoryId,
   createMemory,
   createComment,
   deleteMemory,

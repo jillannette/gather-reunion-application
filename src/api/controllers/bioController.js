@@ -1,5 +1,4 @@
-const {Bio} = require('../models/model');
-const {Member} = require('../models/model')
+const {Bio, Member} = require('../models/Model');
 const mongoose = require('mongoose');
 
 //THIS WORKS

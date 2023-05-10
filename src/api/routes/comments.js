@@ -16,7 +16,6 @@ router.get('/:id', getComment)
 
 router.get('/:id/member', getMemberByCommentId);
 
-
 router.delete('/:id', deleteComment)
 
 router.patch('/:id', updateComment)

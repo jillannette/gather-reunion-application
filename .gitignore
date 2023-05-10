@@ -129,3 +129,9 @@ dist
 .yarn/install-state.gz
 .pnp.*
 src/api/routes/routes.js
+src/api/models/Bio.js
+src/api/models/Comment.js
+src/api/models/Member.js
+src/api/models/Memory.js
+src/api/models/Reunion.js
+src/api/routes/reunions.js

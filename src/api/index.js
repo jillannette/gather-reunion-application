@@ -10,6 +10,8 @@ const memberRoutes = require('./routes/members.js');
 const memoryRoutes = require('./routes/memories.js');
 const bioRoutes = require('./routes/bios.js')
 const loginRoutes = require('./routes/login.js');
+const restrictedAccessRoutes = require('./routes/restrictedAccess.js');
+const memberAccessRoutes = require('./routes/memberAccess.js');
 
 const app = express();
 
@@ -48,6 +50,8 @@ app.use('/api/members', memberRoutes)
 app.use('/api/memories', memoryRoutes)
 app.use('/api/bios', bioRoutes)
 app.use('/api/login', loginRoutes)
+app.use('/api/restrictedAccess', restrictedAccessRoutes);
+app.use('/api/memberAccess', memberAccessRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {

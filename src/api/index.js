@@ -2,13 +2,20 @@ const dotenv = require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
+const cookieSession = require('cookie-session');
 
 const commentRoutes = require('./routes/comments.js')
 const memberRoutes = require('./routes/members.js');
 const memoryRoutes = require('./routes/memories.js');
 const bioRoutes = require('./routes/bios.js')
+const loginRoutes = require('./routes/login.js');
 
 const app = express();
+
+app.use(cors());
+
+
 
 // app.get('/', function(req, res) {
 //   res.sendFile(path.join(__dirname, '/index.html'));  
@@ -40,6 +47,7 @@ app.use('/api/comments', commentRoutes)
 app.use('/api/members', memberRoutes)
 app.use('/api/memories', memoryRoutes)
 app.use('/api/bios', bioRoutes)
+app.use('/api/login', loginRoutes)
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {

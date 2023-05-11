@@ -19,12 +19,12 @@ const memorySchema = new Schema({
 }, {timestamps: true});
 
 const memberSchema = new Schema({
-  // userName: {type: String, required: true},
-  // password: {type: String, required: true}, //need type validation
+  email: {type: String, unique: true, lowercase: true, required: true},
+  password: {type: String},
   graduationYear: {type: Number, require: true},
   nameAtGraduation: {type: String, required: true},
   currentName: {type: String, required: true},
-  email: {type: String, required: true},
+  
   image_url: {type: String},
   memories: [{ 
     type: Schema.Types.ObjectId, 
@@ -38,6 +38,8 @@ const memberSchema = new Schema({
     ref: 'Bio'
   }]
 }, { timestamps: true });
+
+
 
 const bioSchema = new Schema({
   member: {type: Schema.Types.ObjectId, 

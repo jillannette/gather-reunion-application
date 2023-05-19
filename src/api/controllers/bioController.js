@@ -1,7 +1,7 @@
 const {Bio, Member} = require('../models/Model');
 const mongoose = require('mongoose');
 
-//THIS WORKS
+//THIS WORKS 
 const getBios = async (req, res) => {
   try {
   await Bio.find({})

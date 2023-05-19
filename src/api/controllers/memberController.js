@@ -6,15 +6,32 @@ const jwt = require('jsonwebtoken');
 
 //NEED TO FIGURE OUT SIGNIN 
 
+
+
 //THIS WORKS 5-10-23 
 
 const getMembers = async (req, res) => {
   try {
+
   const members = await Member.find({})
+
+  // members.count({}, ((err, count) => {
+  //   console.log('Num members', count);
+  // }))
+
+  // const perPage = 9
+  // const page = req.query.page || 1
+  // const { bio, memories, comments } = req.query
   .sort({createdAt: -1}) 
+  // .skip(perPage * page - perPage)
+  // .limit(perPage)
   .populate('memories', 'text')
   .populate('comments', 'text')
   .populate('bio')
+
+  // if (page > members.length) {
+  //   members.page =1
+  // }
  
     res.status(200).json(members)
   
@@ -28,7 +45,7 @@ const getMembers = async (req, res) => {
 //THIS WORKS 5-10-23  
 
 const getMember = async (req, res) => {
-  const {id} = req.params
+  const {id} = req.query
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({
@@ -49,7 +66,7 @@ const getMember = async (req, res) => {
       err: 'Member does not exist in database'
     })
   }
-  
+
   res.status(200).json(member)
  
   } catch (err) {

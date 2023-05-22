@@ -1,0 +1,19 @@
+.background {
+  background-image: url('https://ak0.picdn.net/shutterstock/videos/1917250/thumb/1.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 600px;
+}
+
+.cover-headline {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:100vh;  
+  color: white;
+}
+
+.center-headline {
+  text-align: center;
+}

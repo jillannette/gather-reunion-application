@@ -8,9 +8,16 @@ const jwt = require('jsonwebtoken');
 
 
 
-//THIS WORKS 5-10-23 
+//THIS WORKS 5-10-23 //need to be req.member
 
-const getMembers = async (req, res) => {
+const getMembers = async (req, res, next) => {
+  console.log('get members', req.member)
+
+  if (!req.member) {
+    next()
+    return
+  }
+
   try {
 
   const members = await Member.find({})

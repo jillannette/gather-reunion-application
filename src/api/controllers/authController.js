@@ -4,28 +4,33 @@ const jwt = require('jsonwebtoken');
 const memberAccess = async  (req, res, next) => {
 
   try {
+    console.log('memberAccess', req.headers)
     //   get the token from the authorization header
-    const token = await req.headers.authorization.split(" ")[1];
-    console.log(token)  //ok
+    const token = await req.headers.authorization?.split(" ")[1];
+    console.log('memberAccess', token)  //ok
 
     //check if the token matches the supposed origin
-    const decodedToken = await jwt.verify(token, "RANDOM-TOKEN");
-    console.log(decodedToken)  //ok
+    jwt.verify(token, "RANDOM-TOKEN", (err, decodedToken) => {
 
-    // retrieve the user details of the logged in user
-    const member = await decodedToken;
+      if (err) {
+        req.member = null;
+      } else {
 
-    // pass the user down to the endpoints here
-    req.member = member;
-    console.log(req.member) //ok
-
-    // pass down functionality to the endpoint
-    next();
-
-    res.json({
-      message: 'You may now access all app features'
-    })
+        console.log('decodedToken', decodedToken)  //ok
     
+        // retrieve the user details of the logged in user
+        const member = decodedToken;
+    
+        // pass the user down to the endpoints here
+        req.member = member;
+        console.log(req.member) //ok
+      }
+  
+      // pass down functionality to the endpoint
+      next();
+    });
+
+  
   } catch (error) {
     res.status(401).json({
       error: new Error("Invalid request!"),
@@ -35,6 +40,7 @@ const memberAccess = async  (req, res, next) => {
 
 //THIS WORKS!  5-11
 const restrictedAccess = (req, res) => {
+  console.log('rest access')
   res.json({
     message: 'You must be a member to view most features of this app. Signup to become a member!'
   })

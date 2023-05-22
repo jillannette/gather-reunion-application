@@ -3,14 +3,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
+const { memberAccess, restrictedAccess } = require('./controllers/authController');
 
 const commentRoutes = require('./routes/comments.js')
 const memberRoutes = require('./routes/members.js');
 const memoryRoutes = require('./routes/memories.js');
 const bioRoutes = require('./routes/bios.js')
 const loginRoutes = require('./routes/login.js');
-const restrictedAccessRoutes = require('./routes/restrictedAccess.js');
-const memberAccessRoutes = require('./routes/memberAccess.js');
 
 const app = express();
 
@@ -58,12 +57,11 @@ app.use((req, res, next) => {
 })
 
 app.use('/api/comments', commentRoutes)
-app.use('/api/members', memberRoutes)
+app.use('/api/members', memberAccess, memberRoutes)
 app.use('/api/memories', memoryRoutes)
 app.use('/api/bios', bioRoutes)
 app.use('/api/login', loginRoutes)
-app.use('/api/restrictedAccess', restrictedAccessRoutes);
-app.use('/api/memberAccess', memberAccessRoutes);
+app.use(restrictedAccess);
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true, 

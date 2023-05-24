@@ -8,12 +8,16 @@ function Join() {
   
     return (
       <>
+      <div className='join-background'>
       <div>
+        <br></br>
         <h1 className="center-headline">Create an Account </h1>
       </div>
-      <Container>
+      <br></br>
+      <Container className='join-border'>
       <Form className="Login">
         <Form.Group className="mb-3" controlId="formBasicEmail">
+        <br></br>
           <Form.Label>Your Email address</Form.Label>
           <Form.Control type="email" placeholder="Enter email" />
           <Form.Text className="text-muted">
@@ -27,20 +31,24 @@ function Join() {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Label>Name when you graduated?</Form.Label>
+          <Form.Label>Your name when you graduated</Form.Label>
           <Form.Control type="name" placeholder="Sally Norton" />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Label>Current name?</Form.Label>
+          <Form.Label>Your current name</Form.Label>
           <Form.Control type="name" placeholder="Sally Edwards" />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicImage">
           <Form.Label>Add your profile image url</Form.Label>
           <Form.Control type="string" placeholder="Your profile image url" />
         </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicTextArea">
+          <Form.Label>Tell others what you've been up to</Form.Label>
+          <Form.Control as="textarea" rows={3} placeholder="" />
+        </Form.Group>
 
         <Form.Group className="mb-3">
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" a href={'./members'}>
           Submit
         </Button>
 
@@ -55,6 +63,8 @@ function Join() {
        
       </Form>
       </Container>
+      </div>
+    
       </>
      
     );

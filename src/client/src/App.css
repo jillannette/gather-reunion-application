@@ -1,12 +1,24 @@
+.add-comment-button {
+  margin-right: 50px;
+}
+
+.add-memory-button {
+  margin-right: 50px;
+}
+
 .background {
   background-image: url('https://ak0.picdn.net/shutterstock/videos/1917250/thumb/1.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  height: 600px;
+  height:min-content
 }
 
 .cover-headline {
+  font-family: 'Graduate', serif;
+  font-weight: bold;
+  font-size: 150px;
+  text-shadow: 4px 4px 4px darkslateblue;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,4 +28,66 @@
 
 .center-headline {
   text-align: center;
+}
+
+.input-group {
+  margin-left: 20px;
+} 
+
+.input-text {
+  background-color:darkseagreen
+}
+
+.join-border {
+  height: 700px;
+  width: 600px;
+  position: relative;
+  border: 3px solid brown
+}
+
+.join-background {
+  font-family: 'Caveat';
+  font-size: larger;
+  background-image: url('https://classroomclipart.com/images/gallery/Clipart/School/yellow-legal-pad-clipart-75011.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+ 
+}
+
+.join-form-background {
+  background-color: white
+}
+
+.login {
+  
+  width: 50%;
+}
+
+.login-container {
+  height: 350px;
+  width: 500px;
+  position: relative;
+  border: 3px solid brown;
+}
+
+.memory {
+  font-family: 'Caveat';
+  font-size: larger;
+}
+
+.memory-background {
+  background-image: url('https://classroomclipart.com/images/gallery/Clipart/School/yellow-legal-pad-clipart-75011.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100
+}
+
+.memory-headline {
+  text-align: center;
+  text-indent: 120px;
+}
+
+.nav {
+  font-family: 'Caveat';
+  font-size: 25px;
 }

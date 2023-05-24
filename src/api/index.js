@@ -10,6 +10,7 @@ const memberRoutes = require('./routes/members.js');
 const memoryRoutes = require('./routes/memories.js');
 const bioRoutes = require('./routes/bios.js')
 const loginRoutes = require('./routes/login.js');
+const reunionRoutes = require('./routes/reunions.js');
 
 const app = express();
 
@@ -21,28 +22,28 @@ app.get('/client', function(req, res) {
   console.log(filePath)
 });
 
-// app.use((req, res, next) => {
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   res.setHeader(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
-//   );
-//   res.setHeader(
-//     "Access-Control-Allow-Methods",
-//     "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-//   );
-//   next();
-// });
-
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-  res.header(
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
   );
   next();
 });
+
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
 
 app.use(bodyParser.json());
 app.use(
@@ -56,10 +57,11 @@ app.use((req, res, next) => {
   next()
 })
 
-app.use('/api/comments', commentRoutes)
+app.use('/api/comments', memberAccess, commentRoutes)
 app.use('/api/members', memberAccess, memberRoutes)
-app.use('/api/memories', memoryRoutes)
-app.use('/api/bios', bioRoutes)
+app.use('/api/memories', memberAccess, memoryRoutes)
+app.use('/api/bios', memberAccess, bioRoutes)
+app.use('/api/reunions', memberAccess, reunionRoutes)
 app.use('/api/login', loginRoutes)
 app.use(restrictedAccess);
 

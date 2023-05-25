@@ -11,6 +11,7 @@ const memoryRoutes = require('./routes/memories.js');
 const bioRoutes = require('./routes/bios.js')
 const loginRoutes = require('./routes/login.js');
 const reunionRoutes = require('./routes/reunions.js');
+const joinRoutes = require('./routes/join.js')
 
 const app = express();
 
@@ -58,10 +59,11 @@ app.use((req, res, next) => {
 })
 
 app.use('/api/comments', memberAccess, commentRoutes)
-app.use('/api/members', memberAccess, memberRoutes)
+app.use('/api/members', memberRoutes)
 app.use('/api/memories', memberAccess, memoryRoutes)
 app.use('/api/bios', memberAccess, bioRoutes)
 app.use('/api/reunions', memberAccess, reunionRoutes)
+app.use('/api/join', joinRoutes)
 app.use('/api/login', loginRoutes)
 app.use(restrictedAccess);
 

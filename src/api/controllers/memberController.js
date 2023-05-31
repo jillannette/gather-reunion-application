@@ -1,11 +1,5 @@
 const {Member} = require('../models/Model')
 const mongoose = require('mongoose')
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken');
-
-
-//NEED TO FIGURE OUT SIGNIN 
-
 
 
 //THIS WORKS 5-10-23 //need to be req.member
@@ -21,26 +15,9 @@ const getMembers = async (req, res, next) => {
   try {
 
   const members = await Member.find({})
-
-  // members.count({}, ((err, count) => {
-  //   console.log('Num members', count);
-  // }))
-
-  // const perPage = 9
-  // const page = req.query.page || 1
-  // const { bio, memories, comments } = req.query
   .sort({createdAt: -1}) 
-  // .skip(perPage * page - perPage)
-  // .limit(perPage)
-  .populate('memories', 'text')
-  .populate('comments', 'text')
-  .populate('bio')
-
-  // if (page > members.length) {
-  //   members.page =1
-  // }
- 
-    res.status(200).json(members)
+  
+  res.status(200).json(members)
   
   } catch (err) {
     res.status(500).json({
@@ -51,8 +28,15 @@ const getMembers = async (req, res, next) => {
 
 //THIS WORKS 5-10-23  
 
-const getMember = async (req, res) => {
-  const {id} = req.query
+const getMember = async (req, res, next) => {
+  console.log('get member', req.member)
+
+  if (!req.member) {
+    next()
+    return
+  }
+
+  const {id} = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({
@@ -83,44 +67,17 @@ const getMember = async (req, res) => {
   }
 }
 //THIS WORKS 5-11-23   
-const createMember = async (req, res) => {
 
-  bcrypt
-  .hash(req.body.password,  10)
-  .then((hashedPassword) => {
-    const member = new Member({
-      email: req.body.email, 
-      password: hashedPassword,
-      nameAtGraduation: req.body.nameAtGraduation,
-      currentName: req.body.currentName
-    })
-      
-   member
-   .save()
-   .then((result) => {
-    res.status(200).json({
-    message: 'Member account created',
-    result,
-   })
-  })
-
-  .catch((err) => {
-    res.status(500).json({
-      error: 'Member account not created',
-      err,
-    })
-  })
-  })
-  .catch((err) => {
-    res.status(500).json({
-      error: 'Password not hashed successfully',
-      err,
-    })
-  })
-}
 
 //THIS WORKS 5-4-23  //THIS APPEARS TO DELETE ALL MEMORIES AND COMMENTS 
-const deleteMember = async (req, res) => {
+const deleteMember = async (req, res, next) => {
+  console.log('delete member', req.member)
+
+  if (!req.member) {
+    next()
+    return
+  }
+
   const {id} = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -137,6 +94,13 @@ const deleteMember = async (req, res) => {
       err: 'Member does not exist in database'
     })
   }
+
+  if (member !== req.member) {
+    next()
+    return
+  }
+
+  
   res.status(200).json({
     message: 'Member has been deleted from database', 
     member
@@ -150,7 +114,14 @@ const deleteMember = async (req, res) => {
 }
 
 //THIS WORKS 5-4-23   //THIS APPLIES UPDATED DATA TO MEMORIES/COMMENTS ETC
-const updateMember = async (req, res) => {
+const updateMember = async (req, res, next) => {
+  console.log('update member', req.member)
+
+  if (!req.member) {
+    next()
+    return
+  }
+
   const {id} = req.params
  
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -165,6 +136,11 @@ const updateMember = async (req, res) => {
     req.body,
     { new: true }
   )
+
+  if (member !== req.member) {
+    next()
+    return
+  }
   
   res.status(200).json({
     message: 'Member updated!',
@@ -187,7 +163,6 @@ const updateMember = async (req, res) => {
   module.exports = {
     getMembers, 
     getMember,
-    createMember,
     deleteMember,
     updateMember 
 }

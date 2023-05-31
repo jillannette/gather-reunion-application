@@ -1,17 +1,37 @@
-.add-comment-button {
-  margin-right: 50px;
-}
-
 .add-memory-button {
   margin-right: 50px;
+  background-color: #ffc107
 }
 
-.background {
+.cover-background {
   background-image: url('https://ak0.picdn.net/shutterstock/videos/1917250/thumb/1.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  height:min-content
+}
+
+.cover-description {
+  font-family: 'Kalam';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 65px;
+  color: white;
+}
+
+.cover-sub-headline {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 45px;
+  color: white;
+}
+
+.center-headline {
+  display: flex;
+  justify-content: center;
+  font-family: 'Caveat';
+  font-size: 70px;
 }
 
 .cover-headline {
@@ -26,8 +46,9 @@
   color: white;
 }
 
-.center-headline {
-  text-align: center;
+.form {
+  font-family: 'Kalam';
+
 }
 
 .input-group {
@@ -35,33 +56,47 @@
 } 
 
 .input-text {
-  background-color:darkseagreen
+  background-color: #ffc107
+}
+
+.join-background {
+  font-family: 'Kalam';
+  font-size: larger;
+  background-image: url('https://classroomclipart.com/images/gallery/Clipart/School/yellow-legal-pad-clipart-75011.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: auto;
+ 
 }
 
 .join-border {
-  height: 700px;
+  height: 100%x;
   width: 600px;
   position: relative;
   border: 3px solid brown
 }
 
-.join-background {
-  font-family: 'Caveat';
-  font-size: larger;
-  background-image: url('https://classroomclipart.com/images/gallery/Clipart/School/yellow-legal-pad-clipart-75011.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
- 
-}
+
 
 .join-form-background {
   background-color: white
 }
 
-.login {
-  
-  width: 50%;
+.login-background {
+  background-image: url('https://classroomclipart.com/images/gallery/Clipart/School/yellow-legal-pad-clipart-75011.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100
 }
+
+
+.login-border {
+  height: 675px;
+  width: 600px;
+  position: relative;
+  border: 3px solid brown
+  }
+
 
 .login-container {
   height: 350px;
@@ -70,21 +105,11 @@
   border: 3px solid brown;
 }
 
-.memory {
-  font-family: 'Caveat';
-  font-size: larger;
-}
-
 .memory-background {
   background-image: url('https://classroomclipart.com/images/gallery/Clipart/School/yellow-legal-pad-clipart-75011.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   height: 100
-}
-
-.memory-headline {
-  text-align: center;
-  text-indent: 120px;
 }
 
 .nav {

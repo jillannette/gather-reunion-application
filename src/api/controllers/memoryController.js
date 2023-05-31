@@ -3,7 +3,14 @@ const mongoose = require('mongoose');
 
 //THIS WORKS 5-10
 
-const getMemories = async (req, res) => {
+const getMemories = async (req, res, next) => {
+  console.log('get memories', req.member)
+
+  if (!req.member) {
+    next()
+    return
+  }
+
   try {
     await Memory.find({})
     .sort({createdAt: -1}) 
@@ -21,7 +28,14 @@ const getMemories = async (req, res) => {
 } 
 
 //THIS WORKS 5-10-23    BUT, MEMORY "64591787a913313e60d506e6" RETURNS MEMBER AS "NULL"
-const getMemory = async (req, res) => {
+const getMemory = async (req, res, next) => {
+  console.log('get memory', req.member)
+
+  if (!req.member) {
+    next()
+    return
+  }
+
   const {id} = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -52,7 +66,14 @@ const getMemory = async (req, res) => {
 }
 
 //THIS WORKS 5-10   RETURNS MEMBER ID
-const getMemberByMemoryId = async (req, res) => {
+const getMemberByMemoryId = async (req, res, next) => {
+  console.log('get member by memory id', req.member)
+
+  if (!req.member) {
+    next()
+    return
+  }
+
   const {id} = req.params
     
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -74,9 +95,20 @@ const getMemberByMemoryId = async (req, res) => {
 }
  
 //THIS WORKS 5-10-23
-const createMemory = async (req, res) => {
- 
-  const {member, subject, text, image_url} = req.body
+const createMemory = async (req, res, next) => {
+  console.log('create memory', req.member)
+
+  if (!req.member) {
+    next()
+    return
+  }
+
+  const {image_url, member, subject, text } = req.body
+
+  if (member !== req.member.memberId) {
+    next()
+    return
+  }
 
   const checkDuplicate = await Memory.find({ 
     text: req.body.text
@@ -90,18 +122,24 @@ const createMemory = async (req, res) => {
 
   try {
   const newMemory = await Memory.create({
-    member, subject, text, image_url
+    image_url,
+    member,
+    subject,
+    text
   })
+
   newMemory.save();
   
   const newMemoryId = newMemory._id;
   const memberId = req.body.member;
-   
+
   const memberToUpdate = await Member.findById(memberId)
+
   memberToUpdate.memories.push(newMemoryId)
   memberToUpdate.save()
   res.status(200).json(newMemory)
   }
+  
   
   catch (error) {
     res.status(500).json({
@@ -112,7 +150,14 @@ const createMemory = async (req, res) => {
 
 //REFACTORED 5-10, only works with memberId so far being passed in body
 //comment exists in memory and in member
-const createComment = async (req, res) => {     //memories/:id/comments
+const createComment = async (req, res) => {
+  console.log('createComment', req.member)
+
+  if (!req.member) {
+    next()
+    return
+  }
+     //memories/:id/comments
   const {id} = req.params   //memoryID
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -121,7 +166,9 @@ const createComment = async (req, res) => {     //memories/:id/comments
     })
   }
 
-  const {memory, member, text} = req.body
+  const {member, text} = req.body
+
+ 
 
   const checkDuplicate = await Comment.find({ 
     text: req.body.text
@@ -159,8 +206,15 @@ const createComment = async (req, res) => {     //memories/:id/comments
   }
 }
  
-//THIS WORKS 5-10-23
-const deleteMemory = async (req, res) => {
+
+const deleteMemory = async (req, res, next) => {
+  console.log('delete memory', req.member)
+
+  if (!req.member) {
+    next()
+    return
+  }
+
   const {id} = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -170,7 +224,8 @@ const deleteMemory = async (req, res) => {
   }
 
   try {
-  const memory = await Memory.findOneAndDelete({_id: id});
+  const memory = await Memory.findOne({_id: id})
+  console.log(memory)
 
   if (!memory) {
     return res.status(404).json({
@@ -178,9 +233,47 @@ const deleteMemory = async (req, res) => {
     })
   }
 
+  const member = memory.member.toString();  //5/28 should i try .populate('member').exec(err, member)  then try to delete?????
+  console.log('memory.member', member)
+  console.log('req.member.memberid', req.member.memberId)
+
+  if (member !== req.member.memberId) {
+    console.log('You are not authorized to delete this memory')
+    next();
+    return
+  }
+
+  const deletedMemory = await Memory.deleteOne(memory)  //this worked, deleted own memory
+  //works up until this point
+  console.log(deletedMemory)
+
+  // 5-27 120pm Did not remove the member's memory 
+
+  const memberId = req.member.memberId
+  console.log(memberId)
+  
+  const memberToUpdate = await Member.findById(memberId)
+  console.log(memberToUpdate)
+
+  const index = memberToUpdate.memories.findIndex(
+    mem => mem.toString() === id
+  )
+  console.log(index)
+
+  if (index !== -1) {
+    memberToUpdate.memories.splice(index, 1)
+  }
+
+  await memberToUpdate.save()
+
+  console.log(memberToUpdate.memories)
+
+  
+    
+
   res.status(200).json({
     message: 'Memory has been deleted from database', 
-    memory
+    deletedMemory
   })
 
   } catch (err) {
@@ -188,10 +281,18 @@ const deleteMemory = async (req, res) => {
       err: 'Unable to complete request'
     })
   }
-}       
+  }
+  
 
 //THIS WORKS 5-10-23
-const updateMemory = async (req, res) => {
+const updateMemory = async (req, res, next) => {
+  console.log('update memory', req.member)
+
+  if (!req.member) {
+    next()
+    return
+  }
+
   const {id} = req.params
  
   if (!mongoose.Types.ObjectId.isValid(id)) {

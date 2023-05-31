@@ -1,26 +1,25 @@
 const express = require('express');
 const router = express.Router();
 
-
+// these should all be protected 
 const {
   getMembers, //get list of all members 
   getMember,  //get specific member page
-  createMember,  //part of signup, create member page
   deleteMember,  //delete member altogether, should delete memories, comments, reunions?
   updateMember,  //update member page info, username, password 
   
 } = require('../controllers/memberController')
 
+const { memberAccess } = require('../controllers/authController')
 
-router.get('/', getMembers)
 
-router.get('/:id', getMember);
+router.get('/', memberAccess, getMembers)
 
-router.post('/', createMember);
+router.get('/:id', memberAccess, getMember);
 
-router.delete('/:id', deleteMember);
+router.delete('/:id', memberAccess, deleteMember);
 
-router.patch('/:id', updateMember);
+router.patch('/:id', memberAccess, updateMember);
 
 
 module.exports = router;

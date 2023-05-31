@@ -1,4 +1,8 @@
 const dotenv = require('dotenv').config();
+const dotenv = require('dotenv');
+process.env.TOKEN_SECRET;
+
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -79,5 +83,7 @@ mongoose.connect(process.env.MONGO_URI, {
   .catch((err) => {
     console.log(err)
   })
+
+
 
 //THIS WORKS 

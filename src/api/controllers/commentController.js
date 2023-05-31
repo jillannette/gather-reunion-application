@@ -1,7 +1,14 @@
 const {Comment} = require('../models/Model');
 const mongoose = require('mongoose');
 
-const getComments = async (req, res) => {
+const getComments = async (req, res, next) => {
+  console.log('get comments', req.member)
+
+  if (!req.member) {
+    next()
+    return
+  }
+
   try {
     const comments = await Comment.find({})
     .sort({createdAt: -1})
@@ -14,7 +21,14 @@ const getComments = async (req, res) => {
   }
 }
 
-const getComment = async (req, res) => {
+const getComment = async (req, res, next) => {
+  console.log('get comment', req.member)
+
+  if (!req.member) {
+    next()
+    return
+  }
+
   const {id} = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -36,7 +50,14 @@ const getComment = async (req, res) => {
 
 
 
-const getMemberByCommentId = async (req, res) => {  //:id/comment
+const getMemberByCommentId = async (req, res, next) => {  //:id/comment
+  console.log('get member by comment id', req.member)
+
+  if (!req.member) {
+    next()
+    return
+  }
+
   const {id} = req.params
   
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -60,7 +81,14 @@ catch (err) {
 
 
 //THIS WORKS 5-5-23
-const deleteComment = async (req, res) => {
+const deleteComment = async (req, res, next) => {
+  console.log('delete comment', req.member)
+
+  if (!req.member) {
+    next()
+    return
+  }
+
   const {id} = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -87,7 +115,14 @@ const deleteComment = async (req, res) => {
 }       
 
 //THIS WORKS 5-5-23
-const updateComment = async (req, res) => {
+const updateComment = async (req, res, next) => {
+  console.log('update comment', req.member)
+
+  if (!req.member) {
+    next()
+    return
+  }
+
   const {id} = req.params
  
   if (!mongoose.Types.ObjectId.isValid(id)) {

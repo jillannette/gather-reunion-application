@@ -152,3 +152,11 @@ src/client/src/reportWebVitals.js
 src/client/src/setupTests.js
 src/client/public/manifest.json
 src/client/README.md
+src/client/src/features/auth/authSlice.js
+src/client/src/features/bio/bioSlice.js
+.gitignore
+src/client/src/features/member/memberSlice.js
+src/client/src/features/memory/memorySlice.js
+src/client/src/features/member/memberAPI.js
+src/client/src/features/comment/commentSlice.js
+src/client/src/features/login/loginSlice.js

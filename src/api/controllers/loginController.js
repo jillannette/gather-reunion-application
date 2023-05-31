@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 
 const login = (req, res) => {
-  console.log('you are here')
+  
 
    // check if email exists
   Member.findOne({ email: req.body.email })
@@ -44,6 +44,7 @@ const login = (req, res) => {
             email: member.email,
             token,
           });
+          
         })
         // catch error if password does not match
         .catch((error) => {

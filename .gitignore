@@ -160,3 +160,8 @@ src/client/src/features/memory/memorySlice.js
 src/client/src/features/member/memberAPI.js
 src/client/src/features/comment/commentSlice.js
 src/client/src/features/login/loginSlice.js
+src/client/src/store.js
+src/client/src/components/AddMemory.js
+src/client/src/components/AddPhotoForm.js
+src/client/src/components/Member.js
+src/client/src/components/ReunionsPhotoGallery.js

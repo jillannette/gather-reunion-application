@@ -1,34 +1,21 @@
-const {Member} = require('../models/Model')
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken');
-
+const { Member } = require("../models/model");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const login = (req, res) => {
-  
-
-   // check if email exists
   Member.findOne({ email: req.body.email })
- 
 
-    // if email exists
     .then((member) => {
-      
-      // compare the password entered and the hashed password found
       bcrypt
         .compare(req.body.password, member.password)
-
-        // if the passwords match
         .then((passwordCheck) => {
-
-          // check if password matches
-          if(!passwordCheck) {
+          if (!passwordCheck) {
             return res.status(400).send({
               message: "Passwords does not match",
               error,
             });
           }
-         
-          //   create JWT token
+
           const token = jwt.sign(
             {
               memberId: member._id,
@@ -38,15 +25,12 @@ const login = (req, res) => {
             { expiresIn: "24h" }
           );
 
-          //   return success response
           res.status(200).send({
             message: "Login Successful",
-            email: member.email,
+            member,
             token,
           });
-          
         })
-        // catch error if password does not match
         .catch((error) => {
           res.status(400).send({
             message: "Passwords does not match",
@@ -54,7 +38,6 @@ const login = (req, res) => {
           });
         });
     })
-    // catch error if email does not exist
     .catch((e) => {
       res.status(404).send({
         message: "Email not found",
@@ -63,14 +46,6 @@ const login = (req, res) => {
     });
 };
 
-
-
-
-
-
-
-
 module.exports = {
-  login
-  
-}
+  login,
+};

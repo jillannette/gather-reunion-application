@@ -1,89 +1,111 @@
-import React from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Container from "react-bootstrap/Container";
+import Col from "react-bootstrap/Col";
+import axios from "axios";
 
+const Login = ({ setLoggedInMember }) => {
+  const navigate = useNavigate();
 
-const Login = () => {
+  const [authMember, setAuthMember] = useState({
+    email: "",
+    password: "",
+  });
 
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
-  // const [error, setError] = useState(null);
+  const [error, setError] = useState(null);
 
-  // function validateLogin() {
-  //   setError(null);
+  const handleChange = (e) => {
+    console.log("e.target.name", e.target.name);
+    setAuthMember({
+      ...authMember,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  //   if (email.length < 4 || password.length < 6) {
-  //     setError('Invalid email or password');
-  //     return;
-  //   }
+  async function login(e) {
+    e.preventDefault();
+    console.log(authMember);
+    axios
+      .post("http://localhost:5000/api/login", authMember)
+      .then((response) => {
+        console.log(response.data);
+        localStorage.setItem(
+          "member",
+          JSON.stringify({
+            memberId: response.data.member._id,
+            token: response.data.token,
+          })
+        );
+        setLoggedInMember({
+          memberId: response.data.member._id,
+          token: response.data.token,
+        });
+        navigate("/members");
+      })
+      .catch((error) => {
+        console.error("Error logging user in: ", error);
+        setError(error);
+      })
+      .finally((loading) => {
+        console.log("Loading data: ", loading);
+      });
+  }
 
-  //   fetchData('/login', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({ email, password })
-  //   })
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     if (data.token) {
-  //       localStorage.setItem('token', data.token);
-  //       // history.push('/members');
-  //     } else {
-  //       setError('Invalid email or password');
-  //     }
-  //   })
-  //   .catch(error => {
-  //     setError('An unexpected error has occurred');
-  //   })
-  // }
+  if (error) return "error";
 
   return (
     <>
-    <div className='join-background'>
-      
-    <div>
-  
-    
-    <h1 className="center-headline">Login</h1>
-    </div>
-      <br></br>
-      <br></br>
-    <Container className='login-border'>
-    <Col>
-    <Form className="form">
-      <Form.Group className="mb-3" controlId="formBasicEmail">
+      <div className="login-background">
+        <div>
+          <h1 className="center-headline">Login</h1>
+        </div>
         <br></br>
-      <Form.Label>Email address</Form.Label>
-      <Form.Control type="email" placeholder="Enter email" />
-      <Form.Text className="text-muted">
-        We'll never share your email with anyone else.
-      </Form.Text>
-    </Form.Group>
-    
-    <Form.Group className="mb-3" controlId="formBasicPassword">
-      <Form.Label>Password</Form.Label>
-      <Form.Control type="password" placeholder="Password" />
-    </Form.Group>
-    <Form.Group className="mb-3" controlId="formBasicCheckbox">
-      <br></br>
-      
-      <Form.Check type="checkbox" label="Log Out" />
-    </Form.Group>
-    
-    <Button variant="warning" type="submit" href='/members'>
-      Login
-    </Button>
-    </Form>
-    </Col>
-    </Container>
-    </div>
+          
+        <Container className="login-border">
+          <Form className='login-form-background'>
+            <Form className="form" onSubmit={login}>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+              <br></br>  
+             
+                <Form.Label>Email address</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="Enter email"
+                  name="email"
+                  value={authMember.email}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <br></br>
+              
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  value={authMember.password}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                <br></br>
+                
+                <Form.Check type="checkbox" label="Log Out" />
+              </Form.Group>
 
+              <Button variant="warning" type="submit">
+                Log In
+              </Button>
+            </Form>
+            </Form>
+     
+        </Container>
+      </div>
     </>
+  );
+};
 
-    )  
-}
- 
 export default Login;

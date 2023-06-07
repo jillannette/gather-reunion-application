@@ -23,7 +23,7 @@ const memberSchema = new Schema({
   password: {type: String, required: true},
   nameAtGraduation: {type: String, required: true},
   currentName: {type: String, required: true},
-  image_url: {type: String, required: true},
+  image_url: {type: String, required: false},
   bio: {type: String, required: true}, 
   memories: [{ 
     type: Schema.Types.ObjectId, 
@@ -38,7 +38,7 @@ const memberSchema = new Schema({
 
 
 const bioSchema = new Schema({
-  member: {type: Schema.Types.ObjectId, 
+  member: {type: Schema.Types.ObjectId, //want nameAtGrad, currentname, email
   required: true,
   ref: 'Member'
   },
@@ -49,7 +49,18 @@ const bioSchema = new Schema({
 const reunionSchema = new Schema({
   year: {type: Number, required: true},
   description: {type: String, required: true},
-  images: [{type: String}],
+  cover_image_url: [{type: String}],
+  images: [{type: Schema.Types.ObjectId,
+  required: true,
+  ref: 'ReunionPhoto'}]
+}, {timestamps: true});
+
+const reunionPhotoSchema = new Schema({
+  year: {type: Schema.Types.ObjectId,
+  required: true,
+  ref: 'Reunion'},
+  image_url: {type: String, required: true},
+  description: {type: String, required: true}
 }, {timestamps: true});
 
 const Comment = mongoose.model('Comment', commentSchema);
@@ -57,5 +68,6 @@ const Memory = mongoose.model('Memory', memorySchema);
 const Member = mongoose.model('Member', memberSchema);
 // const Bio = mongoose.model('Bio', bioSchema);
 const Reunion = mongoose.model('Reunion', reunionSchema)
+const ReunionPhoto = mongoose.model('ReunionPhoto', reunionPhotoSchema);
 
-module.exports = {Comment, Memory, Member, Reunion};  //removed bio??
+module.exports = {Comment, Memory, Member, Reunion, ReunionPhoto};  //removed bio??

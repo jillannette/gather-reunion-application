@@ -3,28 +3,10 @@
   background-color: #ffc107
 }
 
-.cover-background {
-  background-image: url('https://ak0.picdn.net/shutterstock/videos/1917250/thumb/1.jpg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
-
-.cover-description {
-  font-family: 'Kalam';
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 65px;
-  color: white;
-}
-
-.cover-sub-headline {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 45px;
-  color: white;
+.back-button {
+  float: right;
+  margin-right: 20px;
+  background-color: brown
 }
 
 .center-headline {
@@ -32,6 +14,27 @@
   justify-content: center;
   font-family: 'Caveat';
   font-size: 70px;
+}
+.center-paragraph {
+  display: flex;
+  justify-content: center;
+  font-family: 'Kalam';
+  font-size: 40px;
+  margin-left: 400px;
+  margin-right: 400px;
+}
+
+.container-background {
+  background-color: gainsboro
+}
+
+
+.cover-background {
+  background-image: url('https://ak0.picdn.net/shutterstock/videos/1917250/thumb/1.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 90vh;
 }
 
 .cover-headline {
@@ -42,13 +45,29 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height:100vh;  
+  height:20vh;  
+  color: white;
+}
+
+.cover-sub-headline {
+  font-family: 'Kalam';
+  display: block;
+  margin-top: 0.83em;
+  margin-bottom: 0.83em;
+  margin-left: 0;
+  margin-right: 0;
+  text-align: center;
+  line-height: 1em;
+  font-size: 55px;
   color: white;
 }
 
 .form {
   font-family: 'Kalam';
 
+}
+.gallery-background {
+  background-color: gainsboro;
 }
 
 .input-group {
@@ -60,59 +79,87 @@
 }
 
 .join-background {
-  font-family: 'Kalam';
-  font-size: larger;
-  background-image: url('https://classroomclipart.com/images/gallery/Clipart/School/yellow-legal-pad-clipart-75011.jpg');
+  font-size:x-large;
+  background-image: url('https://wallpapercrafter.com/desktop1/663837-paper-texture-yellow-backgrounds-striped-copy.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  height: auto;
+  height: 145vh;
  
 }
 
 .join-border {
-  height: 100%x;
+  height: 120vh;
   width: 600px;
   position: relative;
-  border: 3px solid brown
+  border: 5px solid brown;
+  background-color:floralwhite
+  
 }
 
 
 
 .join-form-background {
-  background-color: white
+  background-color: white;
+ 
+}
+
+.list-group-flush {
+  font-weight: bold;
 }
 
 .login-background {
-  background-image: url('https://classroomclipart.com/images/gallery/Clipart/School/yellow-legal-pad-clipart-75011.jpg');
+  background-image: url('https://wallpapercrafter.com/desktop1/663837-paper-texture-yellow-backgrounds-striped-copy.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100
+  height: 100vh;
 }
 
 
 .login-border {
-  height: 675px;
+  height: 70vh;
   width: 600px;
+  font-family: 'Kalam';
+  font-size: x-large;
   position: relative;
-  border: 3px solid brown
-  }
+  border: 5px solid brown;
+  background-color: floralwhite;
+}
 
+.member-background {
+  background-image: 'https://wallpapercrafter.com/desktop1/663837-paper-texture-yellow-backgrounds-striped-copy.jpg';
+  background-repeat: no-repeat;
+  
+  height: 1000vh;
+  
+}
 
-.login-container {
-  height: 350px;
-  width: 500px;
-  position: relative;
-  border: 3px solid brown;
+.member-bio-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.member-card-body {
+  background-color:whitesmoke
 }
 
 .memory-background {
-  background-image: url('https://classroomclipart.com/images/gallery/Clipart/School/yellow-legal-pad-clipart-75011.jpg');
+  background-image: url('https://wallpapercrafter.com/desktop1/663837-paper-texture-yellow-backgrounds-striped-copy.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   height: 100
 }
 
+.memory-border {
+  height: 70vh;
+  width: 600px;
+  position: relative;
+  border: 5px solid brown;
+  background-color:floralwhite
+}
+
 .nav {
   font-family: 'Caveat';
-  font-size: 25px;
+  font-size: 30px;
+  font-stretch: absolute;
 }

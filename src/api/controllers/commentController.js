@@ -1,5 +1,4 @@
 const { Comment, Memory } = require("../models/model");
-const mongoose = require("mongoose");
 
 const getComments = async (req, res, next) => {
   console.log("get comments", req.member);
@@ -31,12 +30,6 @@ const getComment = async (req, res, next) => {
 
   const { id } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res
-      .status(404)
-      .json({ error: "The ID used to locate the resource is not valid" });
-  }
-
   try {
     const comment = await Comment.findById({ _id: id });
 
@@ -51,7 +44,6 @@ const getComment = async (req, res, next) => {
 };
 
 const getMemberByCommentId = async (req, res, next) => {
-  //:id/comment
   console.log("get member by comment id", req.member);
 
   if (!req.member) {
@@ -61,11 +53,6 @@ const getMemberByCommentId = async (req, res, next) => {
 
   const { id } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res
-      .status(404)
-      .json({ err: "The ID used to locate the resource is not valid" });
-  }
   try {
     const selectedComment = await Comment.findById({ _id: id });
     console.log(selectedComment);
@@ -74,7 +61,7 @@ const getMemberByCommentId = async (req, res, next) => {
 
     console.log(member);
     res.status(200).json(member);
-    console.log(member); //THIS RETURNS THE MEMBER ID
+    console.log(member);
   } catch (err) {
     res.status(500).json({ err: "sample error msg" });
   }
@@ -126,12 +113,6 @@ const deleteComment = async (req, res, next) => {
 
   const { id } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res
-      .status(400)
-      .json({ err: "The ID used to locate the resource is not valid" });
-  }
-
   try {
     const comment = await Comment.findOneAndDelete({ _id: id });
 
@@ -161,11 +142,6 @@ const updateComment = async (req, res, next) => {
 
   const { id } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res
-      .status(404)
-      .json({ err: "ID The ID used to locate the resource is not valid" });
-  }
   try {
     const comment = await Comment.findOneAndUpdate({ _id: id }, req.body, {
       new: true,

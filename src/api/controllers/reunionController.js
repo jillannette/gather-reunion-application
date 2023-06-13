@@ -1,5 +1,4 @@
 const { Reunion, ReunionPhoto } = require("../models/model");
-const mongoose = require("mongoose");
 
 const getReunions = async (req, res, next) => {
   if (!req.member) {
@@ -58,7 +57,7 @@ const createReunion = async (req, res, next) => {
       year,
       description,
       cover_image_url,
-      images
+      images,
     });
 
     await newReunion.save();
@@ -70,9 +69,9 @@ const createReunion = async (req, res, next) => {
     });
   }
 };
-////
+
 const addReunionPhotos = async (req, res, next) => {
-  console.log('createReunionPhotos', req.addReunionPhotos);
+  console.log("createReunionPhotos", req.addReunionPhotos);
 
   if (!req.member) {
     next();
@@ -83,13 +82,13 @@ const addReunionPhotos = async (req, res, next) => {
 
   try {
     const newReunionPhoto = await ReunionPhoto.create({
-     image_url,
-     description
+      image_url,
+      description,
     });
 
     newReunionPhoto.save();
 
-  const newReunionPhotoId = newReunionPhoto._id;
+    const newReunionPhotoId = newReunionPhoto._id;
     const reunionYear = req.reunion.year;
 
     const reunionToUpdate = await Reunion.findByYear(reunionYear);
@@ -103,7 +102,6 @@ const addReunionPhotos = async (req, res, next) => {
     });
   }
 };
-
 
 const updateReunion = async (req, res, next) => {
   console.log("update reunion", req.member);

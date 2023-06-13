@@ -1,5 +1,4 @@
-const { Memory, Member, Comment } = require("../models/model");
-const mongoose = require("mongoose");
+const { Memory, Member } = require("../models/model");
 
 const getMemories = async (req, res, next) => {
   console.log("get memories", req.member);
@@ -34,12 +33,6 @@ const getMemory = async (req, res, next) => {
 
   const { id } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({
-      err: "The ID used to locate the resource is not valid",
-    });
-  }
-
   try {
     const memory = await Memory.findById({ _id: id })
       .sort({ createdAt: -1 })
@@ -70,12 +63,6 @@ const getMemberByMemoryId = async (req, res, next) => {
 
   const { id } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({
-      err: "The ID used to locate the resource is not valid",
-    });
-  }
-
   try {
     const selectedMemory = await Memory.findById({ _id: id });
     const member = selectedMemory.member;
@@ -88,7 +75,6 @@ const getMemberByMemoryId = async (req, res, next) => {
   }
 };
 
-
 const getCommentsByMemoryId = async (req, res, next) => {
   console.log("get comments by memory id", req.params);
 
@@ -98,12 +84,6 @@ const getCommentsByMemoryId = async (req, res, next) => {
   }
 
   const { id } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({
-      err: "The ID used to locate the resource is not valid",
-    });
-  }
 
   try {
     const selectedMemory = await Memory.findById({ _id: id });
@@ -152,8 +132,6 @@ const createMemory = async (req, res, next) => {
   }
 };
 
-
-
 const deleteMemory = async (req, res, next) => {
   console.log("delete memory", req.member);
 
@@ -163,12 +141,6 @@ const deleteMemory = async (req, res, next) => {
   }
 
   const { id } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({
-      err: "The ID used to locate the resource is not valid",
-    });
-  }
 
   try {
     const memory = await Memory.findOne({ _id: id });
@@ -180,17 +152,13 @@ const deleteMemory = async (req, res, next) => {
       });
     }
 
-    const member = memory.member.toString(); //5/28 should i try .populate('member').exec(err, member)  then try to delete?????
+    const member = memory.member.toString();
     console.log("memory.member", member);
     console.log("req.member.memberid", req.member.memberId);
 
-  
+    const deletedMemory = await Memory.deleteOne(memory);
 
-    const deletedMemory = await Memory.deleteOne(memory); //this worked, deleted own memory
-    //works up until this point
     console.log(deletedMemory);
-
-    // 5-27 120pm Did not remove the member's memory
 
     const memberId = req.member.memberId;
     console.log(memberId);
@@ -222,7 +190,6 @@ const deleteMemory = async (req, res, next) => {
   }
 };
 
-//THIS WORKS 5-10-23
 const updateMemory = async (req, res, next) => {
   console.log("update memory", req.member);
 
@@ -232,12 +199,6 @@ const updateMemory = async (req, res, next) => {
   }
 
   const { id } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({
-      err: "The ID used to locate the resource is not valid",
-    });
-  }
 
   try {
     const memory = await Memory.findOneAndUpdate({ _id: id }, req.body, {

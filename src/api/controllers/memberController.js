@@ -1,5 +1,4 @@
 const { Member } = require("../models/model");
-const mongoose = require("mongoose");
 
 const getMembers = async (req, res, next) => {
   console.log("get members", req.member);
@@ -29,12 +28,6 @@ const getMember = async (req, res, next) => {
   }
 
   const { id } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({
-      err: "The ID used to locate the resource is not valid",
-    });
-  }
 
   try {
     const member = await Member.findById({ _id: id })
@@ -67,12 +60,6 @@ const deleteMember = async (req, res, next) => {
 
   const { id } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({
-      err: "The ID used to locate the resource is not valid",
-    });
-  }
-
   try {
     const member = await Member.findOneAndDelete({ _id: id });
 
@@ -102,12 +89,6 @@ const updateMember = async (req, res, next) => {
   }
 
   const { id } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({
-      err: "The ID used to locate the resource is not valid",
-    });
-  }
 
   try {
     const member = await Member.findOneAndUpdate({ _id: id }, req.body, {

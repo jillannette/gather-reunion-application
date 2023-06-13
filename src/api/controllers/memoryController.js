@@ -61,7 +61,7 @@ const getMemory = async (req, res, next) => {
 };
 
 const getMemberByMemoryId = async (req, res, next) => {
-  console.log("get member by memory id", req.member);
+  console.log("get member by memory id", req.params);
 
   if (!req.member) {
     next();
@@ -81,6 +81,35 @@ const getMemberByMemoryId = async (req, res, next) => {
     const member = selectedMemory.member;
 
     res.status(200).json(member);
+  } catch (err) {
+    res.status(500).json({
+      err: "An unexpected error has occurred",
+    });
+  }
+};
+
+
+const getCommentsByMemoryId = async (req, res, next) => {
+  console.log("get comments by memory id", req.params);
+
+  if (!req.member) {
+    next();
+    return;
+  }
+
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({
+      err: "The ID used to locate the resource is not valid",
+    });
+  }
+
+  try {
+    const selectedMemory = await Memory.findById({ _id: id });
+    const comments = selectedMemory.comments;
+
+    res.status(200).json(comments);
   } catch (err) {
     res.status(500).json({
       err: "An unexpected error has occurred",
@@ -123,60 +152,7 @@ const createMemory = async (req, res, next) => {
   }
 };
 
-const createComment = async (req, res) => {
-  console.log("createComment", req.member);
 
-  if (!req.member) {
-    next();
-    return;
-  }
-  //memories/:id/comments
-  const { id } = req.params; //memoryID
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({
-      err: "The ID used to locate the resource is not valid",
-    });
-  }
-
-  const { member, text } = req.body;
-
-  const checkDuplicate = await Comment.find({
-    text: req.body.text,
-  });
-
-  if (checkDuplicate.length > 0) {
-    return res.status(400).send({
-      message: "Comment already exists",
-    });
-  }
-
-  try {
-    const newComment = await new Comment({
-      memory,
-      member,
-      text,
-    });
-    newComment.save();
-
-    const newCommentId = newComment._id;
-    const memoryId = req.body.memory;
-    const memberId = req.body.member;
-
-    const memoryToUpdate = await Memory.findById(memoryId);
-    memoryToUpdate.comments.push(newCommentId);
-    memoryToUpdate.save();
-    const memberToUpdate = await Member.findById(memberId);
-    memberToUpdate.comments.push(newCommentId);
-    memberToUpdate.save();
-
-    res.status(200).json(newComment);
-  } catch (error) {
-    res.status(500).json({
-      err: "Unable to complete request",
-    });
-  }
-};
 
 const deleteMemory = async (req, res, next) => {
   console.log("delete memory", req.member);
@@ -209,6 +185,7 @@ const deleteMemory = async (req, res, next) => {
     console.log("req.member.memberid", req.member.memberId);
 
   
+
     const deletedMemory = await Memory.deleteOne(memory); //this worked, deleted own memory
     //works up until this point
     console.log(deletedMemory);
@@ -282,8 +259,8 @@ module.exports = {
   getMemories,
   getMemory,
   getMemberByMemoryId,
+  getCommentsByMemoryId,
   createMemory,
-  createComment,
   deleteMemory,
   updateMemory,
 };

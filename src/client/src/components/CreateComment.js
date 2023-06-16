@@ -7,12 +7,15 @@ const CreateComment = ({ loggedInMember }) => {
   const navigate = useNavigate();
   const params = useParams();
   const memberId = loggedInMember.memberId;
+  console.log(memberId) //ok
     
   const [newComment, setNewComment] = useState({
     memory: params.id,
     member: memberId,
     text: "",
   });
+  console.log(memberId) //ok
+  console.log(params.id) //ok
 
   const [error, setError] = useState(null);
 
@@ -25,13 +28,13 @@ const CreateComment = ({ loggedInMember }) => {
   };
 
   async function createComment(e) {
+    console.log('I am here')
    
     e.preventDefault();
     console.log(newComment);
     const config = {
       headers: {
-        Authorization: `Bearer ${loggedInMember.token}`,
-        
+        Authorization: `Bearer ${loggedInMember.token}`
       },
     };
     await axios

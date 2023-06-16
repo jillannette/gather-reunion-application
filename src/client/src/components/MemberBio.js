@@ -24,13 +24,14 @@ const MemberBio = ({loggedInMember}) => {
     }
   }, [loggedInMember]);
 
+  
   async function getMember() {
     const config = {
       headers: {
         Authorization: `Bearer ${loggedInMember.token}`,
       },
     };
-    await axios
+    axios
       .get(`http://localhost:5000/api/members/${params.id}`, config)
       .then((response) => {
         console.log("memberBio", response.data);

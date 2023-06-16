@@ -1,4 +1,4 @@
-const { Memory, Member } = require("../models/model");
+const { Memory, Member, Comment } = require("../models/model");
 
 const getMemories = async (req, res, next) => {
   console.log("get memories", req.member);
@@ -140,35 +140,33 @@ const createComment = async (req, res, next) => {
     return;
   }
   
-  const text = req.body
-  const memory = req.params.id
- 
-  try {
+  const { text } = req.body;
+    
+  
     const newComment = await Comment.create({
-      memory,
+      memory: req.params.id,
       member: req.member.memberId,
-      text,
+      text
 
     });
 
     await newComment.save();
     const memoryId = req.params.id;
-    const memberId = req.member.memberId;
+    
+    
 
     const memoryToUpdate = await Memory.findById(memoryId);
 
     memoryToUpdate.comments.push(newComment);
     await memoryToUpdate.save();
-    const memberToUpdate = await Member.findById(memberId);
-    memberToUpdate.comments.push(newComment);
-    await memberToUpdate.save();
+    
     res.status(200).json(newComment);
-  } catch (error) {
-    res.status(500).json({
-      err: "Unable to complete request",
-    });
+  // } catch (error) {
+  //   res.status(500).json({
+  //     err: "Unable to complete request",
+  //   });
   }
-};
+
 
 const deleteMemory = async (req, res, next) => {
   console.log("delete memory", req.member);

@@ -165,3 +165,14 @@ src/client/src/components/AddMemory.js
 src/client/src/components/AddPhotoForm.js
 src/client/src/components/Member.js
 src/client/src/components/ReunionsPhotoGallery.js
+src/api/controllers/authController.js
+src/api/controllers/authController.js
+src/api/controllers/authController.js
+src/client/src/components/Member.js
+src/client/src/components/Reunion.js
+src/client/src/components/ReunionsPhotoGallery.js
+src/client/src/utils/setAuthToken.js
+src/client/src/components/Reunion.js
+src/client/src/components/AddMemory.js
+src/client/src/components/addComment.js
+src/client/src/store.js

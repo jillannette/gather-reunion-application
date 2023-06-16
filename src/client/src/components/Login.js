@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import Col from 'react-bootstrap/Col';
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
-import Col from "react-bootstrap/Col";
 import axios from "axios";
 
 const Login = ({ setLoggedInMember }) => {
@@ -17,7 +17,6 @@ const Login = ({ setLoggedInMember }) => {
   const [error, setError] = useState(null);
 
   const handleChange = (e) => {
-    console.log("e.target.name", e.target.name);
     setAuthMember({
       ...authMember,
       [e.target.name]: e.target.value,
@@ -48,10 +47,7 @@ const Login = ({ setLoggedInMember }) => {
         console.error("Error logging user in: ", error);
         setError(error);
       })
-      .finally((loading) => {
-        console.log("Loading data: ", loading);
-      });
-  }
+    }
 
   if (error) return "error";
 
@@ -64,7 +60,7 @@ const Login = ({ setLoggedInMember }) => {
         <br></br>
           
         <Container className="login-border">
-          <Form className='login-form-background'>
+          <Col className='login-form-background'>
             <Form className="form" onSubmit={login}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
               <br></br>  
@@ -100,7 +96,7 @@ const Login = ({ setLoggedInMember }) => {
                 Log In
               </Button>
             </Form>
-            </Form>
+            </Col>
      
         </Container>
       </div>

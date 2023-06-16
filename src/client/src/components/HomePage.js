@@ -16,7 +16,7 @@ const HomePage = () => {
           <h1 className="cover-headline">Gather</h1>
           <p className="cover-sub-headline">~ where classmates connect ~</p>
         </Container>
-      </div>
+      </div> 
     </>
   );
 };

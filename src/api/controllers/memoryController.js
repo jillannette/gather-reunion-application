@@ -132,6 +132,44 @@ const createMemory = async (req, res, next) => {
   }
 };
 
+const createComment = async (req, res, next) => {
+  console.log("create comment", req.member);
+
+  if (!req.member) {
+    next();
+    return;
+  }
+  
+  const text = req.body
+  const memory = req.params.id
+ 
+  try {
+    const newComment = await Comment.create({
+      memory,
+      member: req.member.memberId,
+      text,
+
+    });
+
+    await newComment.save();
+    const memoryId = req.params.id;
+    const memberId = req.member.memberId;
+
+    const memoryToUpdate = await Memory.findById(memoryId);
+
+    memoryToUpdate.comments.push(newComment);
+    await memoryToUpdate.save();
+    const memberToUpdate = await Member.findById(memberId);
+    memberToUpdate.comments.push(newComment);
+    await memberToUpdate.save();
+    res.status(200).json(newComment);
+  } catch (error) {
+    res.status(500).json({
+      err: "Unable to complete request",
+    });
+  }
+};
+
 const deleteMemory = async (req, res, next) => {
   console.log("delete memory", req.member);
 
@@ -222,6 +260,7 @@ module.exports = {
   getMemberByMemoryId,
   getCommentsByMemoryId,
   createMemory,
+  createComment,
   deleteMemory,
   updateMemory,
 };

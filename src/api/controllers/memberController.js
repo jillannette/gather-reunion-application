@@ -32,6 +32,7 @@ const getMember = async (req, res, next) => {
   try {
     const member = await Member.findById({ _id: id })
       .sort({ createdAt: -1 })
+      .populate('member', '._id')
       .populate("memories", "text")
       .populate("comments", "text")
       .populate("bio");

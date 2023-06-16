@@ -5,6 +5,7 @@ const {
   getMemories,
   getMemory,  
   getMemberByMemoryId,
+  // getCommentsByMemoryId,
   createMemory,
   createComment,
   deleteMemory,
@@ -16,6 +17,8 @@ router.get('/', getMemories)
 router.get('/:id', getMemory);
 
 router.get('/:id/members', getMemberByMemoryId)
+
+// router.get('/:id/comments', memberAccess, getCommentsByMemoryId);
 
 router.post('/', createMemory)
 

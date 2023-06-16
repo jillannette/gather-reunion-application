@@ -51,7 +51,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/comments", memberAccess, commentRoutes);
-app.use("/api/members", memberRoutes);
+app.use("/api/members", memberAccess, memberRoutes);
 app.use("/api/memories", memberAccess, memoryRoutes);
 app.use("/api/reunions", memberAccess, reunionRoutes);
 app.use("/api/join", joinRoutes);

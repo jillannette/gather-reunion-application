@@ -6,7 +6,6 @@ import Container from "react-bootstrap/Container";
 import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-
 import axios from "axios";
 
 const Members = ({ loggedInMember }) => {
@@ -22,6 +21,7 @@ const Members = ({ loggedInMember }) => {
     }
   }, [loggedInMember]);
 
+  
   async function getMembers() {
     const config = {
       headers: {
@@ -33,9 +33,10 @@ const Members = ({ loggedInMember }) => {
       .then((response) => {
         console.log("members", response.data);
         setMembers(response.data);
+           
       })
       .catch((error) => {
-        console.error("Error fetching data: ", error);
+        alert("   If you are not a member, please sign up to use this site!", error);
         setError(error);
       });
   }
@@ -46,6 +47,10 @@ const Members = ({ loggedInMember }) => {
     navigate(`/members/${memberId}`);
   };
 
+  const updateProfile = (memberId) => {
+    navigate(`/members/${memberId}`)
+  }
+
   return (
     <>
       <div className="join-background">
@@ -53,11 +58,11 @@ const Members = ({ loggedInMember }) => {
           <br></br>
 
           <div>
-            <div style={{ float: "right" }}>
-              <Button variant="light" size="lg" className="add-memory-button">
+            
+              <Button onClick={() => updateProfile()} style={{ float: 'right' }}variant="light" size="lg" className="add-memory-button">
                 Edit / Delete My Info
               </Button>
-            </div>
+          
             <h1 className="center-headline">Members</h1>
 
             <br></br>

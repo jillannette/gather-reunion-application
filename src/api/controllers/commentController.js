@@ -67,42 +67,6 @@ const getMemberByCommentId = async (req, res, next) => {
   }
 };
 
-const createComment = async (req, res, next) => {
-  console.log("create comment", req.member);
-
-  const { id } = req.params;
-
-  if (!req.member) {
-    next();
-    return;
-  }
-
-  const { memory, member, text } = req.body;
-
-  try {
-    const newComment = await Comment.create({
-      memory,
-      member,
-      text,
-    });
-
-    newComment.save();
-
-    const newCommentId = newComment._id;
-    const memoryId = { id };
-
-    const memoryToUpdate = await Memory.findById(memoryId);
-
-    memoryToUpdate.comments.push(newCommentId);
-    memoryToUpdate.save();
-    res.status(200).json(newComment);
-  } catch (error) {
-    res.status(500).json({
-      err: "Unable to complete request",
-    });
-  }
-};
-
 const deleteComment = async (req, res, next) => {
   console.log("delete comment", req.member);
 
@@ -157,7 +121,6 @@ module.exports = {
   getComments,
   getComment,
   getMemberByCommentId,
-  createComment,
   deleteComment,
   updateComment,
 };

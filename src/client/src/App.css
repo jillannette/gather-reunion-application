@@ -1,36 +1,41 @@
 .add-memory-button {
   margin-right: 50px;
-  background-color: #ffc107
+  background-color: #ffc107;
 }
 
 .back-button {
   float: right;
   margin-right: 20px;
-  background-color: brown
+  background-color: brown;
 }
 
 .center-headline {
   display: flex;
   justify-content: center;
-  font-family: 'Caveat';
+  font-family: "Caveat";
   font-size: 70px;
 }
 .center-paragraph {
   display: flex;
   justify-content: center;
-  font-family: 'Kalam';
+  font-family: "Kalam";
   font-size: 40px;
   margin-left: 400px;
   margin-right: 400px;
 }
 
-.container-background {
-  background-color: gainsboro
+.comment-input {
+  margin-left: 50px;
+  
+  
 }
 
+.container-background {
+  background-color: gainsboro;
+}
 
 .cover-background {
-  background-image: url('https://ak0.picdn.net/shutterstock/videos/1917250/thumb/1.jpg');
+  background-image: url("https://ak0.picdn.net/shutterstock/videos/1917250/thumb/1.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -38,19 +43,19 @@
 }
 
 .cover-headline {
-  font-family: 'Graduate', serif;
+  font-family: "Graduate", serif;
   font-weight: bold;
   font-size: 150px;
   text-shadow: 4px 4px 4px darkslateblue;
   display: flex;
   justify-content: center;
   align-items: center;
-  height:20vh;  
+  height: 20vh;
   color: white;
 }
 
 .cover-sub-headline {
-  font-family: 'Kalam';
+  font-family: "Kalam";
   display: block;
   margin-top: 0.83em;
   margin-bottom: 0.83em;
@@ -63,8 +68,7 @@
 }
 
 .form {
-  font-family: 'Kalam';
-
+  font-family: "Kalam";
 }
 .gallery-background {
   background-color: gainsboro;
@@ -72,19 +76,18 @@
 
 .input-group {
   margin-left: 20px;
-} 
+}
 
 .input-text {
-  background-color: #ffc107
+  background-color: #ffc107;
 }
 
 .join-background {
-  font-size:x-large;
-  background-image: url('https://wallpapercrafter.com/desktop1/663837-paper-texture-yellow-backgrounds-striped-copy.jpg');
+  font-size: x-large;
+  background-image: url("https://wallpapercrafter.com/desktop1/663837-paper-texture-yellow-backgrounds-striped-copy.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 145vh;
- 
 }
 
 .join-border {
@@ -92,15 +95,11 @@
   width: 600px;
   position: relative;
   border: 5px solid brown;
-  background-color:floralwhite
-  
+  background-color: floralwhite;
 }
-
-
 
 .join-form-background {
   background-color: white;
- 
 }
 
 .list-group-flush {
@@ -108,17 +107,17 @@
 }
 
 .login-background {
-  background-image: url('https://wallpapercrafter.com/desktop1/663837-paper-texture-yellow-backgrounds-striped-copy.jpg');
+  background-image: url("https://wallpapercrafter.com/desktop1/663837-paper-texture-yellow-backgrounds-striped-copy.jpg");
+
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
 }
 
-
 .login-border {
   height: 70vh;
   width: 600px;
-  font-family: 'Kalam';
+  font-family: "Kalam";
   font-size: x-large;
   position: relative;
   border: 5px solid brown;
@@ -126,11 +125,10 @@
 }
 
 .member-background {
-  background-image: 'https://wallpapercrafter.com/desktop1/663837-paper-texture-yellow-backgrounds-striped-copy.jpg';
+  background-image: "https://wallpapercrafter.com/desktop1/663837-paper-texture-yellow-backgrounds-striped-copy.jpg";
   background-repeat: no-repeat;
-  
+
   height: 1000vh;
-  
 }
 
 .member-bio-col {
@@ -140,14 +138,18 @@
 }
 
 .member-card-body {
-  background-color:whitesmoke
+  background-color: whitesmoke;
 }
 
 .memory-background {
-  background-image: url('https://wallpapercrafter.com/desktop1/663837-paper-texture-yellow-backgrounds-striped-copy.jpg');
+  background-image: url("https://wallpapercrafter.com/desktop1/663837-paper-texture-yellow-backgrounds-striped-copy.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100
+  height: 100;
+}
+
+.memory-col {
+  display: flex;
 }
 
 .memory-border {
@@ -155,11 +157,21 @@
   width: 600px;
   position: relative;
   border: 5px solid brown;
-  background-color:floralwhite
+  background-color: floralwhite;
 }
 
 .nav {
-  font-family: 'Caveat';
+  font-family: "Caveat";
   font-size: 30px;
   font-stretch: absolute;
+}
+
+.reunion-background {
+  background-image: url("https://wallpapercrafter.com/desktop1/663837-paper-texture-yellow-backgrounds-striped-copy.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.reunion-card {
+  height: 70vh;
 }

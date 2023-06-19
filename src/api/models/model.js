@@ -64,21 +64,21 @@ const reunionSchema = new Schema(
     year: { type: Number, required: true },
     description: { type: String, required: true },
     cover_image_url: [{ type: String }],
-    photos: {
+    reunionPhotos: [{
       type: Schema.Types.ObjectId,
-      required: true,
-      ref: "ReunionPhoto",
-    },
+      ref: 'ReunionPhoto'
+      
+    }],
   },
   { timestamps: true }
 );
 
 const reunionPhotoSchema = new Schema(
-  {
-    year: { type: Schema.Types.ObjectId, required: true, ref: "Reunion" },
+  [{
+    reunion: { type: Schema.Types.Number, required: true, ref: "Reunion" },
     image_url: { type: String, required: true },
     description: { type: String, required: true },
-  },
+  }],
   { timestamps: true }
 );
 

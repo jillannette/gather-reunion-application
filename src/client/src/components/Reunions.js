@@ -16,7 +16,6 @@ const Reunions = ({ loggedInMember }) => {
 
   useEffect(() => {
     if (loggedInMember) {
-      console.log(loggedInMember);
       getReunions();
       console.log(reunions);
     }
@@ -72,8 +71,8 @@ const Reunions = ({ loggedInMember }) => {
                   <Card.Img variant="top" src={reunion.cover_image_url} />
                   <Card.Body>
                     <Card.Title>{reunion.year}</Card.Title>
-                    <Card.Text>{reunion.description}</Card.Text>
-                    rows={2}
+                    <Card.Text>{reunion.description}
+                    </Card.Text>
                   </Card.Body>
                   <Button
                     onClick={() => navigate(`/reunions/${reunion.year}`)}

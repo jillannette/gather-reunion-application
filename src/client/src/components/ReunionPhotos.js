@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Card, Col, Container, Image, Row, Button, Form } from "react-bootstrap";
+import { Card, Col, Container, Row, Button, Form } from "react-bootstrap";
 import axios from "axios";
 
 const ReunionPhotos = ({ loggedInMember }) => {
   const params = useParams();
   console.log(params);
+  console.log(params.year)
+  const yearValue = (parseInt(params.year))
 
-  const [reunionPhotos, setReunionPhotos] = useState([]);
+  const [selectedReunion, setSelectedReunion] = useState({});
+  const [selectedReunionPhotos, setSelectedReunionPhotos] = useState([])
   const [newReunionPhoto, setNewReunionPhoto] = useState({
-    year: params.year,
+    reunion: yearValue,
     image_url: '',
     description: '',
   })
   const [error, setError] = useState(null);
+
+  console.log(newReunionPhoto)
 
 
   useEffect(() => {
@@ -31,8 +36,9 @@ const ReunionPhotos = ({ loggedInMember }) => {
     axios
       .get(`http://localhost:5000/api/reunions/${params.year}`, config)
       .then((response) => {
-        console.log("photos", response.data);
-        setReunionPhotos(response.data);
+        console.log("selected reunion photos", response.data);
+        setSelectedReunion(response.data);
+        setSelectedReunionPhotos(response.data.reunionPhotos)
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
@@ -42,13 +48,15 @@ const ReunionPhotos = ({ loggedInMember }) => {
 
   if (error) return "error";
 
-  // async function addNewPhoto(e) {
-  //   console.log("e.target.name", e.target.name);
-  //     setNewPhoto({
-  //       ...newPhoto,
-  //       [e.target.name]: e.target.value,
-  //     });
-  //   };
+  const handleChange = (e) => {
+    console.log("e.target.name", e.target.name);
+    setNewReunionPhoto({
+      ...newReunionPhoto,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  console.log(newReunionPhoto)
 
     async function addReunionPhoto(e) {
       e.preventDefault();
@@ -63,7 +71,7 @@ const ReunionPhotos = ({ loggedInMember }) => {
         .then((response) => {
           console.log(response.data);
           setNewReunionPhoto(response.data)
-         
+          console.log(newReunionPhoto)
         })
         .catch((error) => {
           console.error("Error fetching data: ", error);
@@ -79,7 +87,7 @@ const ReunionPhotos = ({ loggedInMember }) => {
   return (
     <>
       <div>
-         <Form className="form" onChange={addReunionPhoto}> 
+         <Form className="form" onSubmit={addReunionPhoto}> 
        
           <Form.Group className="mb-3" controlId="addPhotoForm.ControlInput1">
             <Form.Label>
@@ -87,13 +95,17 @@ const ReunionPhotos = ({ loggedInMember }) => {
             </Form.Label>
             <Form.Control
               name="image_url"
-              type="text"
+              type="image_url"
               placeholder="image address"
+              value={newReunionPhoto.image_url}
+              onChange={handleChange}
             />
             <Form.Control
               name="description"
               type="text"
               placeholder="What's happening in this picture?"
+              value={newReunionPhoto.description}
+              onChange={handleChange}
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -104,8 +116,8 @@ const ReunionPhotos = ({ loggedInMember }) => {
         </Form>
       </div>
       <div>
-        <h1 className="center-headline">{reunionPhotos.year}</h1>
-        <p className="center-paragraph">{reunionPhotos.description}</p>
+        <h1 className="center-headline">{selectedReunion.year}</h1>
+        <p className="center-paragraph">{selectedReunion.description}</p>
         <Form.Group className="mb-3">
           <Link to="/reunions">
             <Button style={{ float: "right" }} variant="warning" type="submit">
@@ -115,17 +127,29 @@ const ReunionPhotos = ({ loggedInMember }) => {
         </Form.Group>
       </div>
 
-      {reunionPhotos.map((reunionPhoto) => {
-        return (
-          <Container>
-            <Row>
-              <Col xs={6} md={4} lg={3}>
-                <Card>
-                  <Image src={reunionPhoto} rounded />
+      {selectedReunionPhotos.map((reunionPhoto) => {
+                  return (
+                    <Container>
+                      <Row>
+                     <Col>
+                    
+                    <Card key={reunionPhoto._id} s={12} md={6} lg={4} xl={3} style={{ width: "15rem" }}>
+                  
+                      
+                        <Card.Img
+                          variant="top"
+                          src={reunionPhoto.image_url}
+                        />
+                        <Card.Body className="member-card-body">
+                          <Card.Title>{reunionPhoto.description}</Card.Title>
+                          
+                        </Card.Body>
                 </Card>
-              </Col>
-            </Row>
-          </Container>
+                </Col>
+              </Row>
+        
+            </Container>
+         
         );
       })}
     </>

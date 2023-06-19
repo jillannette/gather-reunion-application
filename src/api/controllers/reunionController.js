@@ -9,6 +9,8 @@ const getReunions = async (req, res, next) => {
   try {
     await Reunion.find({})
       .sort({ createdAt: -1 })
+      .populate('year')
+      .populate('reunionPhotos')
       .then((reunions) => {
         res.status(200).json({ reunions });
       });
@@ -25,10 +27,11 @@ const getReunion = async (req, res, next) => {
     return;
   }
 
-  try {
+ 
     const reunion = await Reunion.findOne({ year: req.params.year })
       .populate("year")
-      .populate("images");
+      .populate('reunionPhotos')
+      
 
     if (!reunion) {
       return res
@@ -37,10 +40,8 @@ const getReunion = async (req, res, next) => {
     }
 
     res.status(200).json(reunion);
-  } catch (err) {
-    res.status(500).json({ err: "Unable to complete request" });
-  }
-};
+  } 
+
 
 const createReunion = async (req, res, next) => {
   console.log("create reunion", req.reunion);
@@ -50,14 +51,14 @@ const createReunion = async (req, res, next) => {
     return;
   }
 
-  const { year, description, cover_image_url, images } = req.body;
+  const { year, description, cover_image_url } = req.body;
 
   try {
     const newReunion = await Reunion.create({
       year,
       description,
       cover_image_url,
-      images,
+      
     });
 
     await newReunion.save();
@@ -79,30 +80,30 @@ const addReunionPhotos = async (req, res, next) => {
   }
 
   const { image_url, description } = req.body;
-
-  try {
-    const newReunionPhoto = await ReunionPhoto.create({
+    
+    const newReunionPhoto = new ReunionPhoto({
       image_url,
       description,
+      reunion: req.params.year
     });
 
     newReunionPhoto.save();
+    console.log('I am here')
 
+    let reunionYear = new Reunion;
+    reunionYear = req.params.year
+    console.log(reunionYear)
+
+    const reunionToUpdate = await Reunion.findOne({year: req.params.year});
+    console.log(reunionToUpdate.reunionPhotos)
     const newReunionPhotoId = newReunionPhoto._id;
-    const reunionYear = req.reunion.year;
 
-    const reunionToUpdate = await Reunion.findByYear(reunionYear);
-
-    reunionToUpdate.images.push(newReunionPhotoId);
+    reunionToUpdate.reunionPhotos.push(newReunionPhotoId);
     reunionToUpdate.save();
     res.status(200).json(newReunionPhoto);
-  } catch (error) {
-    res.status(500).json({
-      err: "Unable to complete request",
-    });
-  }
-};
-
+  } 
+ 
+//THIS DOES NOT WORK AS IT IS WRITTEN - CANNOT PATCH THIS WAY DUE TO CONTROLLED YEAR.  
 const updateReunion = async (req, res, next) => {
   console.log("update reunion", req.member);
 

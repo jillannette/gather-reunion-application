@@ -3,9 +3,9 @@
   background-color: #ffc107;
 }
 
-.addreunionphoto-container {
-  margin-right: -100px;
-  margin-left: 120px;
+.addreunionphoto-container {  
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .back-button {
@@ -14,24 +14,25 @@
   margin-top: 30px;
 }
 
+.bio-card-body {
+  background-color: whitesmoke;
+  height: 30vh;
+}
+
+.bio-col {
+  margin-top: 80px;
+  display: flex;
+  width: 80%;
+  justify-content: center;
+  align-items: center;
+}
+
 .bio-image {
-  width: 100%;
-  height: 30vw;
-  object-fit:contain;
-}
-
-
-
-.reunion-card-image {
-    width: 100%;
-    height: 17vw;
-    object-fit:cover;
-}
-
-.reunion-photos-card-image {
-  width: 100%;
-    height: 17vw;
-    object-fit:cover;
+  margin-left: auto;
+  margin-right: auto;
+  height: 50vh;
+  max-width: 500px;
+  object-fit: cover;
 }
 
 .card-title {
@@ -39,8 +40,11 @@
 }
 
 .center-headline {
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   justify-content: center;
+  align-content: center;
   font-family: "Playfair";
   font-size: 70px;
 }
@@ -55,8 +59,6 @@
 
 .comment-input {
   margin-left: 50px;
-  
-  
 }
 
 .container-background {
@@ -111,9 +113,7 @@
 
 .form {
   font-family: "Playfair";
-  
 }
-
 
 .input-group {
   margin-left: 20px;
@@ -125,7 +125,6 @@
 
 .join-background {
   font-size: x-large;
-  
   background-repeat: no-repeat;
   background-size: cover;
   height: 145vh;
@@ -150,8 +149,6 @@
 }
 
 .login-background {
- 
-
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
@@ -171,22 +168,9 @@
   cursor: pointer;
 }
 
-.members-container {
-  display: flex;
-}
-
-.member-bio-col {
-  display: flex;
-  width: 80%;
-  justify-content: center;
-  align-items: center;
- 
-  
-}
-
 .member-card-body {
   background-color: whitesmoke;
-  height: 30vh;
+  height: 20vh;
 }
 
 .members-card-image {
@@ -196,24 +180,28 @@
   object-fit: cover;
 }
 
-
-.members-container {   
+.members-container {
+  display: flex;
+  height: auto;
   margin-left: auto;
   margin-right: auto;
- 
 }
 
 .member-subtitles {
   font-weight:100
 }
 
+.memory-border {
+  height: 70vh;
+  width: 600px;
+  position: relative;
+  border: 5px solid brown;
+  background-color: floralwhite;
+}
+
 .memory-card-body {
   height: 30vh;
 }
-
-
-
-
 
 .memory-headline {
   margin-left: 190px;
@@ -227,48 +215,22 @@
   height: 20px;
 }
 
-
-
-
-
-
-
-
-.memory-border {
-  height: 70vh;
-  width: 600px;
-  position: relative;
-  border: 5px solid brown;
-  background-color: floralwhite;
-}
-
 .memories-border {
-  
   width: 1200px;
   position: relative;
   border: 2px solid grey;
 }
 
 .memories-card-container {
-
+  margin-left: auto;
+  margin-right: auto;
 }
-
 
 .memories-image {
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-
+  margin-left: auto;
+  margin-right: auto;
+  object-fit: cover;
 }
-
-
-
-
-
-
-
-
 
 .nav {
   font-family: "Playfair";
@@ -282,7 +244,11 @@
   margin-top: -56px;
 }
 
-
+.nextReunion-card-body {
+  background-color: whitesmoke;
+  height: 80vh;
+  width: 100%;
+}
 
 .nextReunion-col {
   display: flex;
@@ -293,7 +259,11 @@
 }
 
 .nextReunion-container {
-  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .nextReunion-headline {
@@ -304,41 +274,78 @@
   font-size: 70px;
 }
 
-.nextReunion-card {
-  height: 40vh;
-}
-
-.nextReunion-card-body {
-  background-color: whitesmoke;
+.nextReunion-image {
+  margin-left: auto;
+  margin-right: auto;
   height: 80vh;
-  width: 100%;
-
-  
+  object-fit: cover;
 }
 
+.profile-card-body {
+  background-color: whitesmoke;
+  height: 20vh;
+}
 
+.profile-col {
+  margin-top: 50px;
+  display: flex;
+  width: 80%;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-image {  
+  margin-left: auto;
+  margin-right: auto;
+  height: 50vh;
+  max-width: 500px;
+  object-fit: cover;
+}
 
 .reunion-card-body {
-  height: 30vh;
+  height: 25vh;
   background-color: whitesmoke;
 }
 
-.reunionphotos-card-body {
-  height: 20vh;
-  background-color: whitesmoke;
+.reunion-card-image {
+  margin-left: auto;
+  margin-right: auto;
+  height: 50vh;
+  object-fit: cover;
 }
-
-
 
 .reunion-headline {
-
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   justify-content: center;
   font-family: "Playfair";
   font-size: 70px;
 }
 
-.reunion-photos-button {
+.reunionPhotos-card-body {
+  height: 15vh;
+  background-color: whitesmoke;
+}
+
+.reunionPhotos-card-image {
+  margin-left: auto;
+  margin-right: auto;
+  height: 50vh;
+  object-fit: cover;
+}
+
+.reunionPhotos-button {
   margin-right: 20px;
   margin-top: -60px;
+}
+
+.reunionPhotos-container {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.reunions-container {
+  margin-left: auto;
+  margin-right: auto;
 }

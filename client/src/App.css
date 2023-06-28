@@ -1,0 +1,336 @@
+.add-memory-button {
+  margin-right: 50px;
+  background-color: #ffc107;
+}
+
+.addreunionphoto-container {
+  margin-right: -100px;
+  margin-left: 120px;
+}
+
+.back-button {
+  float: right;
+  margin-right: 20px;
+  margin-top: 30px;
+}
+
+.bio-image {
+  width: 100%;
+  height: 30vw;
+  object-fit:contain;
+}
+
+
+
+.reunion-card-image {
+    width: 100%;
+    height: 17vw;
+    object-fit:cover;
+}
+
+.reunion-photos-card-image {
+  width: 100%;
+    height: 17vw;
+    object-fit:cover;
+}
+
+.card-title {
+  justify-content: center;
+}
+
+.center-headline {
+  display: flex;
+  justify-content: center;
+  font-family: "Playfair";
+  font-size: 70px;
+}
+.center-paragraph {
+  display: flex;
+  justify-content: center;
+  font-family: "Playfair";
+  font-size: 40px;
+  margin-left: 400px;
+  margin-right: 400px;
+}
+
+.comment-input {
+  margin-left: 50px;
+  
+  
+}
+
+.container-background {
+  background-color: gainsboro;
+}
+
+.cover-background {
+  background-image: url("https://ak0.picdn.net/shutterstock/videos/1917250/thumb/1.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 90vh;
+}
+
+.cover-headline {
+  font-family: "Graduate", serif;
+  font-weight: bold;
+  font-size: 150px;
+  text-shadow: 4px 4px 4px darkslateblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20vh;
+  color: white;
+}
+
+.cover-sub-headline {
+  font-family: "Playfair";
+  display: block;
+  margin-top: 0.83em;
+  margin-bottom: 0.83em;
+  margin-left: 0;
+  margin-right: 0;
+  text-align: center;
+  line-height: 1em;
+  font-size: 55px;
+  color: white;
+}
+
+.cover-p-sub-headline {
+  font-family: "Playfair";
+  display: block;
+  margin-top: 0.83em;
+  margin-bottom: 0.83em;
+  margin-left: 0;
+  margin-right: 0;
+  text-align: center;
+  line-height: 1em;
+  font-size: 55px;
+  color: white;
+}
+
+.form {
+  font-family: "Playfair";
+  
+}
+
+
+.input-group {
+  margin-left: 20px;
+}
+
+.input-text {
+  background-color: #ffc107;
+}
+
+.join-background {
+  font-size: x-large;
+  
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 145vh;
+}
+
+.join-border {
+  height: 120vh;
+  width: 600px;
+  position: relative;
+  border: 5px solid brown;
+  background-color: floralwhite;
+}
+
+.join-form-background {
+  background-color: white;
+}
+
+.list-group-flush {
+  font-size: medium;
+  max-height: 200px;
+  text-overflow: ellipsis
+}
+
+.login-background {
+ 
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+.login-border {
+  height: 70vh;
+  width: 600px;
+  font-family: "Playfair";
+  font-size: x-large;
+  position: relative;
+  border: 5px solid brown;
+  background-color: floralwhite;
+}
+
+#logout {
+  cursor: pointer;
+}
+
+
+
+.member-bio-col {
+  display: flex;
+  width: 80%;
+  justify-content: center;
+  align-items: center;
+ 
+  
+}
+
+.member-card-body {
+  background-color: whitesmoke;
+  
+  
+  
+}
+
+.members-card-image {
+  width: 100%;
+  height: 17vw;
+  object-fit:cover;
+}
+
+
+.members-container {   
+  margin-left: 180px;
+ 
+}
+
+.member-subtitles {
+  font-weight:100
+}
+
+.memory-card-body {
+  height: 30vh;
+}
+
+
+
+
+
+.memory-headline {
+  margin-left: 190px;
+  display: flex;
+  justify-content: center;
+  font-family: "Playfair";
+  font-size: 70px;
+}
+
+
+
+
+
+
+
+
+
+
+.memory-border {
+  height: 70vh;
+  width: 600px;
+  position: relative;
+  border: 5px solid brown;
+  background-color: floralwhite;
+}
+
+.memories-border {
+  
+  width: 1200px;
+  position: relative;
+  border: 2px solid grey;
+}
+
+
+.memories-image {
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+.nav {
+  font-family: "Playfair";
+  font-size: 30px;
+  font-stretch: absolute;
+}
+
+.nextReunionButton {
+  float: 'right';
+  margin-right: 20px;
+  margin-top: -56px;
+}
+
+
+
+.nextReunion-col {
+  display: flex;
+  height: 60vh;
+  margin-right: 90px;
+  justify-content: center;
+  align-items: center;
+}
+
+.nextReunion-container {
+  height: 70vh;
+}
+
+.nextReunion-headline {
+  display: flex;
+  justify-content: center;
+  margin-right: 90px;
+  font-family: "Playfair";
+  font-size: 70px;
+}
+
+.nextReunion-card {
+  height: 40vh;
+}
+
+.nextReunion-card-body {
+  background-color: whitesmoke;
+  height: 80vh;
+  width: 100%;
+
+  
+}
+
+
+
+.reunion-card-body {
+  height: 30vh;
+  background-color: whitesmoke;
+}
+
+.reunionphotos-card-body {
+  height: 20vh;
+  background-color: whitesmoke;
+}
+
+
+
+.reunion-headline {
+
+  display: flex;
+  justify-content: center;
+  font-family: "Playfair";
+  font-size: 70px;
+}
+
+.reunion-photos-button {
+  margin-right: 20px;
+  margin-top: -60px;
+}

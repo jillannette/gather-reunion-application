@@ -176,3 +176,14 @@ src/client/src/components/Reunion.js
 src/client/src/components/AddMemory.js
 src/client/src/components/addComment.js
 src/client/src/store.js
+package-lock.json
+package.json
+client/src/features/memory/memorySlice.js
+client/src/features/auth/authSlice.js
+client/src/features/bio/bioSlice.js
+client/src/features/login/loginSlice.js
+client/src/features/comment/commentSlice.js
+client/src/features/member/memberSlice.js
+client/src/fetchApiData.js
+client/src/components/Timer.js
+client/src/components/SearchBar.js

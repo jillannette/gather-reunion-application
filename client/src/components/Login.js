@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import axios from "axios";
+import { BASE_URL} from '../App.js';
 
 const Login = ({ setLoggedInMember }) => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const Login = ({ setLoggedInMember }) => {
     e.preventDefault();
     console.log(authMember);
     axios
-      .post("http://localhost:5000/api/login", authMember)
+      .post(`${BASE_URL}/api/login`, authMember)
       .then((response) => {
         console.log(response.data);
         localStorage.setItem(

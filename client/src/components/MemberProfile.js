@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, Container, Row, Col, Form, FormGroup, Button } from 'react-bootstrap';
 import axios from 'axios';
+import  { BASE_URL } from '../App.js';
+
 
 
 const MemberProfile = ({ loggedInMember, handleLogout }) => {
@@ -45,7 +47,7 @@ const [memberProfile, setMemberProfile] = useState({
       },
     };
     axios
-      .patch(`http://localhost:5000/api/members/${loggedInMember.memberId}`, memberProfile, config)
+      .patch(`${BASE_URL}/api/members/${loggedInMember.memberId}`, memberProfile, config)
       .then((response) => {
         console.log("memberProfile", response.data);
         
@@ -70,7 +72,7 @@ const [memberProfile, setMemberProfile] = useState({
       },
     };
     axios
-      .delete(`http://localhost:5000/api/members/${loggedInMember.memberId}`, config)
+      .delete(`${BASE_URL}/api/members/${loggedInMember.memberId}`, config)
       .then((response) => {
         console.log('deleted member', response.data)
         handleLogout(loggedInMember.memberId)
@@ -91,7 +93,7 @@ const [memberProfile, setMemberProfile] = useState({
       },
     };
     axios
-      .get(`http://localhost:5000/api/members/${loggedInMember.memberId}`, config)
+      .get(`${BASE_URL}/api/members/${loggedInMember.memberId}`, config)
       .then((response) => {
         console.log("memberProfile", response.data);
         setMemberProfile(response.data);

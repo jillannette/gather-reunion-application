@@ -3,6 +3,7 @@ import Memory from "./Memory";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import axios from "axios";
+import  { BASE_URL } from '../App.js';
 
 const Memories = ({ loggedInMember }) => {
   const [memories, setMemories] = useState([]);
@@ -22,7 +23,7 @@ const Memories = ({ loggedInMember }) => {
       },
     };
     await axios
-      .get("http://localhost:5000/api/memories", config)
+      .get(`${BASE_URL}/api/memories`, config)
       .then((response) => {
         console.log("memories", response.data);
         setMemories(response.data.memories);

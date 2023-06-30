@@ -7,6 +7,7 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import "../App.css";
 import axios from "axios";
+import { BASE_URL } from '../App.js';
 
 const Reunions = ({ loggedInMember }) => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const Reunions = ({ loggedInMember }) => {
       },
     };
     axios
-      .get("http://localhost:5000/api/reunions", config)
+      .get(`${BASE_URL}/api/reunions`, config)
       .then((response) => {
         setReunions(response.data.reunions);
       })

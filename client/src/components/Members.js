@@ -7,6 +7,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import axios from "axios";
+import  { BASE_URL } from '../App.js';
 
 const Members = ({ loggedInMember }) => {
   const [members, setMembers] = useState([]);
@@ -29,7 +30,7 @@ const Members = ({ loggedInMember }) => {
       },
     };
     await axios
-      .get('http://localhost:5000/api/members', config)
+      .get(`${BASE_URL}/api/members`, config)
       .then((response) => {
         console.log("members", response.data);
         setMembers(response.data);

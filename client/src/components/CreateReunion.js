@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Form, Button } from "react-bootstrap";
 import axios from "axios";
+import { BASE_URL } from '../App.js';
 
 const CreateReunion = ({ loggedInMember }) => {
 
@@ -37,7 +38,7 @@ const CreateReunion = ({ loggedInMember }) => {
       },
     };
     axios
-      .post("http://localhost:5000/api/reunions", newReunion, config)
+      .post(`${BASE_URL}0/api/reunions`, newReunion, config)
       .then((response) => {
         console.log(response.data);
         navigate("/reunions");

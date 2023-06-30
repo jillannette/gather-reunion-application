@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Form, Button } from "react-bootstrap";
 import axios from "axios";
+import { BASE_URL } from '../App.js';
 
 const CreateMemory = ({ loggedInMember }) => {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ const CreateMemory = ({ loggedInMember }) => {
       },
     };
     axios
-      .post("http://localhost:5000/api/memories", newMemory, config)
+      .post(`${BASE_URL}/api/memories`, newMemory, config)
       .then((response) => {
         console.log(response.data);
         navigate("/memories");

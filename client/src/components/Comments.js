@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { BASE_URL } from '../App.js';
 
 
 const Comments = ({loggedInMember}) => {
@@ -26,7 +27,7 @@ const Comments = ({loggedInMember}) => {
       },
     };
     await axios
-      .get(`http://localhost:5000/api/memories/${params._id}/comments`, config)
+      .get(`${BASE_URL}/api/memories/${params._id}/comments`, config)
       .then((response) => {
         console.log("comments", response.data);
         const comments = response.data

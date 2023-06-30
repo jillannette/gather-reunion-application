@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Container, Form, Button } from "react-bootstrap";
+import { BASE_URL } from '../App.js';
 
 import axios from "axios";
 
@@ -35,7 +36,7 @@ const CreateComment = ({ loggedInMember, memoryId }) => {
     
     axios
     .post(
-        `http://localhost:5000/api/comments/${memoryId}`,
+        `${BASE_URL}/api/comments/${memoryId}`,
         newComment, // Send only the 'text' property in the request body
         config
       )

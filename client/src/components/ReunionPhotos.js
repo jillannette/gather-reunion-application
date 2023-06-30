@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Card, Col, Container, Row, Button, Form } from "react-bootstrap";
 import axios from "axios";
+import { BASE_URL } from '../App.js';
 
 const ReunionPhotos = ({ loggedInMember }) => {
   const params = useParams();
@@ -29,7 +30,7 @@ const ReunionPhotos = ({ loggedInMember }) => {
       },
     };
     axios
-      .get(`http://localhost:5000/api/reunions/${params.year}`, config)
+      .get(`${BASE_URL}/api/reunions/${params.year}`, config)
       .then((response) => {
         setSelectedReunion(response.data);
         console.log(selectedReunion);
@@ -63,7 +64,7 @@ const ReunionPhotos = ({ loggedInMember }) => {
     };
     axios
       .post(
-        `http://localhost:5000/api/reunions/${params.year}`,
+        `${BASE_URL}/api/reunions/${params.year}`,
         newReunionPhoto,
         config
       )

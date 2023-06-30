@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import axios from "axios";
+import { BASE_URL } from '../App.js';
 
 const Join = ({ setLoggedInMember }) => {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ const Join = ({ setLoggedInMember }) => {
    
     await axios
     
-      .post("http://localhost:3000/api/join", newMember)
+      .post(`${BASE_URL}/api/join`, newMember)
       .then((response) => {
         console.log(response.data);
         localStorage.setItem(

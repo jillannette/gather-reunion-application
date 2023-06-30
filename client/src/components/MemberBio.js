@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Card, Container, Row, Col, Button } from "react-bootstrap";
 import axios from "axios";
+import { BASE_URL } from '../App.js';
 
 const MemberBio = ({ loggedInMember }) => {
   const params = useParams();
@@ -28,7 +29,7 @@ const MemberBio = ({ loggedInMember }) => {
       },
     };
     axios
-      .get(`http://localhost:5000/api/members/${params.id}`, config)
+      .get(`${BASE_URL}/api/members/${params.id}`, config)
       .then((response) => {
         console.log("memberBio", response.data);
         const memberBio = response.data;

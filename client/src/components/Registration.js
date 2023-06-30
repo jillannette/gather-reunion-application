@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import axios from "axios";
+import { BASE_URL} from '../App.js';
 
 const Registration = ({ LoggedInMember }) => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const Registration = ({ LoggedInMember }) => {
     e.preventDefault();
     console.log(newRegistration);
     await axios
-      .post("http://localhost:3000/api/register", newRegistration)
+      .post(`${BASE_URL}/api/register`, newRegistration)
       .then((response) => {
         console.log(response.data);
         navigate("/nextReunion");

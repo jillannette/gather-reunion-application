@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import GreeleyMap from './GreeleyMap';
+import { BASE_URL } from '../App.js';
+
 
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -30,7 +32,7 @@ const NextReunion = ({ loggedInMember }) => {
     };
     await axios
       .get(
-        "http://localhost:5000/api/nextReunions/649b7cc7abf5c7ebfad5eda3",
+        `${BASE_URL}/api/nextReunion/649b7cc7abf5c7ebfad5eda3`,
         config
       )
       .then((response) => {

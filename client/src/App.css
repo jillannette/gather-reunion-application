@@ -115,6 +115,7 @@
   font-family: "Playfair";
 }
 
+
 .input-group {
   margin-left: 20px;
 }
@@ -168,6 +169,11 @@
   cursor: pointer;
 }
 
+.map {
+  height: 100%;
+  width: 300px;
+}
+
 .member-card-body {
   background-color: whitesmoke;
   height: 20vh;
@@ -200,7 +206,9 @@
 }
 
 .memory-card-body {
-  height: 30vh;
+  height: 60vh;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .memory-headline {
@@ -211,9 +219,7 @@
   font-size: 70px;
 }
 
-.memory {
-  height: 20px;
-}
+
 
 .memories-border {
   width: 1200px;
@@ -221,14 +227,12 @@
   border: 2px solid grey;
 }
 
-.memories-card-container {
-  margin-left: auto;
-  margin-right: auto;
-}
+
 
 .memories-image {
   margin-left: auto;
   margin-right: auto;
+  height: 80vh;
   object-fit: cover;
 }
 
@@ -244,21 +248,14 @@
   margin-top: -56px;
 }
 
-.nextReunion-card-body {
+.nextReunion-card-col {
   background-color: whitesmoke;
-  height: 80vh;
-  width: 100%;
-}
-
-.nextReunion-col {
-  display: flex;
-  height: 60vh;
-  margin-right: 90px;
-  justify-content: center;
-  align-items: center;
+  height: 70vh;
+  width: 350px;;
 }
 
 .nextReunion-container {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -274,20 +271,26 @@
   font-size: 70px;
 }
 
+.nextReunion-image-col {
+  height: 70vh;
+
+}
+
 .nextReunion-image {
-  margin-left: auto;
-  margin-right: auto;
-  height: 80vh;
+  height: 70vh;
   object-fit: cover;
+  width: 500px;
+  
+
 }
 
 .profile-card-body {
   background-color: whitesmoke;
-  height: 20vh;
+  height: 40vh;
 }
 
 .profile-col {
-  margin-top: 50px;
+  
   display: flex;
   width: 80%;
   justify-content: center;

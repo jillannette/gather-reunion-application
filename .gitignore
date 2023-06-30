@@ -187,3 +187,6 @@ client/src/features/member/memberSlice.js
 client/src/fetchApiData.js
 client/src/components/Timer.js
 client/src/components/SearchBar.js
+client/public/logo192.png
+client/public/logo512.png
+src/api/controllers/authController.js

@@ -18,15 +18,15 @@ const joinRoutes = require("./routes/join.js");
 const registrationRoutes = require('./routes/registrations.js');
 
 const app = express();
-app.use(express.static(path.join(__dirname, "../client/build")))
+// app.use(express.static(path.join(__dirname, "../client/build")))
 
-const filePath = path.join(__dirname, "public", "index.html");
-console.log(__dirname);
+// const filePath = path.join(__dirname, "public", "index.html");
+// console.log(__dirname);
 
-app.get("/client", function (req, res) {
-  res.sendFile("this worked", filePath);
-  console.log(filePath);
-});
+// app.get("/client", function (req, res) {
+//   res.sendFile("this worked", filePath);
+//   console.log(filePath);
+// });
 
 
 
@@ -71,7 +71,6 @@ app.use("/api/login", loginRoutes);
 
 if (process.env.MODE==="production") {
   app.get('*', (req, res) => {
-    console.log('I am here')
     res.sendFile(path.join(__dirname, "../client/build", "index.html"))
   })
 }

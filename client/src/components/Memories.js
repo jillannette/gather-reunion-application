@@ -3,7 +3,7 @@ import Memory from "./Memory";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import axios from "axios";
-import  { BASE_URL } from '../App.js';
+import { BASE_URL } from "../App.js";
 
 const Memories = ({ loggedInMember }) => {
   const [memories, setMemories] = useState([]);

@@ -5,8 +5,9 @@ const {
   getMemories,
   getMemory,  
   getMemberByMemoryId,
-  getCommentsByMemoryId,
   createMemory,
+  createComment,
+  getComments,
   deleteMemory,
   updateMemory
 } = require('../controllers/memoryController')
@@ -17,9 +18,11 @@ router.get('/:id', getMemory);
 
 router.get('/:id/members', getMemberByMemoryId)
 
-router.get('/:id/comments', getCommentsByMemoryId);
-
 router.post('/', createMemory)
+
+router.post('/:id/comments', createComment)
+
+router.get('/:id/comments', getComments)
 
 router.delete('/:id', deleteMemory)
 

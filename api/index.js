@@ -15,7 +15,9 @@ const nextReunionRoutes = require('./routes/nextReunions.js')
 const joinRoutes = require("./routes/join.js");
 const registrationRoutes = require('./routes/registrations.js');
 
-const app = express();
+// const app = express();
+
+app.use(express.static(path.join(__dirname, "js")));
 // app.use(express.static(path.join(__dirname, "../client/build")))
 
 // const filePath = path.join(__dirname, "public", "index.html");

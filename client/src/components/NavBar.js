@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../App.css";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -26,10 +26,18 @@ const NavBar = ({ loggedInMember, handleLogout }) => {
             </>
           )}
 
-          <Nav.Link href="members">Class Members</Nav.Link>
-          <Nav.Link href="memories">Memories</Nav.Link>
-          <Nav.Link href="reunions">Reunions</Nav.Link>
-          <Nav.Link href="nextReunion">2026 Reunion</Nav.Link>
+          <Nav.Link href="members" onClick={() => navigate("/members")}>
+            Class Members
+          </Nav.Link>
+          <Nav.Link href="memories" onClick={() => navigate("/memories")}>
+            Memories
+          </Nav.Link>
+          <Nav.Link href="reunions" onClick={() => navigate("/reunions")}>
+            Reunions
+          </Nav.Link>
+          <Nav.Link href="nextReunion" onClick={() => navigate("/nextReunion")}>
+            2026 Reunion
+          </Nav.Link>
           {loggedInMember && (
             <span id="logout" className="nav-link" onClick={handleClick}>
               Logout

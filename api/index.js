@@ -7,7 +7,6 @@ const {
   restrictedAccess,
 } = require("./controllers/authController");
 
-const commentRoutes = require("./routes/comments.js");
 const memberRoutes = require("./routes/members.js");
 const memoryRoutes = require("./routes/memories.js");
 const loginRoutes = require("./routes/login.js");
@@ -58,7 +57,6 @@ app.use(express.json());
 //   next();
 // });
 
-app.use("/api/comments", memberAccess, commentRoutes);
 app.use("/api/members", memberAccess, memberRoutes);
 app.use("/api/memories", memberAccess, memoryRoutes);
 app.use("/api/reunions", memberAccess, reunionRoutes);

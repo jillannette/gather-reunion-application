@@ -10,8 +10,7 @@ const memorySchema = new Schema(
     comments: [
       {
         memberName: String,
-        text: String,
-        timestamp: true,
+        text: String, //removed timestamp true, refactor using correct syntax
       },
     ],
   },

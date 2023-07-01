@@ -16,8 +16,8 @@ import ReunionPhotos from "./components/ReunionPhotos";
 import NextReunion from './components/NextReunion';
 import Registration from './components/Registration';
 
-// export const BASE_URL = "https://gather-z3tj.onrender.com";
-export const BASE_URL = "http://localhost:5000";
+export const BASE_URL = "https://gather-z3tj.onrender.com";
+// export const BASE_URL = "http://localhost:5000";
 
 const App = () => {
 

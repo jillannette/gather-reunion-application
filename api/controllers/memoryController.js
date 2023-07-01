@@ -250,9 +250,9 @@ module.exports = {
   getMemories,
   getMemory,
   getMemberByMemoryId,
-  getCommentsByMemoryId,
   createMemory,
   createComment,
+  getComments,
   deleteMemory,
   updateMemory,
 };

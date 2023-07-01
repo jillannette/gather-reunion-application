@@ -21,10 +21,10 @@ const app = express();
 // const filePath = path.join(__dirname, "public", "index.html");
 // console.log(__dirname);
 
-app.get("/client", function (req, res) {
-  res.sendFile("this worked", filePath);
-  console.log(filePath);
-});
+// app.get("/client", function (req, res) {
+//   res.sendFile("this worked", filePath);
+//   console.log(filePath);
+// });
 
 
 
@@ -66,11 +66,11 @@ app.use("/api/join", joinRoutes);
 app.use("/api/login", loginRoutes);
 
 
-if (process.env.MODE==="production") {
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/build", "index.html"))
-  })
-}
+// if (process.env.MODE==="production") {
+//   app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, "../client/build", "index.html"))
+//   })
+// }
 
 app.use(restrictedAccess);
 

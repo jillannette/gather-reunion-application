@@ -58,16 +58,7 @@ const Reunions = ({ loggedInMember }) => {
       <div>
         <h1 className="reunion-headline">Reunions</h1>
 
-        <Link to="/nextReunion">
-          <Button
-            className="nextReunionButton"
-            style={{ float: "right" }}
-            variant="warning"
-            type="submit"
-          >
-            Peek Next Reunion
-          </Button>
-        </Link>
+        
       </div>
 
       <Container>

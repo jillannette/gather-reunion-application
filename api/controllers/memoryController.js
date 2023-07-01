@@ -12,7 +12,8 @@ const getMemories = async (req, res, next) => {
     const memories = await Memory.find({})
       .sort({ createdAt: -1 })
       .populate("member", "nameAtGraduation")
-      .populate("comments")
+      .populate("comments", "nameAtGraduation")
+      .populate("comments", "text")
       res.status(200).json({ memories });
   } catch (err) {
     res.status(500).json({
@@ -35,7 +36,8 @@ const getMemory = async (req, res, next) => {
     const memory = await Memory.findById({ _id: id })
       .sort({ createdAt: -1 })
       .populate("member", "nameAtGraduation")
-      .populate("comments", "text");
+      .populate("comments", "text")
+      .populate("comments", "namAtGraduation")
 
     if (!memory) {
       return res.status(404).json({
@@ -66,28 +68,6 @@ const getMemberByMemoryId = async (req, res, next) => {
     const member = selectedMemory.member;
 
     res.status(200).json({member});
-  } catch (err) {
-    res.status(500).json({
-      err: "An unexpected error has occurred",
-    });
-  }
-};
-
-const getCommentsByMemoryId = async (req, res, next) => {
-  console.log("get comments by memory id", req.params);
-
-  if (!req.member) {
-    next();
-    return;
-  }
-
-  const { id } = req.params;
-
-  try {
-    const selectedMemory = await Memory.findById({ _id: id });
-    const comments = selectedMemory.comments;
-
-    res.status(200).json(comments);
   } catch (err) {
     res.status(500).json({
       err: "An unexpected error has occurred",
@@ -130,8 +110,57 @@ const createMemory = async (req, res, next) => {
   }
 };
 
+const createComment = async (req, res, next) => {
 
+  if (!req.member) {
+    next();
+    return;
+  }
 
+  try {
+  const { memoryId, memberName, text } = req.body;
+
+    const memory = await Memory.findById(memoryId);
+    if (!memory) {
+      return res.status(404).json({ error: 'Memory not found' });
+    }
+
+    const newComment = {
+      memberName,
+      text
+    };
+
+    memory.comments.push(newComment);
+    await memory.save();
+
+    return res.status(201).json({ message: 'Comment created successfully' });
+  } catch (error) {
+    console.error('Error creating comment:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+    const getComments = async (req, res, next) => {
+
+  if (!req.member) {
+    next();
+    return;
+  }
+
+  try {
+    const { memoryId } = req.params;
+
+    const memory = await Memory.findById(memoryId);
+    if (!memory) {
+      return res.status(404).json({ error: 'Memory not found' });
+    }
+
+    return res.json({ comments: memory.comments });
+  } catch (error) {
+    console.error('Error getting comments:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+}
 
 const deleteMemory = async (req, res, next) => {
   console.log("delete memory", req.member);
@@ -223,6 +252,7 @@ module.exports = {
   getMemberByMemoryId,
   getCommentsByMemoryId,
   createMemory,
+  createComment,
   deleteMemory,
   updateMemory,
 };

@@ -1,8 +1,6 @@
 const { NextReunion } = require("../models/model");
 
 const getNextReunion = async (req, res, next) => {
-  
-
   if (!req.member) {
     next();
     return;
@@ -11,10 +9,7 @@ const getNextReunion = async (req, res, next) => {
   const { id } = req.params;
 
   try {
-    const selectedReunion = await NextReunion.findById({ _id: id })
- 
-
- 
+    const selectedReunion = await NextReunion.findById({ _id: id });
 
     res.status(200).json(selectedReunion);
   } catch (err) {
@@ -24,29 +19,27 @@ const getNextReunion = async (req, res, next) => {
   }
 };
 
-
 const createNextReunion = async (req, res, next) => {
-  
-
   if (!req.member) {
     next();
     return;
   }
 
-  const { cover_image_url, date, location, map, description, registration } = req.body;  
+  const { cover_image_url, date, location, map, description, registration } =
+    req.body;
 
   try {
     const nextReunion = await UpcomingReunion.create({
       cover_image_url,
-      date, 
-      location, 
+      date,
+      location,
       map,
-      description, 
-      registration 
+      description,
+      registration,
     });
 
     await nextReunion.save();
-   
+
     res.status(200).json(nextReunion);
   } catch (error) {
     res.status(500).json({
@@ -55,16 +48,11 @@ const createNextReunion = async (req, res, next) => {
   }
 };
 
-
 const editNextReunion = async (req, res, next) => {
-  
-
   if (!req.member) {
     next();
     return;
   }
-
-  
 
   try {
     const editedReunion = await NextReunion.findOneAndUpdate(
@@ -97,7 +85,7 @@ const deleteNextReunion = async (req, res, next) => {
   try {
     const deletedNextReunion = await NextReunion.findOneAndDelete({ _id: id });
 
-  res.status(200).json({
+    res.status(200).json({
       message: "Upcoming reunion has been deleted from database",
       deletedNextReunion,
     });
@@ -108,16 +96,9 @@ const deleteNextReunion = async (req, res, next) => {
   }
 };
 
-
-
-
-
-
-
-
 module.exports = {
   getNextReunion,
   createNextReunion,
   editNextReunion,
-  deleteNextReunion
+  deleteNextReunion,
 };

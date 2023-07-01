@@ -32,9 +32,10 @@ const getRegistration = async (req, res, next) => {
   const { id } = req.params;
 
   try {
-    const registration = await Registration.findById({ _id: id })
-      .sort({ createdAt: -1 })
-    
+    const registration = await Registration.findById({ _id: id }).sort({
+      createdAt: -1,
+    });
+
     if (!registration) {
       return res.status(404).json({
         err: "Registration does not exist in database",
@@ -49,7 +50,6 @@ const getRegistration = async (req, res, next) => {
   }
 };
 
-
 const createNewRegistration = async (req, res, next) => {
   console.log("create new registration", req.member);
 
@@ -61,14 +61,12 @@ const createNewRegistration = async (req, res, next) => {
   const { name, email, numberAttending, cost } = req.body;
 
   try {
-    const newRegistration = await Registration.create(
-      {
+    const newRegistration = await Registration.create({
       name,
       email,
       numberAttending,
-      cost 
-     }
-    );
+      cost,
+    });
 
     newRegistration.save();
 
@@ -79,9 +77,6 @@ const createNewRegistration = async (req, res, next) => {
     });
   }
 };
-
-
-
 
 const deletedRegistration = async (req, res, next) => {
   console.log("delete registration", req.member);
@@ -94,11 +89,12 @@ const deletedRegistration = async (req, res, next) => {
   const { id } = req.params;
 
   try {
-    const deletedRegistration = await Registration.deleteOne(deletedRegistration);
+    const deletedRegistration = await Registration.deleteOne(
+      deletedRegistration
+    );
 
     console.log(deletedRegistration);
 
-    
     res.status(200).json({
       message: "Registration has been deleted from database",
       deletedRegistration,
@@ -121,9 +117,13 @@ const updatedRegistration = async (req, res, next) => {
   const { id } = req.params;
 
   try {
-    const registration = await Registration.findOneAndUpdate({ _id: id }, req.body, {
-      new: true,
-    });
+    const registration = await Registration.findOneAndUpdate(
+      { _id: id },
+      req.body,
+      {
+        new: true,
+      }
+    );
 
     res.status(200).json({
       message: "Registration updated!",

@@ -26,7 +26,6 @@ const login = (req, res) => {
           );
 
           res.status(200).send({
-            message: "Login Successful",
             member,
             token,
           });

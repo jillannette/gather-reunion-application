@@ -1,7 +1,6 @@
 const dotenv = require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 const path = require("path");
 const {
   memberAccess,
@@ -23,10 +22,10 @@ const app = express();
 // const filePath = path.join(__dirname, "public", "index.html");
 // console.log(__dirname);
 
-// app.get("/client", function (req, res) {
-//   res.sendFile("this worked", filePath);
-//   console.log(filePath);
-// });
+app.get("/client", function (req, res) {
+  res.sendFile("this worked", filePath);
+  console.log(filePath);
+});
 
 
 
@@ -38,19 +37,19 @@ const app = express();
 //   app.get('*', (req,res) => res.sendFile(path.resolve(__dirname, 'client', 'build','index.html')));
 // }l
 
-app.use((req, res, next) => {
-  console.log('line 30')
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-  );
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log('line 30')
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
+//   );
+//   res.setHeader(
+//     "Access-Control-Allow-Methods",
+//     "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+//   );
+//   next();
+// });
 
 app.use(express.json());
 

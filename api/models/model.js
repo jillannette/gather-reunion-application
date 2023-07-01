@@ -9,8 +9,10 @@ const memorySchema = new Schema(
     text: { type: String, required: true },
     comments: [
       {
-      type: Schema.Types.ObjectId, ref: "Comment"
-      }
+        memberName: String,
+        text: String,
+        timestamp: true,
+      },
     ],
   },
   { timestamps: true }
@@ -41,22 +43,6 @@ const memberSchema = new Schema(
   { timestamps: true }
 );
 
-const commentSchema = new Schema(
-  {
-    member: {
-      type: Schema.Types.ObjectId,
-      ref: "Member",
-    },
-  },
-  {
-    memory:   {
-      type: Schema.Types.ObjectId,
-      ref: "Memory",
-    },
-    text: { type: String, required: true },
-  },
-  { timestamps: true }
-);
 
 //FOR FUTURE USE 
 // const registrationSchema = new Schema(   //could be reworked in future using on reunion 
@@ -108,11 +94,10 @@ const reunionPhotoSchema = new Schema(
 //FOR FUTURE USE 
 // const Registration = mongoose.model("Registration", registrationSchema);
 
-const Comment = mongoose.model("Comment", commentSchema);  
 const Memory = mongoose.model("Memory", memorySchema);
 const Member = mongoose.model("Member", memberSchema);
 const Reunion = mongoose.model("Reunion", reunionSchema);
 const NextReunion = mongoose.model("NextReunion", nextReunionSchema);
 const ReunionPhoto = mongoose.model("ReunionPhoto", reunionPhotoSchema);
 
-module.exports = { Comment, Memory, Member, Reunion, NextReunion, ReunionPhoto };
+module.exports = { Memory, Member, Reunion, NextReunion, ReunionPhoto };

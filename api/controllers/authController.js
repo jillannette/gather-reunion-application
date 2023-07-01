@@ -30,7 +30,7 @@ const memberAccess = async (req, res, next) => {
 const restrictedAccess = (req, res) => {
   res.json({
     message:
-      "Access denied!  You must be a member to use this app, and once logged in can only make changes to your own profile.",
+      "Access denied - You must be a member to use this app",
   });
 };
 

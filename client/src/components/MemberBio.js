@@ -6,6 +6,7 @@ import { BASE_URL } from '../App.js';
 
 const MemberBio = ({ loggedInMember }) => {
   const params = useParams();
+  
   const [memberBio, setMemberBio] = useState({
     image_url: "",
     nameAtGraduation: "",
@@ -46,7 +47,7 @@ const MemberBio = ({ loggedInMember }) => {
 
   return (
     <>
-     <Link to='/members'><Button variant="warning" className='back-button' >Back to Members</Button></Link>
+    
      <Container >
         <Row>
           <Col className="bio-col">

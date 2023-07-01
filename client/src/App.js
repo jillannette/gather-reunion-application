@@ -78,11 +78,11 @@ const App = () => {
             path="/memories"
             element={<Memories loggedInMember={loggedInMember} />}
           />
-          <Route
-            path="/comments/:memoryId"
+          <Route  //createComment
+            path="/memories/:id/comments"
             element={<Memories loggedInMember={loggedInMember} />}
           />
-          <Route
+          <Route  //getComments
             path="/memories/:id/comments"
             element={<Memories loggedInMember={loggedInMember} />}
           />
@@ -99,10 +99,10 @@ const App = () => {
             path="/nextReunion"
             element={<NextReunion loggedInMember={loggedInMember} />}
           />
-           <Route
+           {/* <Route
             path="/register"
             element={<Registration loggedInMember={loggedInMember} />}
-          />
+          /> */}
                         
           <Route
             path="/createMemory"

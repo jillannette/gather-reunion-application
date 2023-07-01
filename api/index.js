@@ -15,13 +15,13 @@ const nextReunionRoutes = require('./routes/nextReunions.js')
 const joinRoutes = require("./routes/join.js");
 const registrationRoutes = require('./routes/registrations.js');
 
-// const app = express();
+const app = express();
 
-app.use(express.static(path.join(__dirname, "js")));
-// app.use(express.static(path.join(__dirname, "../client/build")))
+// app.use(express.static(path.join(__dirname, "js")));  //DID NOT WORK
+app.use(express.static(path.join(__dirname, "../client/build")))
 
-// const filePath = path.join(__dirname, "public", "index.html");
-// console.log(__dirname);
+const filePath = path.join(__dirname, "public", "index.html");
+console.log(__dirname);
 
 // app.get("/client", function (req, res) {
 //   res.sendFile("this worked", filePath);
@@ -38,19 +38,19 @@ app.use(express.static(path.join(__dirname, "js")));
 //   app.get('*', (req,res) => res.sendFile(path.resolve(__dirname, 'client', 'build','index.html')));
 // }l
 
-// app.use((req, res, next) => {
-//   console.log('line 30')
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   res.setHeader(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
-//   );
-//   res.setHeader(
-//     "Access-Control-Allow-Methods",
-//     "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-//   );
-//   next();
-// });
+app.use((req, res, next) => {
+  console.log('line 30')
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+  );
+  next();
+});
 
 app.use(express.json());
 

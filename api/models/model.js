@@ -43,7 +43,12 @@ const memberSchema = new Schema(
 
 const commentSchema = new Schema(
   {
-    memberName: String,
+    member: {
+      type: Schema.Types.ObjectId,
+      ref: "Member",
+    },
+  },
+  {
     memory:   {
       type: Schema.Types.ObjectId,
       ref: "Memory",

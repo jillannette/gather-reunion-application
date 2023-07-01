@@ -12,7 +12,7 @@ const CreateComment = ({ loggedInMember, memoryId }) => {
   const navigate = useNavigate();
   const [newComment, setNewComment] = useState({
     memory: memoryId,
-    memberName: '',
+    member: '',
     text: '',
   });
 
@@ -25,19 +25,23 @@ const CreateComment = ({ loggedInMember, memoryId }) => {
     });
   };
 
+  const handleCancel = () => {
+    navigate('/memories')
+  }
+
   async function createComment(e) {
     e.preventDefault();
-    console.log(newComment, newComment.memberName, loggedInMember, memoryId);
+    console.log(newComment, newComment.member.nameAtGraduation, memoryId);
     const config = {
       headers: {
         Authorization: `Bearer ${loggedInMember.token}`
       },
     };
     
-    axios
+    await axios
     .post(
         `${BASE_URL}/api/comments/${memoryId}`,
-        newComment, // Send only the 'text' property in the request body
+        newComment, 
         config
       )
       .then((response) => {
@@ -50,15 +54,6 @@ const CreateComment = ({ loggedInMember, memoryId }) => {
       })
   }
   
-  
-  
-  
-  
-  
-  
- 
-  
-
   return ( 
     <>
       <div >
@@ -79,17 +74,8 @@ const CreateComment = ({ loggedInMember, memoryId }) => {
               defaultValue={newComment.text}
               onChange={handleChange}
               />
-              <Form.Control
-              type="text"
-              placeholder="your name"
-              name="memberName"
-              defaultValue={newComment.memberName}
-              onChange={handleChange}
-              />
+              <p>{newComment.member.nameAtGraduation} + 'commented'</p>
 
-  
-                
-             
             </Form.Group>
 
             <Form.Group className="mb-3">

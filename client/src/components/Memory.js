@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from "react-router-dom";
 import CreateComment from './CreateComment';
 
 import {
@@ -40,7 +39,7 @@ const Memory = ({ memory, loggedInMember }) => {
               {memory.comments.map((comment) => {
                 return (
                 <>
-              <Card.Text key={comment._id}>{comment.nameAtGraduation} commented...{" "}</Card.Text>
+              <Card.Text key={comment._id}>{comment.member.nameAtGraduation} commented...{" "}</Card.Text>
               <ListGroup>
                
                   <ListGroup.Item>{comment.text}</ListGroup.Item>
@@ -56,7 +55,7 @@ const Memory = ({ memory, loggedInMember }) => {
                  Add Comments
                </Button>
               ) : (
-                <CreateComment memoryId={memory._id} loggedInMember={loggedInMember} memberName={memory.member.nameAtGraduation}/>
+                <CreateComment memoryId={memory._id} loggedInMember={loggedInMember} member={memory.member.nameAtGraduation}/>
               )
 }
         

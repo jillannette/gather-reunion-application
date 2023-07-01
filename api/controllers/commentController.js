@@ -75,12 +75,13 @@ const createComment = async (req, res, next) => {
     return;
   }
 
-  const { text, memberName } = req.body;
+  const { text } = req.body;
   
 
   try {
     const newComment = await Comment.create({
       memory: req.params.memoryId,
+      member: req.member.memberId,
       text,
     });
 
@@ -90,7 +91,6 @@ const createComment = async (req, res, next) => {
     const memoryId = req.params.memoryId;
 
     const memoryToUpdate = await Memory.findById(memoryId);
-
     memoryToUpdate.comments.push(newCommentId);
     memoryToUpdate.save();
     res.status(200).json(newComment);

@@ -82,6 +82,10 @@ const App = () => {
             path="/comments/:memoryId"
             element={<Memories loggedInMember={loggedInMember} />}
           />
+          <Route
+            path="/memories/:id/comments"
+            element={<Memories loggedInMember={loggedInMember} />}
+          />
           
           <Route
             path="/reunions"

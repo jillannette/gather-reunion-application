@@ -103,10 +103,10 @@ const NextReunion = ({ loggedInMember }) => {
               </Card.Body>
             </Col>
             <Col className="nextReunion-image-col" >
-              <Card.Img
-                className="nextReunion-image"
-                variant="top"
-                src={nextReunion.cover_image_url}
+            <Card.Img
+              className="nextReunion-image"
+              variant="top"
+              src={nextReunion.cover_image_url}
               />
             </Col>
             <Col>

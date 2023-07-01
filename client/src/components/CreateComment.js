@@ -1,21 +1,22 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Container, Form, Button } from "react-bootstrap";
 import { BASE_URL } from '../App.js';
 
 import axios from "axios";
 
-const CreateComment = ({ loggedInMember, memoryId }) => {
-
+const CreateComment = ({ loggedInMember }) => {
   
-
+  const params = useParams();
+  const memberId = loggedInMember.memberId;
+  const memory = params.id
   const navigate = useNavigate();
   const [newComment, setNewComment] = useState({
-    memory: memoryId,
-    member: '',
+    memory: params.id,
+    member: memberId,
     text: '',
   });
-
+console.log(params.id)
   const [error, setError] = useState(null);
 
   const handleChange = (e) => {
@@ -31,7 +32,6 @@ const CreateComment = ({ loggedInMember, memoryId }) => {
 
   async function createComment(e) {
     e.preventDefault();
-    console.log(newComment, newComment.member.nameAtGraduation, memoryId);
     const config = {
       headers: {
         Authorization: `Bearer ${loggedInMember.token}`
@@ -40,13 +40,13 @@ const CreateComment = ({ loggedInMember, memoryId }) => {
     
     await axios
     .post(
-        `${BASE_URL}/api/comments/${memoryId}`,
+        `${BASE_URL}/api/memories/${params.id}/comments`,
         newComment, 
         config
       )
       .then((response) => {
-        console.log(response.data);
-        navigate("/memories");
+        console.log(response);
+        navigate('/memories')
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
@@ -59,9 +59,10 @@ const CreateComment = ({ loggedInMember, memoryId }) => {
       <div >
         <div>
           <br></br>
-          <h4 >Add A Comment</h4>
+          <h5 >Add A Comment</h5>
         </div>
         <Container >
+        
           <Form className="form" onSubmit={createComment}>
             <Form.Group className="mb-3" controlId="formBasicTextArea">
               <Form.Label>Add your comment here</Form.Label>
@@ -72,9 +73,10 @@ const CreateComment = ({ loggedInMember, memoryId }) => {
               placeholder="comment"
               name="text"
               defaultValue={newComment.text}
+              
               onChange={handleChange}
               />
-              <p>{newComment.member.nameAtGraduation} + 'commented'</p>
+              
 
             </Form.Group>
 
@@ -83,7 +85,8 @@ const CreateComment = ({ loggedInMember, memoryId }) => {
               
                 Submit
               </Button>
-              {error && <p>Unable to add comment</p>}
+              {error && <p>Unable to add comment</p>} &nbsp;&nbsp;
+              <Button onClick={handleCancel} variant="warning" type="button" > Cancel</Button>
             </Form.Group>
           </Form>
         </Container>

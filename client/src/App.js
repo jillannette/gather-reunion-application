@@ -14,7 +14,7 @@ import CreateReunion from "./components/CreateReunion";
 import CreateMemory from "./components/CreateMemory";
 import ReunionPhotos from "./components/ReunionPhotos";
 import NextReunion from './components/NextReunion';
-import Registration from './components/Registration';
+
 
 export const BASE_URL = "https://gather-z3tj.onrender.com";
 // export const BASE_URL = "http://localhost:5000";
@@ -99,11 +99,7 @@ const App = () => {
             path="/nextReunion"
             element={<NextReunion loggedInMember={loggedInMember} />}
           />
-           {/* <Route
-            path="/register"
-            element={<Registration loggedInMember={loggedInMember} />}
-          /> */}
-                        
+                                   
           <Route
             path="/createMemory"
             element={<CreateMemory loggedInMember={loggedInMember} />}

@@ -50,12 +50,16 @@ const Join = ({ setLoggedInMember }) => {
         });
         navigate("/members");
       })
-      
+      .catch((error) => {
+        alert('Email or password does not match registered member', error)
+        setError(error)
+        navigate("/login");
+      })
   }
 
+if (error) return "error";
 
 
-  if (error) return "error";
 
   return (
     <>

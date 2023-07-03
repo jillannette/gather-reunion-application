@@ -30,6 +30,7 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
       getMember();
     } else {
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedInMember]);
   console.count();
 

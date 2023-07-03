@@ -12,7 +12,7 @@ const CreateComment = ({ loggedInMember }) => {
   const memory = params.id
   const navigate = useNavigate();
   const [newComment, setNewComment] = useState({
-    memory: params.id,
+    memory: memory,
     member: memberId,
     text: '',
   });

@@ -14,6 +14,7 @@ const Comments = ({ loggedInMember }) => {
     if (loggedInMember) {
       getCommentsByMemoryId();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedInMember]);
 
   async function getCommentsByMemoryId() {

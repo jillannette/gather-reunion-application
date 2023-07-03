@@ -16,6 +16,7 @@ const NextReunion = ({ loggedInMember }) => {
     if (loggedInMember) {
       getNextReunion();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedInMember]);
 
   async function getNextReunion() {

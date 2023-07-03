@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
-import { Card, Container, Row, Col, Button } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import { Card, Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { BASE_URL } from '../App.js';
 
@@ -16,12 +16,16 @@ const MemberBio = ({ loggedInMember }) => {
   });
 
   const [error, setError] = useState(null);
-
+ 
   useEffect(() => {
     if (loggedInMember) {
       getMember();
     }
-  }, [loggedInMember]);
+     
+  },
+  
+   // eslint-disable-next-line react-hooks/exhaustive-deps
+   [loggedInMember]);
 
   async function getMember() {
     const config = {

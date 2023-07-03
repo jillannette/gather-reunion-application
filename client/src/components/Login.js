@@ -45,7 +45,8 @@ const Login = ({ setLoggedInMember }) => {
         navigate("/members");
       })
       .catch((error) => {
-        alert('Email or password does not match registered member')
+        alert('Email or password does not match registered member', error)
+        setError(error)
         navigate("/login");
         
       })

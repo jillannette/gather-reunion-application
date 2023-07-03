@@ -14,6 +14,7 @@ const Memories = ({ loggedInMember }) => {
       getMemories();
     } else {
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedInMember]);
 
   async function getMemories() {

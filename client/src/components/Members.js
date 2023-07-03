@@ -19,6 +19,7 @@ const Members = ({ loggedInMember }) => {
       getMembers();
     } else {
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedInMember]);
 
   async function getMembers() {

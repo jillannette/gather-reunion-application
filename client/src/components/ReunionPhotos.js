@@ -21,6 +21,7 @@ const ReunionPhotos = ({ loggedInMember }) => {
     if (loggedInMember) {
       getPhotos();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedInMember]);
 
   async function getPhotos() {

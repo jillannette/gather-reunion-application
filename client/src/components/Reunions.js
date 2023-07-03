@@ -65,7 +65,7 @@ const Reunions = ({ loggedInMember }) => {
         <Row>
           {reunions.map((reunion) => {
             return (
-              <Col key={reunion._id} s={12} md={6} lg={4} xl={4}>
+              <Col key={reunion._id} s={12} md={6} lg={3} xl={4}>
                 <Card className="reunion-card" style={{ width: "25rem" }}>
                   <Card.Img
                     className="reunion-card-image"
@@ -91,6 +91,7 @@ const Reunions = ({ loggedInMember }) => {
                 </Card>
                 <br></br>
               </Col>
+             
             );
           })}
           ;

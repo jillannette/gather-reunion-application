@@ -9,7 +9,9 @@ const getMembers = async (req, res, next) => {
   }
 
   try {
-    const members = await Member.find({}).sort({ createdAt: -1 });
+    const members = await Member.find({})
+    .sort({ createdAt: -1 })
+   
 
     res.status(200).json(members);
   } catch (err) {
@@ -30,13 +32,14 @@ const getMember = async (req, res, next) => {
   const { id } = req.params;
 
   try {
-    const member = await Member.findById({ _id: id });
-    console.log(member);
-
-    res.status(200).json(member.bio);
+    const member = await Member.findById({ _id: id })
+    console.log(member)
+    
+      
+    res.status(200).json({member });
   } catch (err) {
     res.status(500).json({
-      err: "An unexpected error has occurred",
+      err: {alert: "Unable to retrieve member from database"},
     });
   }
 };

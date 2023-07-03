@@ -9,9 +9,7 @@ const getMembers = async (req, res, next) => {
   }
 
   try {
-    const members = await Member.find({})
-    .sort({ createdAt: -1 })
-   
+    const members = await Member.find({}).sort({ createdAt: -1 });
 
     res.status(200).json(members);
   } catch (err) {
@@ -32,19 +30,10 @@ const getMember = async (req, res, next) => {
   const { id } = req.params;
 
   try {
-    const member = await Member.findById({ _id: id })
-      .sort({ createdAt: -1 })
-      .populate("memories", "text")
-      .populate("comments", "text")
-      .populate("bio");
+    const member = await Member.findById({ _id: id });
+    console.log(member);
 
-    if (!member) {
-      return res.status(404).json({
-        err: "Member does not exist in database",
-      });
-    }
-
-    res.status(200).json(member);
+    res.status(200).json(member.bio);
   } catch (err) {
     res.status(500).json({
       err: "An unexpected error has occurred",

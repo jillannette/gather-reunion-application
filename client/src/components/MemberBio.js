@@ -20,11 +20,13 @@ const MemberBio = ({ loggedInMember }) => {
   useEffect(() => {
     if (loggedInMember) {
       getMember();
+    } else {
+
     }
      
   },
   
-   // eslint-disable-next-line react-hooks/exhaustive-deps
+   
    [loggedInMember]);
 
   async function getMember() {
@@ -33,30 +35,35 @@ const MemberBio = ({ loggedInMember }) => {
         Authorization: `Bearer ${loggedInMember.token}`,
       },
     };
-    axios
+    await axios
       .get(`${BASE_URL}/api/members/${params.id}`, config)
       .then((response) => {
-        console.log("memberBio", response.data);
-        const memberBio = response.data;
-
-        setMemberBio(memberBio);
+        console.log("response data", response.data);
+        setMemberBio(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching data: ", error);
+        alert("An error has occurred");
+        console.error(error);
         setError(error);
       });
-  }
+        
 
-  if (error) return "error";
+        
+      }
+      // .catch((error) => {
+      //   console.error("Error fetching data: ", error);
+      //   setError(error);
+      // });
+  
+  // if (error) return "error";
 
   return (
     <>
-    
-     <Container >
+    <Container >
         <Row>
           <Col className="bio-col">
             <Card key={memberBio._id} style={{ width: "70rem" }}>
-              <Card.Img className="bio-image"  src={memberBio.image_url} />
+              <Card.Img className="bio-image" style={{width: 500, height: 500}} src={memberBio.image_url} />
 
               <Card.Body className="member-card-body">
                 <Card.Title>{memberBio.currentName}</Card.Title>

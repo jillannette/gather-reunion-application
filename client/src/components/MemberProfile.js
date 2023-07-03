@@ -41,7 +41,7 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
     });
   };
 
-  console.count();
+  
 
   const updateMember = (e) => {
     const config = {
@@ -89,11 +89,11 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
         Authorization: `Bearer ${loggedInMember.token}`,
       },
     };
-    axios
+    await axios
       .get(`${BASE_URL}/api/members/${loggedInMember.memberId}`, config)
       .then((response) => {
-        console.log("memberProfile", response.data);
-        setMemberProfile(response.data);
+        console.log("response", response.data.member);
+        setMemberProfile(response.data.member);
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);

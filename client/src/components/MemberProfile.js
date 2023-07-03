@@ -30,7 +30,7 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
       getMember();
     } else {
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedInMember]);
   console.count();
 
@@ -44,7 +44,6 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
   console.count();
 
   const updateMember = (e) => {
-    e.preventDefault();
     const config = {
       headers: {
         Authorization: `Bearer ${loggedInMember.token}`,

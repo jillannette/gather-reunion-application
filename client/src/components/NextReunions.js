@@ -5,31 +5,34 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+import axios from 'axios';
 import "../App.css";
-import axios from "axios";
 
-const NextReunion = ({ loggedInMember }) => {
+const NextReunions = ({ loggedInMember }) => {
+
+  const [nextReunions, setNextReunions] = useState([]);
   const [error, setError] = useState(null);
-  const [nextReunion, setNextReunion] = useState({});
 
   useEffect(() => {
     if (loggedInMember) {
-      getNextReunion();
+      getNextReunions();
+    } else {
+      
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedInMember]);
 
-  async function getNextReunion() {
+  async function getNextReunions() {
     const config = {
       headers: {
         Authorization: `Bearer ${loggedInMember.token}`,
       },
     };
     await axios
-      .get(`${BASE_URL}/api/nextReunion/649b7cc7abf5c7ebfad5eda3`, config)
+      .get(`${BASE_URL}/api/nextReunions`, config)
       .then((response) => {
-        console.log("nextReunion", response.data);
-        setNextReunion(response.data);
+        console.log("nextReunions", response.data);
+        setNextReunions(response.data.nextReunions);
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
@@ -46,8 +49,9 @@ const NextReunion = ({ loggedInMember }) => {
       </div>
 
       <br></br>
-
-      <Container className="nextReunion-container" l={12}>
+    {nextReunions.map((nextReunion) => {
+      return (
+        <Container className="nextReunion-container" l={12}>
         <Card key={nextReunion._id}>
           <Row className="nextReunion-card">
             <Col>
@@ -95,8 +99,13 @@ const NextReunion = ({ loggedInMember }) => {
 
         <br></br>
       </Container>
+
+      )
+    }
+      
+    )}
     </>
   );
 };
 
-export default NextReunion;
+export default NextReunions;

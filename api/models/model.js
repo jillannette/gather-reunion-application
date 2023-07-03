@@ -57,12 +57,11 @@ const memberSchema = new Schema(
 const nextReunionSchema = new Schema( //schema not needed for this, could just do a route  
   {
     cover_image_url: { type: String, required: true },
-    date: String,
-    location: String, 
-    map: String,
+    date: { type: String, required: true },
+    location: { type: String, required: true },
     description: { type: String, required: true },
-    registration: { type: Schema.Types.ObjectId, ref: "Registration" },
-  }
+  }, 
+  { timestamps: true }
 )
 
 //could replicate comments and just make reunionphotos an array of [reunionphotoschema]

@@ -3,6 +3,7 @@ const router = express.Router();
 
 const {
   createNextReunion,
+  getNextReunions,
   getNextReunion,
   editNextReunion,
   deleteNextReunion,
@@ -10,7 +11,9 @@ const {
 
 router.post("/", createNextReunion)
 
-router.get("/:id", getNextReunion) 
+router.get("/", getNextReunions) 
+
+router.get("/:id", getNextReunion)
 
 router.patch('/:id', editNextReunion)
 

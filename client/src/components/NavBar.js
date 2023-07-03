@@ -35,7 +35,7 @@ const NavBar = ({ loggedInMember, handleLogout }) => {
           <Nav.Link href="reunions" onClick={() => navigate("/reunions")}>
             Reunions
           </Nav.Link>
-          <Nav.Link href="nextReunion" onClick={() => navigate("/nextReunion")}>
+          <Nav.Link href="nextReunions" onClick={() => navigate("/nextReunions")}>
             2026 Reunion
           </Nav.Link>
           {loggedInMember && (

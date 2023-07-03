@@ -20,19 +20,36 @@
 }
 
 .bio-col {
-  margin-top: 80px;
+  margin-top: 30px;
   display: flex;
   width: 80%;
   justify-content: center;
   align-items: center;
 }
 
-.bio-image {
+/* .bio-image {
   margin-left: auto;
   margin-right: auto;
   height: 50vh;
   max-width: 500px;
-  object-fit: cover;
+  object-fit: contain;
+
+
+} */
+
+.bio-image {
+object-fit: cover;
+margin-left: auto;
+margin-right: auto;
+image-resolution: from-image;
+image-resolution: 100dpi;
+image-resolution: from-image 100dpi;
+image-resolution: 100dpi snap;
+image-resolution: inherit;
+image-resolution: initial;
+image-resolution: revert;
+image-resolution: revert-layer;
+image-resolution: unset;
 }
 
 .card-title {
@@ -296,11 +313,18 @@
 }
 
 .profile-image {  
-  margin-left: auto;
-  margin-right: auto;
-  height: 50vh;
-  max-width: 500px;
-  object-fit: cover;
+object-fit: cover;
+margin-left: auto;
+margin-right: auto;
+image-resolution: from-image;
+image-resolution: 100dpi;
+image-resolution: from-image 100dpi;
+image-resolution: 100dpi snap;
+image-resolution: inherit;
+image-resolution: initial;
+image-resolution: revert;
+image-resolution: revert-layer;
+image-resolution: unset;
 }
 
 .reunion-card-body {

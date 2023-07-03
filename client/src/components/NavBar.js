@@ -18,7 +18,7 @@ const NavBar = ({ loggedInMember, handleLogout }) => {
         <Nav className="me-auto align-items-center">
           <Nav.Link href="/">Home</Nav.Link>
           {loggedInMember ? (
-            <Nav.Link href="profile">Profile</Nav.Link>
+            <Nav.Link href="profile" onClick={() => navigate("/profile")}>Profile</Nav.Link>
           ) : (
             <>
               <Nav.Link href="login">Login</Nav.Link>

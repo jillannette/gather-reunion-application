@@ -17,25 +17,29 @@ const registrationRoutes = require('./routes/registrations.js');
 
 const app = express();
 
-// app.use(express.static(path.join(__dirname, "js")));  //DID NOT WORK
-app.use(express.static(path.join(__dirname, "../client/build")))
+//SUGGESTION FROM STACK OVERFLOW
+// app.use(express.static(path.join(__dirname, "../client/build")))
 
-const filePath = path.join(__dirname, "public", "index.html");
-console.log(__dirname);
+//INGRID'S SUGGESTION
+// const filePath = path.join(__dirname, "public", "index.html");
+// console.log(__dirname);
 
-app.get("/client", function (req, res) {
-  res.sendFile("this worked", filePath);
-  console.log(filePath);
-});
+//INGRID WONDERED WHAT THIS WAS AND WHETHER IT SHOULD BE THERE 
+
+//ENABLE WHEN BACK TO PRODUCTION ENVIRONMENT!
+// app.get("/*", function (req, res) {
+//   res.sendFile("this worked", filePath);
+//   console.log(filePath);
+// });
 
 
 
-// USE THIS??? FOR RENDER DEPLOYMENT????
+// USE THIS??? FOR RENDER DEPLOYMENT????  FROM RENDER SUGGESTIONS 
 // if (process.env.NODE_ENV === 'production') {
 //   //*Set static folder up in production
 //   app.use(express.static('client/build'));
 
-//   app.get('*', (req,res) => res.sendFile(path.resolve(__dirname, 'client', 'build','index.html')));
+// 
 // }l
 
 app.use((req, res, next) => {
@@ -68,11 +72,11 @@ app.use("/api/join", joinRoutes);
 app.use("/api/login", loginRoutes);
 
 
-// if (process.env.MODE==="production") {
-//   app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, "../client/build", "index.html"))
-//   })
-// }
+if (process.env.MODE==="production") {
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/build", "index.html"))
+  })
+}
 
 app.use(restrictedAccess);
 
@@ -91,3 +95,4 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+

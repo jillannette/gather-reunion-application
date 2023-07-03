@@ -13,7 +13,7 @@ import Reunions from "./components/Reunions";
 import CreateReunion from "./components/CreateReunion";
 import CreateMemory from "./components/CreateMemory";
 import ReunionPhotos from "./components/ReunionPhotos";
-import NextReunion from './components/NextReunion';
+import NextReunions from './components/NextReunions';
 
 
 // export const BASE_URL = "https://gather-z3tj.onrender.com";
@@ -96,8 +96,8 @@ const App = () => {
             element={<CreateReunion loggedInMember={loggedInMember} />}
           />
           <Route
-            path="/nextReunion"
-            element={<NextReunion loggedInMember={loggedInMember} />}
+            path="/nextReunions"
+            element={<NextReunions loggedInMember={loggedInMember} />}
           />
                                    
           <Route

@@ -23,10 +23,10 @@ app.use(express.static(path.join(__dirname, "../client/build")))
 const filePath = path.join(__dirname, "public", "index.html");
 console.log(__dirname);
 
-// app.get("/client", function (req, res) {
-//   res.sendFile("this worked", filePath);
-//   console.log(filePath);
-// });
+app.get("/client", function (req, res) {
+  res.sendFile("this worked", filePath);
+  console.log(filePath);
+});
 
 
 

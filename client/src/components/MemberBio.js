@@ -38,8 +38,8 @@ const MemberBio = ({ loggedInMember }) => {
     await axios
       .get(`${BASE_URL}/api/members/${params.id}`, config)
       .then((response) => {
-        console.log("response data", response.data);
-        setMemberBio(response.data);
+        console.log("response data", response.data.member);  //member
+        setMemberBio(response.data.member);
       })
       .catch((error) => {
         alert("An error has occurred");
@@ -55,7 +55,7 @@ const MemberBio = ({ loggedInMember }) => {
       //   setError(error);
       // });
   
-  // if (error) return "error";
+  if (error) return "error";
 
   return (
     <>

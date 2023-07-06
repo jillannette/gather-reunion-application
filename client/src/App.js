@@ -13,24 +13,20 @@ import Reunions from "./components/Reunions";
 import CreateReunion from "./components/CreateReunion";
 import CreateMemory from "./components/CreateMemory";
 import ReunionPhotos from "./components/ReunionPhotos";
-import NextReunions from './components/NextReunions';
+import NextReunions from "./components/NextReunions";
 
-
-// export const BASE_URL = "https://gather-z3tj.onrender.com";
-export const BASE_URL = "http://localhost:5000";
+export const BASE_URL = "https://gather-z3tj.onrender.com";
+// export const BASE_URL = "http://localhost:5000";
 
 const App = () => {
-
   const [loggedInMember, setLoggedInMember] = useState(null);
 
   useEffect(() => {
-    const memberFromStorage = localStorage.getItem("member");  //member from storage is only memberId and email
+    const memberFromStorage = localStorage.getItem("member"); //member from storage is only memberId and email
     if (memberFromStorage) {
       setLoggedInMember(JSON.parse(memberFromStorage));
     }
   }, []);
-
-  
 
   const handleLogout = () => {
     setLoggedInMember(null);
@@ -53,19 +49,19 @@ const App = () => {
             element={<Login setLoggedInMember={setLoggedInMember} />}
           />
           <Route
-            path="/join"  //new Member
+            path="/join" //new Member
             element={<Join setLoggedInMember={setLoggedInMember} />}
           />
           <Route
-            path="/members"  //get all members
+            path="/members" //get all members
             element={<Members loggedInMember={loggedInMember} />}
           />
           <Route
-            path="/members/:id"  
+            path="/members/:id"
             element={<MemberBio loggedInMember={loggedInMember} />}
           />
           <Route
-            path="/profile"  //loggedInMember
+            path="/profile" //loggedInMember
             element={
               <MemberProfile
                 loggedInMember={loggedInMember}
@@ -75,31 +71,26 @@ const App = () => {
           />
 
           <Route
-            path="/memories"   //get all memories
+            path="/memories" //get all memories
             element={<Memories loggedInMember={loggedInMember} />}
           />
           <Route
-            path="/memories/:id"  //getMemory
+            path="/memories/:id" //getMemory
             element={<Memories loggedInMember={loggedInMember} />}
           />
-          <Route  //createComment
-            path="/memories/:id/comments"
-            element={<Memories loggedInMember={loggedInMember} />}
-          />
-                  
           <Route
-            path="/reunions"  //get all reunions
+            path="/reunions" //get all reunions
             element={<Reunions loggedInMember={loggedInMember} />}
           />
           <Route
-            path="/createReunion"  
+            path="/createReunion"
             element={<CreateReunion loggedInMember={loggedInMember} />}
           />
           <Route
             path="/nextReunions"
             element={<NextReunions loggedInMember={loggedInMember} />}
           />
-                                   
+
           <Route
             path="/createMemory"
             element={<CreateMemory loggedInMember={loggedInMember} />}

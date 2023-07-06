@@ -27,16 +27,6 @@
   align-items: center;
 }
 
-/* .bio-image {
-  margin-left: auto;
-  margin-right: auto;
-  height: 50vh;
-  max-width: 500px;
-  object-fit: contain;
-
-
-} */
-
 .bio-image {
 object-fit: cover;
 margin-left: auto;
@@ -132,7 +122,6 @@ image-resolution: unset;
   font-family: "Playfair";
 }
 
-
 .input-group {
   margin-left: 20px;
 }
@@ -206,6 +195,8 @@ image-resolution: unset;
 .members-container {
   display: flex;
   height: auto;
+  justify-content: center;
+  align-items: center;
   margin-left: auto;
   margin-right: auto;
 }
@@ -223,7 +214,6 @@ image-resolution: unset;
 }
 
 .memory-card-body {
-  height: 60vh;
   margin-left: auto;
   margin-right: auto;
 }
@@ -249,7 +239,7 @@ image-resolution: unset;
 .memories-image {
   margin-left: auto;
   margin-right: auto;
-  height: 80vh;
+  height: 50vh;
   object-fit: cover;
 }
 
@@ -328,7 +318,7 @@ image-resolution: unset;
 }
 
 .reunion-card-body {
-  height: 25vh;
+  height: 30vh;
   background-color: whitesmoke;
 }
 

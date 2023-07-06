@@ -11,7 +11,7 @@ const memberRoutes = require("./routes/members.js");
 const memoryRoutes = require("./routes/memories.js");
 const loginRoutes = require("./routes/login.js");
 const reunionRoutes = require("./routes/reunions.js");
-const nextReunionRoutes = require("./routes/nextReunions.js")
+const nextReunionRoutes = require("./routes/nextReunions.js");
 const joinRoutes = require("./routes/join.js");
 
 const app = express();
@@ -19,30 +19,27 @@ const app = express();
 //SUGGESTION FROM STACK OVERFLOW
 // app.use(express.static(path.join(__dirname, "../client/build")))
 
-//INGRID'S SUGGESTION
+
 // const filePath = path.join(__dirname, "public", "index.html");
 // console.log(__dirname);
 
-//INGRID WONDERED WHAT THIS WAS AND WHETHER IT SHOULD BE THERE 
 
 //ENABLE WHEN BACK TO PRODUCTION ENVIRONMENT!
-// app.get("/*", function (req, res) {
-//   res.sendFile("this worked", filePath);
-//   console.log(filePath);
-// });
+app.get("/*", function (req, res) {
+  res.sendFile("this worked", filePath);
+  console.log(filePath);
+});
+
+//USE WHEN IN PRODUCTION
+if (process.env.NODE_ENV === 'production') {
+  //*Set static folder up in production
+  app.use(express.static('client/build'));
 
 
-
-// USE THIS??? FOR RENDER DEPLOYMENT????  FROM RENDER SUGGESTIONS 
-// if (process.env.NODE_ENV === 'production') {
-//   //*Set static folder up in production
-//   app.use(express.static('client/build'));
-
-// 
-// }l
+}
 
 app.use((req, res, next) => {
-  console.log('line 30')
+  console.log("line 30");
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Headers",
@@ -57,6 +54,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
+//FOR DEBUGGING
 // app.use((req, res, next) => {
 //   console.log(req.path, req.method);
 //   next();
@@ -69,11 +67,10 @@ app.use("/api/nextReunions", memberAccess, nextReunionRoutes);
 app.use("/api/join", joinRoutes);
 app.use("/api/login", loginRoutes);
 
-
-if (process.env.MODE==="production") {
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/build", "index.html"))
-  })
+if (process.env.MODE === "production") {
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+  });
 }
 
 app.use(restrictedAccess);
@@ -93,4 +90,3 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-

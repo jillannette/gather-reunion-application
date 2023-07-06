@@ -41,8 +41,6 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
     });
   };
 
-  
-
   const updateMember = (e) => {
     const config = {
       headers: {
@@ -110,7 +108,7 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
             <Col className="profile-col">
               <Card key={memberProfile._id} style={{ width: "60rem" }}>
                 <Card.Img
-                  style={{width: 400, height: 400}}
+                  style={{ width: 400, height: 400 }}
                   className="profile-image"
                   variant="top"
                   src={memberProfile.image_url}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Form, Button } from "react-bootstrap";
 import axios from "axios";
-import { BASE_URL } from '../App.js';
+import { BASE_URL } from "../App.js";
 
 const CreateMemory = ({ loggedInMember }) => {
   const navigate = useNavigate();
@@ -25,8 +25,8 @@ const CreateMemory = ({ loggedInMember }) => {
   };
 
   const handleCancel = () => {
-    navigate('/memories')
-  }
+    navigate("/memories");
+  };
 
   async function createMemory(e) {
     setLoading(true);
@@ -106,7 +106,10 @@ const CreateMemory = ({ loggedInMember }) => {
                 Submit
               </Button>
               &nbsp;&nbsp;
-              <Button onClick={handleCancel} variant="warning" type="button" > Cancel</Button>
+              <Button onClick={handleCancel} variant="warning" type="button">
+                {" "}
+                Cancel
+              </Button>
             </Form.Group>
           </Form>
         </Container>

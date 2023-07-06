@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Card, Col, Container, Row, Button, Form } from "react-bootstrap";
 import axios from "axios";
-import { BASE_URL } from '../App.js';
+import { BASE_URL } from "../App.js";
 
 const ReunionPhotos = ({ loggedInMember }) => {
   const params = useParams();
@@ -21,7 +21,7 @@ const ReunionPhotos = ({ loggedInMember }) => {
     if (loggedInMember) {
       getPhotos();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedInMember]);
 
   async function getPhotos() {
@@ -64,11 +64,7 @@ const ReunionPhotos = ({ loggedInMember }) => {
       },
     };
     axios
-      .post(
-        `${BASE_URL}/api/reunions/${params.year}`,
-        newReunionPhoto,
-        config
-      )
+      .post(`${BASE_URL}/api/reunions/${params.year}`, newReunionPhoto, config)
       .then((response) => {
         console.log(response.data);
         setReunionPhotos((prevPhotos) => [...prevPhotos, newReunionPhoto]);

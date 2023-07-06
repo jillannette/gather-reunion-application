@@ -14,7 +14,7 @@ const Memories = ({ loggedInMember }) => {
       getMemories();
     } else {
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedInMember]);
 
   async function getMemories() {
@@ -26,8 +26,6 @@ const Memories = ({ loggedInMember }) => {
     await axios
       .get(`${BASE_URL}/api/memories`, config)
       .then((response) => {
-        console.log("memories", response.data);
-        console.log('comments', response.data.memories.comments)
         setMemories(response.data.memories);
       })
       .catch((error) => {

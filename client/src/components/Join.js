@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import axios from "axios";
-import { BASE_URL } from '../App.js';
+import { BASE_URL } from "../App.js";
 
 const Join = ({ setLoggedInMember }) => {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const Join = ({ setLoggedInMember }) => {
     password: "",
     nameAtGraduation: "",
     currentName: "",
-    residesIn: '',
+    residesIn: "",
     image_url: "",
     bio: "",
   });
@@ -30,10 +30,9 @@ const Join = ({ setLoggedInMember }) => {
 
   const createMember = async (e) => {
     e.preventDefault();
-  
-   
+
     await axios
-    
+
       .post(`${BASE_URL}/api/join`, newMember)
       .then((response) => {
         console.log(response.data);
@@ -51,15 +50,13 @@ const Join = ({ setLoggedInMember }) => {
         navigate("/members");
       })
       .catch((error) => {
-        alert('Email or password does not match registered member', error)
-        setError(error)
+        alert("Email or password does not match registered member", error);
+        setError(error);
         navigate("/login");
-      })
-  }
+      });
+  };
 
-if (error) return "error";
-
-
+  if (error) return "error";
 
   return (
     <>

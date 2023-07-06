@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-import Col from 'react-bootstrap/Col';
+import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import axios from "axios";
-import { BASE_URL} from '../App.js';
+import { BASE_URL } from "../App.js";
 
 const Login = ({ setLoggedInMember }) => {
   const navigate = useNavigate();
@@ -45,12 +45,11 @@ const Login = ({ setLoggedInMember }) => {
         navigate("/members");
       })
       .catch((error) => {
-        alert('Email or password does not match registered member', error)
-        setError(error)
+        alert("Email or password does not match registered member", error);
+        setError(error);
         navigate("/login");
-        
-      })
-    }
+      });
+  }
 
   if (error) return "error";
 
@@ -61,13 +60,13 @@ const Login = ({ setLoggedInMember }) => {
           <h1 className="center-headline">Login</h1>
         </div>
         <br></br>
-          
+
         <Container className="login-border">
-          <Col className='login-form-background'>
+          <Col className="login-form-background">
             <Form className="form" onSubmit={login}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
-              <br></br>  
-             
+                <br></br>
+
                 <Form.Label>Email address</Form.Label>
                 <Form.Control
                   type="email"
@@ -78,7 +77,7 @@ const Login = ({ setLoggedInMember }) => {
                 />
               </Form.Group>
               <br></br>
-              
+
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
@@ -93,8 +92,7 @@ const Login = ({ setLoggedInMember }) => {
                 Log In
               </Button>
             </Form>
-            </Col>
-     
+          </Col>
         </Container>
       </div>
     </>

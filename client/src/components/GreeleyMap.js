@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  GoogleMap,
-  Marker,
-  LoadScript,
-} from "@react-google-maps/api";
+import { GoogleMap, Marker, LoadScript } from "@react-google-maps/api";
 
 import Container from "react-bootstrap/Container";
 

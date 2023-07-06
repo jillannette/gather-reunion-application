@@ -7,7 +7,7 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import "../App.css";
 import axios from "axios";
-import { BASE_URL } from '../App.js';
+import { BASE_URL } from "../App.js";
 
 const Reunions = ({ loggedInMember }) => {
   const navigate = useNavigate();
@@ -19,6 +19,7 @@ const Reunions = ({ loggedInMember }) => {
     if (loggedInMember) {
       getReunions();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedInMember]);
 
   async function getReunions() {
@@ -57,8 +58,6 @@ const Reunions = ({ loggedInMember }) => {
 
       <div>
         <h1 className="reunion-headline">Reunions</h1>
-
-        
       </div>
 
       <Container>
@@ -73,7 +72,13 @@ const Reunions = ({ loggedInMember }) => {
                     src={reunion.cover_image_url}
                   />
                   <Card.Body className="reunion-card-body">
-                    <Card.Title style={{ backgroundColor: "white", display: 'flex', fontWeight: 'bold' }}>
+                    <Card.Title
+                      style={{
+                        backgroundColor: "white",
+                        display: "flex",
+                        fontWeight: "bold",
+                      }}
+                    >
                       {reunion.year}
                     </Card.Title>
                     <hr></hr>
@@ -91,7 +96,6 @@ const Reunions = ({ loggedInMember }) => {
                 </Card>
                 <br></br>
               </Col>
-             
             );
           })}
           ;

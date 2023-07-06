@@ -18,7 +18,9 @@ const NavBar = ({ loggedInMember, handleLogout }) => {
         <Nav className="me-auto align-items-center">
           <Nav.Link href="/">Home</Nav.Link>
           {loggedInMember ? (
-            <Nav.Link href="profile" onClick={() => navigate("/profile")}>Profile</Nav.Link>
+            <Nav.Link href="profile" onClick={() => navigate("/profile")}>
+              Profile
+            </Nav.Link>
           ) : (
             <>
               <Nav.Link href="login">Login</Nav.Link>
@@ -35,7 +37,10 @@ const NavBar = ({ loggedInMember, handleLogout }) => {
           <Nav.Link href="reunions" onClick={() => navigate("/reunions")}>
             Reunions
           </Nav.Link>
-          <Nav.Link href="nextReunions" onClick={() => navigate("/nextReunions")}>
+          <Nav.Link
+            href="nextReunions"
+            onClick={() => navigate("/nextReunions")}
+          >
             2026 Reunion
           </Nav.Link>
           {loggedInMember && (

@@ -19,7 +19,7 @@ const Members = ({ loggedInMember }) => {
       getMembers();
     } else {
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedInMember]);
 
   async function getMembers() {
@@ -55,13 +55,13 @@ const Members = ({ loggedInMember }) => {
         <h1 className="center-headline">Class Members</h1>
       </div>
 
-      <div style={{ container: "container-fluid" }}>
+      <div >
         <Container className="members-container">
           <Row>
             {members.map((member) => {
               return (
                 <Col key={member._id} s={12} md={6} lg={4} xl={4}>
-                  <Card style={{ width: "20rem" }}>
+                  <Card style={{ width: "25rem" }}>
                     <Card.Img
                       className="members-card-image"
                       variant="top"

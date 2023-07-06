@@ -45,13 +45,12 @@ const Login = ({ setLoggedInMember }) => {
         navigate("/members");
       })
       .catch((error) => {
-        alert("Email or password does not match registered member", error);
-        setError(error);
-        navigate("/login");
+        alert("Email or password does not match a registered member.  Try to login again", error);
+        navigate('/login');
       });
   }
 
-  if (error) return "error";
+  if (error) alert (error);
 
   return (
     <>

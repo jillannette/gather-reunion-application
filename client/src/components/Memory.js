@@ -1,11 +1,66 @@
 import React, { useState } from "react";
-import CreateComment from "./CreateComment";
-
-import { Container, Card, Row, Col, Button, ListGroup } from "react-bootstrap";
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../App.js';
+import { Container, Card, Row, Col, Button, ListGroup,  } from "react-bootstrap";
 
 const Memory = ({ memory, loggedInMember }) => {
-  const [showAddCommentBox, setShowAddCommentBox] = useState(false);
-  return (
+  
+  const navigate = useNavigate();
+  const memberId = loggedInMember.memberId;
+  console.log(memberId) //ok
+  console.log(loggedInMember) //ok
+  
+  const memoryId = memory._id;
+  console.log(memoryId)  //ok
+
+  // const [showAddCommentBox, setShowAddCommentBox] = useState(false);
+  const [newComment, setNewComment] = useState({
+    member: memberId,
+    text: ''
+  });
+  
+  const [error, setError] = useState(null);
+
+  const handleChange = (e) => {
+    setNewComment({
+      ...newComment,
+      [e.target.name]: e.target.value,
+      
+    });
+  };
+console.log(newComment)
+  
+  const handleCancel = () => {
+    navigate('/memories')
+  }
+
+  async function addComment(e) {
+    e.preventDefault();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${loggedInMember.token}`,
+      },
+    };
+    axios
+      .post(`${BASE_URL}/api/memories/${memory}`, newComment, config)
+      .then((response) => {
+        console.log(response.data);
+        setNewComment('')
+       
+      })
+      .catch((error) => {
+        console.error("Error fetching data: ", error);
+        setError(error);
+      })
+  
+  }
+
+
+  if (error) return "error";
+
+
+ return (
     <>
       <Container>
         <Card key={memory._id}>
@@ -23,36 +78,52 @@ const Memory = ({ memory, loggedInMember }) => {
                 <ListGroup>
                   <ListGroup.Item>{memory.text}</ListGroup.Item>
                 </ListGroup>
-                {memory.comments.map((comment) => {
+                {memory.comments.map((comment, index) => {
                   return (
-                    <>
+                    <React.Fragment key={index}>
                       <br></br>
                       <ListGroup>
                         <Card.Text>
-                          {comment.nameAtGraduation} commented...{" "}
+                          {/* {comment.member.nameAtGraduation} commented...{" "} */}
                         </Card.Text>
                         <ListGroup.Item>{comment.text}</ListGroup.Item>
                       </ListGroup>
-                    </>
+                    </React.Fragment>
                   );
                 })}
                 <br></br>
 
-                {!showAddCommentBox ? (
+                {/* {!showAddCommentBox ? (
                   <Button
                     onClick={() => setShowAddCommentBox(true)}
                     variant="warning"
+                    type="submit"
                   >
                     Add Comments
                   </Button>
-                ) : (
-                  // This requires further development, which I will continue to work on 
-                  <CreateComment
-                    memory={memory._id}
-                    loggedInMember={loggedInMember}
-                    memberName={loggedInMember.memberId}
-                  />
-                )}
+                ) : ( */}
+                  <form onSubmit={addComment}>
+                    <textarea
+                      name="text"
+                      value={newComment.text}
+                      onChange={handleChange}
+                      rows="3"
+                    ></textarea>
+                    <br></br>
+                    <br></br>
+                    <Button variant="warning" type="submit">
+                      Add Comment
+                    </Button>
+                    
+                    &nbsp;&nbsp;
+                    {/* <Button
+                      variant="warning"
+                      onClick={() => setShowAddCommentBox(false)}
+                    >
+                      Cancel
+                    </Button> */}
+                  </form>
+                {/* )} */}
               </Card.Body>
             </Col>
           </Row>

@@ -27,6 +27,7 @@ const Memories = ({ loggedInMember }) => {
       .get(`${BASE_URL}/api/memories`, config)
       .then((response) => {
         console.log("memories", response.data);
+        console.log('comments', response.data.memories.comments)
         setMemories(response.data.memories);
       })
       .catch((error) => {

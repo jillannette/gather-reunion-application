@@ -11,9 +11,8 @@ const memberRoutes = require("./routes/members.js");
 const memoryRoutes = require("./routes/memories.js");
 const loginRoutes = require("./routes/login.js");
 const reunionRoutes = require("./routes/reunions.js");
-const nextReunionRoutes = require('./routes/nextReunions.js')
+const nextReunionRoutes = require("./routes/nextReunions.js")
 const joinRoutes = require("./routes/join.js");
-const registrationRoutes = require('./routes/registrations.js');
 
 const app = express();
 
@@ -67,7 +66,6 @@ app.use("/api/members", memberAccess, memberRoutes);
 app.use("/api/memories", memberAccess, memoryRoutes);
 app.use("/api/reunions", memberAccess, reunionRoutes);
 app.use("/api/nextReunions", memberAccess, nextReunionRoutes);
-app.use('/api/registrations', memberAccess, registrationRoutes);
 app.use("/api/join", joinRoutes);
 app.use("/api/login", loginRoutes);
 

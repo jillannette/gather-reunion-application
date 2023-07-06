@@ -57,15 +57,15 @@ const App = () => {
             element={<Join setLoggedInMember={setLoggedInMember} />}
           />
           <Route
-            path="/members"
+            path="/members"  //get all members
             element={<Members loggedInMember={loggedInMember} />}
           />
           <Route
-            path="/members/:id"
+            path="/members/:id"  
             element={<MemberBio loggedInMember={loggedInMember} />}
           />
           <Route
-            path="/profile"
+            path="/profile"  //loggedInMember
             element={
               <MemberProfile
                 loggedInMember={loggedInMember}
@@ -75,24 +75,24 @@ const App = () => {
           />
 
           <Route
-            path="/memories"
+            path="/memories"   //get all memories
+            element={<Memories loggedInMember={loggedInMember} />}
+          />
+          <Route
+            path="/memories/:id"  //getMemory
             element={<Memories loggedInMember={loggedInMember} />}
           />
           <Route  //createComment
             path="/memories/:id/comments"
             element={<Memories loggedInMember={loggedInMember} />}
           />
-          <Route  //getComments
-            path="/memories/:id/comments"
-            element={<Memories loggedInMember={loggedInMember} />}
-          />
-          
+                  
           <Route
-            path="/reunions"
+            path="/reunions"  //get all reunions
             element={<Reunions loggedInMember={loggedInMember} />}
           />
           <Route
-            path="/createReunion"
+            path="/createReunion"  
             element={<CreateReunion loggedInMember={loggedInMember} />}
           />
           <Route

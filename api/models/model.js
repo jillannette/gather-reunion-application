@@ -1,18 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const memorySchema = new Schema(
+const commentSchema = new Schema(
   {
-    image_url: { type: String, required: true },
-    member: { type: Schema.Types.ObjectId, ref: "Member" },
-    subject: { type: String, required: true },
-    text: { type: String, required: true },
-    comments: [
-      {
-        memberName: String,
-        text: String, //removed timestamp true, refactor using correct syntax
-      },
-    ],
+  author: { type: String },
+  text: { type: String, required: true }
   },
   { timestamps: true }
 );
@@ -32,29 +24,22 @@ const memberSchema = new Schema(
         ref: "Memory",
       },
     ],
-    comments: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Comment"
-      }
-    ],
+  },
+  { timestamps: true }
+);
+    
+const memorySchema = new Schema(
+  {
+    image_url: { type: String, required: true },
+    member: { type: Schema.Types.ObjectId, ref: "Member" },
+    subject: { type: String, required: true },
+    text: { type: String, required: true },
+    comments: [commentSchema]
   },
   { timestamps: true }
 );
 
-
-//FOR FUTURE USE 
-// const registrationSchema = new Schema(   //could be reworked in future using on reunion 
-//   {
-//   name: { type: String, required: true },
-//   email: { type: String, required: true},
-//   numberAttending: { type: Number, default: 1, required: true},
-//   cost: { type: Number, required: true},
-//   }
-// )
-
-
-const nextReunionSchema = new Schema( //schema not needed for this, could just do a route  
+const nextReunionSchema = new Schema( 
   {
     cover_image_url: { type: String, required: true },
     date: { type: String, required: true },
@@ -62,9 +47,8 @@ const nextReunionSchema = new Schema( //schema not needed for this, could just d
     description: { type: String, required: true },
   }, 
   { timestamps: true }
-)
+);
 
-//could replicate comments and just make reunionphotos an array of [reunionphotoschema]
 const reunionSchema = new Schema(   
   {
     year: { type: Number, required: true },
@@ -89,13 +73,11 @@ const reunionPhotoSchema = new Schema(
   { timestamps: true }
 );
 
-//FOR FUTURE USE 
-// const Registration = mongoose.model("Registration", registrationSchema);
-
-const Memory = mongoose.model("Memory", memorySchema);
+const Comment = mongoose.model("Comment", commentSchema);
 const Member = mongoose.model("Member", memberSchema);
-const Reunion = mongoose.model("Reunion", reunionSchema);
+const Memory = mongoose.model("Memory", memorySchema);
 const NextReunion = mongoose.model("NextReunion", nextReunionSchema);
+const Reunion = mongoose.model("Reunion", reunionSchema);
 const ReunionPhoto = mongoose.model("ReunionPhoto", reunionPhotoSchema);
 
-module.exports = { Memory, Member, Reunion, NextReunion, ReunionPhoto };
+module.exports = { Comment, Member, Memory, NextReunion, Reunion, ReunionPhoto };

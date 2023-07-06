@@ -6,7 +6,6 @@ const {
       
 } = require('../controllers/authController')
 
-
 router.get('/', restrictedAccess)
 
 module.exports = router;

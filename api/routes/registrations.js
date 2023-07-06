@@ -1,22 +1,24 @@
-const express = require("express");
-const router = express.Router();
+//FOR FUTURE USE 
 
-const {
-  getRegistrations,
-  getRegistration,
-  createNewRegistration,
-  updatedRegistration,
-  deletedRegistration
-} = require("../controllers/registrationController");
+// const express = require("express");
+// const router = express.Router();
 
-router.get("/", getRegistrations) 
+// const {
+//   getRegistrations,
+//   getRegistration,
+//   createNewRegistration,
+//   updatedRegistration,
+//   deletedRegistration
+// } = require("../controllers/registrationController");
 
-router.get('/:id', getRegistration)
+// router.get("/", getRegistrations) 
 
-router.post('/', createNewRegistration)
+// router.get('/:id', getRegistration)
 
-router.patch('/:id', updatedRegistration)
+// router.post('/', createNewRegistration)
 
-router.delete("/:id", deletedRegistration)
+// router.patch('/:id', updatedRegistration)
 
-module.exports = router;
+// router.delete("/:id", deletedRegistration)
+
+// module.exports = router;

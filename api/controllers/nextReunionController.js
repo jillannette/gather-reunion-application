@@ -1,7 +1,7 @@
 const { NextReunion } = require("../models/model");
 
 const getNextReunions = async (req, res, next) => {
-  console.log('get nextReunions', req.member);
+  console.log("get nextReunions", req.member);
 
   if (!req.member) {
     next();
@@ -9,9 +9,8 @@ const getNextReunions = async (req, res, next) => {
   }
 
   try {
-    const nextReunions = await NextReunion.find({ })
-    .sort ({ createdAt: -1 })
-    res.status(200).json({ nextReunions })
+    const nextReunions = await NextReunion.find({}).sort({ createdAt: -1 });
+    res.status(200).json({ nextReunions });
   } catch (err) {
     res.status(500).json({
       err: "An unexpected error has occurred",
@@ -28,22 +27,19 @@ const getNextReunion = async (req, res, next) => {
   const { id } = req.params;
 
   try {
-    const nextReunion = await NextReunion.findById({ _id: id })
-    
-  if (!nextReunion) {
-    return res
-      .status(404)
-      .json({ err: "Next Reunion does not exist " });
+    const nextReunion = await NextReunion.findById({ _id: id });
+
+    if (!nextReunion) {
+      return res.status(404).json({ err: "Next Reunion does not exist " });
+    }
+
+    res.status(200).json(nextReunion);
+  } catch (err) {
+    res.status(500).json({
+      err: "An unexpected error has occurred",
+    });
   }
-
-  res.status(200).json(nextReunion);
- } catch (err) {
-  res.status(500).json({
-    err: "An unexpected error has occurred"
-  })
- }
 };
-
 
 const createNextReunion = async (req, res, next) => {
   if (!req.member) {

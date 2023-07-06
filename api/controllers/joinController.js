@@ -6,7 +6,7 @@ const join = async (req, res) => {
   console.log("join route", req.body);
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    console.count()
+    console.count();
     const member = await Member.create({
       email: req.body.email,
       password: hashedPassword,
@@ -16,8 +16,8 @@ const join = async (req, res) => {
       image_url: req.body.image_url,
       bio: req.body.bio,
     });
-    console.log('new member', member)
-    
+    console.log("new member", member);
+
     const token = jwt.sign(
       {
         memberId: member._id,
@@ -27,7 +27,7 @@ const join = async (req, res) => {
       { expiresIn: "48h" }
     );
 
-    console.log('token', token);
+    console.log("token", token);
 
     res.status(200).json({
       message: "Member account created",

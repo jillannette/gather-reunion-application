@@ -105,7 +105,6 @@ const addReunionPhotos = async (req, res, next) => {
   res.status(200).json(newReunionPhoto);
 };
 
-//THIS DOES NOT WORK AS IT IS WRITTEN - CANNOT PATCH THIS WAY DUE TO CONTROLLED YEAR.
 const updateReunion = async (req, res, next) => {
   console.log("update reunion", req.member);
 

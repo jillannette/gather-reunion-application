@@ -1,145 +1,147 @@
-const { Registration } = require("../models/model");
+//FOR FUTURE USE 
 
-const getRegistrations = async (req, res, next) => {
-  console.log("get registrations", req.member);
+// const { Registration } = require("../models/model");
 
-  if (!req.member) {
-    next();
-    return;
-  }
+// const getRegistrations = async (req, res, next) => {
+//   console.log("get registrations", req.member);
 
-  try {
-    await Registration.find({})
-      .sort({ createdAt: -1 })
-      .then((registrations) => {
-        res.status(200).json({ registrations });
-      });
-  } catch (err) {
-    res.status(500).json({
-      err: "An unexpected error has occurred",
-    });
-  }
-};
+//   if (!req.member) {
+//     next();
+//     return;
+//   }
 
-const getRegistration = async (req, res, next) => {
-  console.log("get registration", req.member);
+//   try {
+//     await Registration.find({})
+//       .sort({ createdAt: -1 })
+//       .then((registrations) => {
+//         res.status(200).json({ registrations });
+//       });
+//   } catch (err) {
+//     res.status(500).json({
+//       err: "An unexpected error has occurred",
+//     });
+//   }
+// };
 
-  if (!req.member) {
-    next();
-    return;
-  }
+// const getRegistration = async (req, res, next) => {
+//   console.log("get registration", req.member);
 
-  const { id } = req.params;
+//   if (!req.member) {
+//     next();
+//     return;
+//   }
 
-  try {
-    const registration = await Registration.findById({ _id: id }).sort({
-      createdAt: -1,
-    });
+//   const { id } = req.params;
 
-    if (!registration) {
-      return res.status(404).json({
-        err: "Registration does not exist in database",
-      });
-    }
+//   try {
+//     const registration = await Registration.findById({ _id: id }).sort({
+//       createdAt: -1,
+//     });
 
-    res.status(200).json(registration);
-  } catch (err) {
-    res.status(500).json({
-      err: "An unexpected error has occurred",
-    });
-  }
-};
+//     if (!registration) {
+//       return res.status(404).json({
+//         err: "Registration does not exist in database",
+//       });
+//     }
 
-const createNewRegistration = async (req, res, next) => {
-  console.log("create new registration", req.member);
+//     res.status(200).json(registration);
+//   } catch (err) {
+//     res.status(500).json({
+//       err: "An unexpected error has occurred",
+//     });
+//   }
+// };
 
-  if (!req.member) {
-    next();
-    return;
-  }
+// const createNewRegistration = async (req, res, next) => {
+//   console.log("create new registration", req.member);
 
-  const { name, email, numberAttending, cost } = req.body;
+//   if (!req.member) {
+//     next();
+//     return;
+//   }
 
-  try {
-    const newRegistration = await Registration.create({
-      name,
-      email,
-      numberAttending,
-      cost,
-    });
+//   const { name, email, numberAttending, cost } = req.body;
 
-    newRegistration.save();
+//   try {
+//     const newRegistration = await Registration.create({
+//       name,
+//       email,
+//       numberAttending,
+//       cost,
+//     });
 
-    res.status(200).json(newRegistration);
-  } catch (error) {
-    res.status(500).json({
-      err: "Unable to complete request",
-    });
-  }
-};
+//     newRegistration.save();
 
-const deletedRegistration = async (req, res, next) => {
-  console.log("delete registration", req.member);
+//     res.status(200).json(newRegistration);
+//   } catch (error) {
+//     res.status(500).json({
+//       err: "Unable to complete request",
+//     });
+//   }
+// };
 
-  if (!req.member) {
-    next();
-    return;
-  }
+// const deletedRegistration = async (req, res, next) => {
+//   console.log("delete registration", req.member);
 
-  const { id } = req.params;
+//   if (!req.member) {
+//     next();
+//     return;
+//   }
 
-  try {
-    const deletedRegistration = await Registration.deleteOne(
-      deletedRegistration
-    );
+//   const { id } = req.params;
 
-    console.log(deletedRegistration);
+//   try {
+//     const deletedRegistration = await Registration.deleteOne(
+//       deletedRegistration
+//     );
 
-    res.status(200).json({
-      message: "Registration has been deleted from database",
-      deletedRegistration,
-    });
-  } catch (err) {
-    res.status(500).json({
-      err: "Unable to complete request",
-    });
-  }
-};
+//     console.log(deletedRegistration);
 
-const updatedRegistration = async (req, res, next) => {
-  console.log("updated registration", req.member);
+//     res.status(200).json({
+//       message: "Registration has been deleted from database",
+//       deletedRegistration,
+//     });
+//   } catch (err) {
+//     res.status(500).json({
+//       err: "Unable to complete request",
+//     });
+//   }
+// };
 
-  if (!req.member) {
-    next();
-    return;
-  }
+// const updatedRegistration = async (req, res, next) => {
+//   console.log("updated registration", req.member);
 
-  const { id } = req.params;
+//   if (!req.member) {
+//     next();
+//     return;
+//   }
 
-  try {
-    const registration = await Registration.findOneAndUpdate(
-      { _id: id },
-      req.body,
-      {
-        new: true,
-      }
-    );
+//   const { id } = req.params;
 
-    res.status(200).json({
-      message: "Registration updated!",
-      registration,
-    });
-  } catch (err) {
-    res.status(500).json({
-      err: "Unable to complete request",
-    });
-  }
-};
+//   try {
+//     const registration = await Registration.findOneAndUpdate(
+//       { _id: id },
+//       req.body,
+//       {
+//         new: true,
+//       }
+//     );
 
-module.exports = {
-  getRegistrations,
-  getRegistration,
-  createNewRegistration,
-  deletedRegistration,
-  updatedRegistration,
-};
+//     res.status(200).json({
+//       message: "Registration updated!",
+//       registration,
+//     });
+//   } catch (err) {
+//     res.status(500).json({
+//       err: "Unable to complete request",
+//     });
+//   }
+// };
+
+// module.exports = {
+//   getRegistrations,
+//   getRegistration,
+//   createNewRegistration,
+//   deletedRegistration,
+//   updatedRegistration,
+// };

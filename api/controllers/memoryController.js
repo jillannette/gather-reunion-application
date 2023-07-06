@@ -1,4 +1,4 @@
-const { Memory, Member, Comment } = require("../models/model");
+const { Memory, Member } = require("../models/model");
 
 const getMemories = async (req, res, next) => {
   console.log("get memories", req.member);
@@ -11,10 +11,8 @@ const getMemories = async (req, res, next) => {
   try {
     const memories = await Memory.find({})
       .sort({ createdAt: -1 })
-      .populate("member", "nameAtGraduation")
-      .populate("comments")
-      
-      
+      .populate("member", "nameAtGraduation");
+
     res.status(200).json({ memories });
   } catch (err) {
     res.status(500).json({
@@ -32,17 +30,14 @@ const getMemory = async (req, res, next) => {
   }
 
   const memory = await Memory.findById({ _id: req.params.id })
-      .sort({ createdAt: -1 })
-      .populate("member", "nameAtGraduation")
-      .populate("comments")
-     
-      .sort({createdAt: -1})
+    .sort({ createdAt: -1 })
+    .populate("member", "nameAtGraduation")
 
-    
-    res.status(200).json(memory)
-  };
+    .sort({ createdAt: -1 });
 
-  
+  res.status(200).json(memory);
+};
+
 const createMemory = async (req, res, next) => {
   console.log("create memory", req.member);
 
@@ -75,31 +70,6 @@ const createMemory = async (req, res, next) => {
     res.status(500).json({
       err: "Unable to complete request",
     });
-  }
-};
-
-const createComment = async (req, res, next) => {
-  
-  if (!req.member) {
-    next();
-    return;
-  }
-
-  try {
-    const memory = Memory.findById(req.params.memoryId);
-
-    const newComment = {
-      text: req.body.text,
-      author: req.member.memberId
-    };
-
-    memory.comments.push(newComment);
-    await memory.save();
-
-    res.status(200).json(memory);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({error: 'Server error'});
   }
 };
 
@@ -191,7 +161,6 @@ module.exports = {
   getMemories,
   getMemory,
   createMemory,
-  createComment,
   deleteMemory,
   updateMemory,
 };

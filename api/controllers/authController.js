@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 
 const memberAccess = async (req, res, next) => {
   try {
-    
     const token = await req.headers.authorization?.split(" ")[1]; //if, split on space
     // console.log("memberAccess", token); //ok
 
@@ -29,8 +28,7 @@ const memberAccess = async (req, res, next) => {
 
 const restrictedAccess = (req, res) => {
   res.json({
-    message:
-      "Access denied - You must be a member to use this app",
+    message: "Access denied - You must be a member to use this app",
   });
 };
 

@@ -19,38 +19,34 @@ const app = express();
 //SUGGESTION FROM STACK OVERFLOW
 // app.use(express.static(path.join(__dirname, "../client/build")))
 
-
+//
 // const filePath = path.join(__dirname, "public", "index.html");
 // console.log(__dirname);
 
 
-//ENABLE WHEN BACK TO PRODUCTION ENVIRONMENT!
-app.get("/*", function (req, res) {
-  res.sendFile("this worked", filePath);
-  console.log(filePath);
-});
-
-//USE WHEN IN PRODUCTION
-if (process.env.NODE_ENV === 'production') {
-  //*Set static folder up in production
-  app.use(express.static('client/build'));
+// //ENABLE WHEN BACK TO PRODUCTION ENVIRONMENT!
+// app.get("/*", function (req, res) {
+//   res.sendFile("this worked", filePath);
+//   console.log(filePath);
+// });
 
 
-}
 
-app.use((req, res, next) => {
-  console.log("line 30");
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-  );
-  next();
-});
+
+//DO NOT USE IN PRODUCTION MODE
+// app.use((req, res, next) => {
+//   console.log("line 30");
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
+//   );
+//   res.setHeader(
+//     "Access-Control-Allow-Methods",
+//     "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+//   );
+//   next();
+// });
 
 app.use(express.json());
 
@@ -67,6 +63,7 @@ app.use("/api/nextReunions", memberAccess, nextReunionRoutes);
 app.use("/api/join", joinRoutes);
 app.use("/api/login", loginRoutes);
 
+//USE WHEN IN PRODUCTION
 if (process.env.MODE === "production") {
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../client/build", "index.html"));

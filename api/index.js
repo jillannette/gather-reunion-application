@@ -16,13 +16,6 @@ const joinRoutes = require("./routes/join.js");
 
 const app = express();
 
-//SUGGESTION FROM STACK OVERFLOW
-// app.use(express.static(path.join(__dirname, "../client/build")))
-
-//
-// const filePath = path.join(__dirname, "public", "index.html");
-// console.log(__dirname);
-
 
 // //ENABLE WHEN BACK TO PRODUCTION ENVIRONMENT!
 // app.get("/*", function (req, res) {
@@ -30,23 +23,19 @@ const app = express();
 //   console.log(filePath);
 // });
 
-
-
-
-//DO NOT USE IN PRODUCTION MODE
-// app.use((req, res, next) => {
-//   console.log("line 30");
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   res.setHeader(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
-//   );
-//   res.setHeader(
-//     "Access-Control-Allow-Methods",
-//     "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-//   );
-//   next();
-// });
+app.use((req, res, next) => {
+  console.log("line 30");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+  );
+  next();
+});
 
 app.use(express.json());
 

@@ -3,8 +3,8 @@ import { GoogleMap, Marker, LoadScript } from "@react-google-maps/api";
 
 import Container from "react-bootstrap/Container";
 
-const mapStyles = {
-  height: "70vh",
+const containerStyle = {
+  height: "80vh",
   width: "100%",
 };
 
@@ -21,19 +21,25 @@ const venue = {
   },
 };
 
+const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY
+
+
 const GreeleyMap = () => {
+ 
   return (
     <>
       <Container className="nextReunion-container">
         <div className="map">
-          <LoadScript googleMapsApiKey="AIzaSyC1T3tQzYXuNQCwawIlrc3VBAavoT8cBFA">
-            <GoogleMap mapContainerStyle={mapStyles} center={center} zoom={13}>
+          <LoadScript googleMapsApiKey={GOOGLE_API_KEY}>
+            <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={13}
+            >
               <Marker
                 key={venue.name}
                 position={venue.location}
                 label={venue.name}
                 setVisible="true"
                 setShape="MarkerShapeCircle"
+                
               />
             </GoogleMap>
           </LoadScript>

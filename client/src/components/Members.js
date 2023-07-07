@@ -90,6 +90,7 @@ const Members = ({ loggedInMember }) => {
                         {member.residesIn}
                       </Card.Title>
                     </Card.Body>
+                 
                     <Button
                       onClick={() => getMemberBio(member._id)}
                       variant="warning"

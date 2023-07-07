@@ -46,7 +46,6 @@ const NextReunions = ({ loggedInMember }) => {
         <h1 className="reunion-headline">2026 Reunion</h1>
       </div>
 
-      <br></br>
       {nextReunions.map((nextReunion) => {
         return (
           <Container className="nextReunion-container" l={12}>
@@ -59,10 +58,10 @@ const NextReunions = ({ loggedInMember }) => {
                     </Card.Title>
                     <hr></hr>
                     <Card.Text>
-                      WHEN: &nbsp; Tentatively scheduled for {nextReunion.date}
+                      <strong>WHEN:</strong> &nbsp; Tentatively scheduled for {nextReunion.date}
                     </Card.Text>
                     <Card.Text className="reunion-card-text">
-                      WHERE: &nbsp; {nextReunion.location}
+                      <strong>WHERE:</strong> &nbsp; {nextReunion.location}
                     </Card.Text>
                     <Card.Text className="reunion-card-text">
                       {nextReunion.description}
@@ -70,13 +69,17 @@ const NextReunions = ({ loggedInMember }) => {
 
                     <Card.Text>
                       <br></br>
-                      Friday: Happy Hour at Kenny's &nbsp; Saturday Aft: Picnic
-                      at Bittersweet Park &nbsp; Saturday Eve: Banquet at
+                      <strong>Friday: </strong>&nbsp;&nbsp; Happy Hour at Kenny's 
+                      <br></br>
+                      <strong>Saturday Aft:</strong>&nbsp;&nbsp; Picnic
+                      at Bittersweet Park  
+                      <br></br>
+                      <strong>Saturday Eve:</strong>&nbsp;&nbsp; Banquet at
                       Kenny's
                     </Card.Text>
 
                     <Card.Text>
-                      Register for Reunion here: &nbsp;
+                      <strong>Register for Reunion here:</strong> &nbsp;
                       <a href="https://buy.stripe.com/test_cN27sMefM5Lq0OQeUV">
                         https://buy.stripe.com/test_cN27sMefM5Lq0OQeUV
                       </a>

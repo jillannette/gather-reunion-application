@@ -100,8 +100,6 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
 
   return (
     <>
-      <br></br>
-      <br></br>
       <Container>
         {loggedInMember && (
           <Row>

@@ -96,7 +96,7 @@ const addReunionPhotos = async (req, res, next) => {
 
   const reunionToUpdate = await Reunion.findOneAndUpdate(
     { year: reunionYear },
-    { $push: { reunionPhotos: newReunionPhoto._id } },
+    { $push: { reunionPhotos: newReunionPhoto} },
     { new: true }
   );
 

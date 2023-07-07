@@ -50,8 +50,8 @@ const NextReunions = ({ loggedInMember }) => {
         return (
           <Container className="nextReunion-container" l={12}>
             <Card key={nextReunion._id}>
-              <Row className="nextReunion-card">
-                <Col>
+              <Row>
+                <Col className="nextReunion-card">
                   <Card.Body className="nextReunion-card-col">
                     <Card.Title style={{ display: "flex" }}>
                       Don't Miss It!

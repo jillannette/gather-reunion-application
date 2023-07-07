@@ -82,8 +82,9 @@ const ReunionPhotos = ({ loggedInMember }) => {
 
   return (
     <>
-      <div>
+      <div style={{width: 'fluid'}}>
         <Container className="addreunionphoto-container">
+          <Col >
           <br></br>
           <Form className="form" onSubmit={addReunionPhoto}>
             <Form.Group className="mb-3" controlId="addPhotoForm.ControlInput1">
@@ -115,6 +116,7 @@ const ReunionPhotos = ({ loggedInMember }) => {
               </Button>
             </Form.Group>
           </Form>
+          </Col>
         </Container>
       </div>
       <div>
@@ -140,7 +142,7 @@ const ReunionPhotos = ({ loggedInMember }) => {
           {reunionPhotos.map((reunionPhoto, index) => {
             return (
               <Col key={index}>
-                <Card s={12} md={6} lg={4} xl={4} style={{ width: "25rem" }}>
+                <Card className='reunionPhotos-card' s={12} md={6} lg={4} xl={4} style={{width: '20rem'}}>
                   <Card.Img
                     className="reunionPhotos-card-image"
                     variant="top"

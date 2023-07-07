@@ -47,13 +47,13 @@ const MemberBio = ({ loggedInMember }) => {
 
   return (
     <>
-      <Container>
+      <Container className='bio-container'>
         <Row>
           <Col className="bio-col">
-            <Card key={memberBio._id} style={{ width: "70rem" }}>
+            <Card key={memberBio._id} className='bio-card'>
               <Card.Img
                 className="bio-image"
-                style={{ width: 500, height: 500 }}
+                style={{ width: 350, height: 350 }}
                 src={memberBio.image_url}
               />
 

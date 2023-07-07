@@ -61,7 +61,7 @@ const Members = ({ loggedInMember }) => {
             {members.map((member) => {
               return (
                 <Col key={member._id} s={12} md={6} lg={4} xl={4}>
-                  <Card style={{ width: "25rem" }}>
+                  <Card >
                     <Card.Img
                       className="members-card-image"
                       variant="top"

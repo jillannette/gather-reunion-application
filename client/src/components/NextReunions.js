@@ -86,6 +86,8 @@ const NextReunions = ({ loggedInMember }) => {
                     </Card.Text>
                   </Card.Body>
                 </Col>
+              
+              
                 <Col className="nextReunion-image-col">
                   <Card.Img
                     className="nextReunion-image"
@@ -93,6 +95,7 @@ const NextReunions = ({ loggedInMember }) => {
                     src={nextReunion.cover_image_url}
                   />
                 </Col>
+              
                 <Col>
                   <GreeleyMap />
                 </Col>

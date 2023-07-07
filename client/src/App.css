@@ -286,7 +286,7 @@ image-resolution: unset;
 .nextReunion-image {
   height: 80vh;
   object-fit: cover;
-  width: 300px;
+  width: 400px;
 }
 
 .profile-card-body {

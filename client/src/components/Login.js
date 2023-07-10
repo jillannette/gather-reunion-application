@@ -26,7 +26,6 @@ const Login = ({ setLoggedInMember }) => {
 
   async function login(e) {
     e.preventDefault();
-    console.log(authMember);
     axios
       .post(`${BASE_URL}/api/login`, authMember)
       .then((response) => {

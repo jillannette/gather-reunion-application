@@ -17,7 +17,6 @@ const CreateMemory = ({ loggedInMember }) => {
   const [error, setError] = useState(null);
 
   const handleChange = (e) => {
-    console.log("e.target.name", e.target.name);
     setNewMemory({
       ...newMemory,
       [e.target.name]: e.target.value,
@@ -31,7 +30,6 @@ const CreateMemory = ({ loggedInMember }) => {
   async function createMemory(e) {
     setLoading(true);
     e.preventDefault();
-    console.log(newMemory);
     const config = {
       headers: {
         Authorization: `Bearer ${loggedInMember.token}`,

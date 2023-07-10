@@ -36,7 +36,6 @@ const MemberBio = ({ loggedInMember }) => {
     await axios
       .get(`${BASE_URL}/api/members/${params.id}`, config)
       .then((response) => {
-        console.log("response data", response.data.member); //member
         setMemberBio(response.data.member);
       })
       .catch((error) => {

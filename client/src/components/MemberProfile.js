@@ -32,7 +32,6 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedInMember]);
-  console.count();
 
   const handleChange = (e) => {
     setMemberProfile({
@@ -54,8 +53,6 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
         config
       )
       .then((response) => {
-        console.log("memberProfile", response.data);
-
         setMemberProfile(response.data);
         setEditMode(false);
       })
@@ -63,8 +60,6 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
         console.error("Error fetching data: ", error);
       });
   };
-
-  console.count();
 
   const deleteAccount = () => {
     const config = {
@@ -90,7 +85,6 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
     await axios
       .get(`${BASE_URL}/api/members/${loggedInMember.memberId}`, config)
       .then((response) => {
-        console.log("response", response.data.member);
         setMemberProfile(response.data.member);
       })
       .catch((error) => {
@@ -103,8 +97,8 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
       <Container>
         {loggedInMember && (
           <Row>
-            <Col className="profile-col">
-              <Card key={memberProfile._id} >
+            <Col className="profile-col" style={{ width: 400, height: 400 }}>
+              <Card key={memberProfile._id}>
                 <Card.Img
                   style={{ width: 300, height: 300 }}
                   className="profile-image"
@@ -122,9 +116,7 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
                       >
                         Manage Account
                       </Button>
-
                       <Card.Title>{memberProfile.currentName}</Card.Title>
-
                       <Card.Title>{memberProfile.email}</Card.Title>
                       <Card.Title>{memberProfile.residesIn}</Card.Title>
                       <Card.Text>{memberProfile.bio}</Card.Text>

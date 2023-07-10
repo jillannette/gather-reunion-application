@@ -34,10 +34,8 @@ const ReunionPhotos = ({ loggedInMember }) => {
       .get(`${BASE_URL}/api/reunions/${params.year}`, config)
       .then((response) => {
         setSelectedReunion(response.data);
-        console.log(selectedReunion);
         const reunionPhotos = response.data.reunionPhotos;
         setReunionPhotos(reunionPhotos);
-        console.log(reunionPhotos); //ok
       })
       .catch((error) => {
         alert("No photos have been added yet for this reunion", error);
@@ -77,8 +75,6 @@ const ReunionPhotos = ({ loggedInMember }) => {
   }
 
   if (error) return "error";
-
-  console.log(reunionPhotos);
 
   return (
     <>

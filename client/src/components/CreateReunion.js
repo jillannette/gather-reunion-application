@@ -16,7 +16,6 @@ const CreateReunion = ({ loggedInMember }) => {
   const [error, setError] = useState(null);
 
   const handleChange = (e) => {
-    console.log("e.target.name", e.target.name);
     setNewReunion({
       ...newReunion,
       [e.target.name]: e.target.value,
@@ -30,7 +29,6 @@ const CreateReunion = ({ loggedInMember }) => {
   async function createNewReunion(e) {
     setLoading(true);
     e.preventDefault();
-    console.log(newReunion);
     const config = {
       headers: {
         Authorization: `Bearer ${loggedInMember.token}`,

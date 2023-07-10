@@ -29,7 +29,6 @@ const NextReunions = ({ loggedInMember }) => {
     await axios
       .get(`${BASE_URL}/api/nextReunions`, config)
       .then((response) => {
-        console.log("nextReunions", response.data);
         setNextReunions(response.data.nextReunions);
       })
       .catch((error) => {

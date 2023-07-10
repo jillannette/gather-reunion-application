@@ -82,7 +82,7 @@ const ReunionPhotos = ({ loggedInMember }) => {
 
   return (
     <>
-      <div style={{width: 'fluid'}}>
+      <div >
         <Container className="addreunionphoto-container">
           <Col >
           <br></br>

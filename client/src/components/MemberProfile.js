@@ -97,7 +97,7 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
       <Container>
         {loggedInMember && (
           <Row>
-            <Col className="profile-col" style={{ width: 400, height: 400 }}>
+            <Col className="profile-col" style={{ width: 700, height: 400 }}>
               <Card key={memberProfile._id}>
                 <Card.Img
                   style={{ width: 300, height: 300 }}

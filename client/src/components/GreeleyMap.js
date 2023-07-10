@@ -9,7 +9,7 @@ const GreeleyMap = () => {
         lat: 40.42253,
         lng: -104.73491
       },
-      label: { color: "white", text: "Kenny's Steakhouse"},
+      label: { color: "white", text: "1"},
       
     },
     {
@@ -17,7 +17,7 @@ const GreeleyMap = () => {
         lat: 40.41806,
         lng: -104.73758
       },
-      label: { color: "white", text: "Bittersweet Park"},
+      label: { color: "white", text: "2"},
       
     },
     {
@@ -25,7 +25,7 @@ const GreeleyMap = () => {
         lat: 40.39682,
         lng: -104.7526
       },
-      label: { color: "white", text: "The GOAT"},
+      label: { color: "white", text: "3"},
       
     },
   ];
@@ -43,14 +43,14 @@ const GreeleyMap = () => {
     lng: -104.756334,
   }
 
-  const mapClicked = (event) => {
-    console.log(event.position.text())
-  }
+  const mapClicked = (event) => { 
+    console.log(event.latLng.lat(), event.latLng.lng()) 
+}
 
-  const markerClicked = (marker, index) => {
-    setActiveInfoWindow(index)
-    console.log(marker, index)
-  }
+const markerClicked = (marker, index) => {  
+  setActiveInfoWindow(index)
+  console.log(marker, index) 
+}
 
   return (
     <>
@@ -68,7 +68,7 @@ const GreeleyMap = () => {
                       key={index}
                       position={marker.position.text}
                       label={marker.label}
-                      onClick={event => markerClicked(marker.label, index)}
+                      onClick={event => markerClicked(marker, index)}
                 >
                   {
                     (activeInfoWindow === index)
@@ -88,4 +88,4 @@ const GreeleyMap = () => {
   );
 };
 
-export default React.memo(GreeleyMap);
+export default GreeleyMap;

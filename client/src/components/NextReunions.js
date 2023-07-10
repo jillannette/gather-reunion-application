@@ -97,7 +97,9 @@ const NextReunions = ({ loggedInMember }) => {
                 </Col>
               
                 <Col>
+                <div>
                   <GreeleyMap />
+                  </div>
                 </Col>
               </Row>
             </Card>

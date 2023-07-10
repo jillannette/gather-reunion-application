@@ -68,9 +68,9 @@ const Members = ({ loggedInMember }) => {
                       src={member.image_url}
                     />
                     <Card.Body className="member-card-body">
-                      <Card.Text style={{ textAlign: "center" }}>
+                      <Card.Title style={{ textAlign: "center" }}>
                         {member.currentName}
-                      </Card.Text>
+                      </Card.Title>
                       <Card.Title
                         className="member-subtitles"
                         style={{ textAlign: "center" }}

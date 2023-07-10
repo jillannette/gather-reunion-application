@@ -69,13 +69,13 @@ const NextReunions = ({ loggedInMember }) => {
 
                     <Card.Text>
                       <br></br>
-                      <strong>Friday: </strong>&nbsp;&nbsp; Happy Hour at Kenny's 
+                      <strong>Friday: </strong>&nbsp;&nbsp; Happy Hour at Kenny's (see #1 on Map)
                       <br></br>
                       <strong>Saturday Aft:</strong>&nbsp;&nbsp; Picnic
-                      at Bittersweet Park  
+                      at Bittersweet Park (see #2 on Map)
                       <br></br>
                       <strong>Saturday Eve:</strong>&nbsp;&nbsp; Banquet at
-                      Kenny's
+                      Kenny's (see #3 on Map)
                     </Card.Text>
 
                     <Card.Text>

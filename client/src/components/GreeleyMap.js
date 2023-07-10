@@ -10,7 +10,7 @@ const GreeleyMap = () => {
         lng: -104.73491
       },
       label: { color: "white", text: "Kenny's Steakhouse"},
-      draggable: false
+      
     },
     {
       position: {
@@ -18,7 +18,7 @@ const GreeleyMap = () => {
         lng: -104.73758
       },
       label: { color: "white", text: "Bittersweet Park"},
-      draggable: false
+      
     },
     {
       position: {
@@ -26,7 +26,7 @@ const GreeleyMap = () => {
         lng: -104.7526
       },
       label: { color: "white", text: "The GOAT"},
-      draggable: false
+      
     },
   ];
 
@@ -44,12 +44,12 @@ const GreeleyMap = () => {
   }
 
   const mapClicked = (event) => {
-    console.log(event.label.text())
+    console.log(event.position.text())
   }
 
   const markerClicked = (marker, index) => {
     setActiveInfoWindow(index)
-    console.log(marker.label.text, index)
+    console.log(marker, index)
   }
 
   return (
@@ -66,7 +66,7 @@ const GreeleyMap = () => {
                 {markers.map((marker, index) => (
                   <Marker
                       key={index}
-                      position={marker.label.text}
+                      position={marker.position.text}
                       label={marker.label}
                       onClick={event => markerClicked(marker.label, index)}
                 >

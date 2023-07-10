@@ -119,7 +119,7 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
                       <Card.Title>{memberProfile.currentName}</Card.Title>
                       <Card.Title>{memberProfile.email}</Card.Title>
                       <Card.Title>{memberProfile.residesIn}</Card.Title>
-                      <Card.Text>{memberProfile.bio}</Card.Text>
+                      <Card.Title>{memberProfile.bio}</Card.Title>
                     </>
                   ) : (
                     <>
@@ -143,6 +143,12 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
                             type="text"
                             name="email"
                             value={memberProfile.email}
+                          />
+                           <Form.Control
+                            onChange={handleChange}
+                            type="text"
+                            name="residesIn"
+                            value={memberProfile.residesIn}
                           />
                           <Form.Control
                             onChange={handleChange}

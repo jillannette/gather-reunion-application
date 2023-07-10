@@ -10,7 +10,7 @@ const GreeleyMap = () => {
         lng: -104.73491
       },
       label: { color: "white", text: "Kenny's Steakhouse"},
-      draggable: true
+      draggable: false
     },
     {
       position: {
@@ -18,7 +18,7 @@ const GreeleyMap = () => {
         lng: -104.73758
       },
       label: { color: "white", text: "Bittersweet Park"},
-      draggable: true
+      draggable: false
     },
     {
       position: {
@@ -26,7 +26,7 @@ const GreeleyMap = () => {
         lng: -104.7526
       },
       label: { color: "white", text: "The GOAT"},
-      draggable: true
+      draggable: false
     },
   ];
 
@@ -44,18 +44,13 @@ const GreeleyMap = () => {
   }
 
   const mapClicked = (event) => {
-    console.log(event.latlng.lat(), event.latlng.lng())
+    console.log(event.label.text())
   }
 
   const markerClicked = (marker, index) => {
     setActiveInfoWindow(index)
-    console.log(marker, index)
+    console.log(marker.label.text, index)
   }
-
-  const markerDragEnd = (event, index) => { 
-    console.log(event.latLng.lat())
-    console.log(event.latLng.lng())
-}
 
   return (
     <>
@@ -71,17 +66,15 @@ const GreeleyMap = () => {
                 {markers.map((marker, index) => (
                   <Marker
                       key={index}
-                      position={marker.position}
+                      position={marker.label.text}
                       label={marker.label}
-                      draggable={marker.draggable}
-                      onDragEnd={event => markerDragEnd(event, index)}
-                      onClick={event => markerClicked(marker, index)}
+                      onClick={event => markerClicked(marker.label, index)}
                 >
                   {
                     (activeInfoWindow === index)
                     &&
-                    <InfoWindow position={marker.position}>
-                      <b>{marker.position.lat}, {marker.position.lng}</b>
+                    <InfoWindow position={marker.label}>
+                      <b>{marker.label.text}</b>
                     </InfoWindow>
                   }
                 </Marker>

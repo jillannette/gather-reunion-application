@@ -10,7 +10,7 @@ const GreeleyMap = () => {
         lng: -104.73491
       },
       label: { color: "white", text: "1"},
-      
+      draggable: false
     },
     {
       position: {
@@ -18,7 +18,7 @@ const GreeleyMap = () => {
         lng: -104.73758
       },
       label: { color: "white", text: "2"},
-      
+      draggable: false
     },
     {
       position: {
@@ -26,7 +26,7 @@ const GreeleyMap = () => {
         lng: -104.7526
       },
       label: { color: "white", text: "3"},
-      
+      draggable: false
     },
   ];
 
@@ -66,7 +66,7 @@ const markerClicked = (marker, index) => {
                 {markers.map((marker, index) => (
                   <Marker
                       key={index}
-                      position={marker.position.text}
+                      position={marker.position}
                       label={marker.label}
                       onClick={event => markerClicked(marker, index)}
                 >
@@ -88,4 +88,4 @@ const markerClicked = (marker, index) => {
   );
 };
 
-export default GreeleyMap;
+export default React.memo(GreeleyMap);

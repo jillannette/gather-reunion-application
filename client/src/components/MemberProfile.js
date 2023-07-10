@@ -119,7 +119,7 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
                       <Card.Title>{memberProfile.currentName}</Card.Title>
                       <Card.Title>{memberProfile.email}</Card.Title>
                       <Card.Title>{memberProfile.residesIn}</Card.Title>
-                      <Card.Title>{memberProfile.bio}</Card.Title>
+                      <Card.Text>{memberProfile.bio}</Card.Text>
                     </>
                   ) : (
                     <>

@@ -22,15 +22,14 @@ const GreeleyMap = () => {
     },
     {
       position: {
-        lat: 40.39682,
-        lng: -104.7526
+        lat: 40.39680,
+        lng: -104.75258
       },
       label: { color: "white", text: "3"},
       draggable: false
     },
   ];
 
-  const [activeInfoWindow, setActiveInfoWindow] = useState('');
   const [markers, setMarkers] = useState(initialMarkers);
 
   const containerStyle = {
@@ -43,6 +42,7 @@ const GreeleyMap = () => {
     lng: -104.756334,
   }
 
+// FOR FUTURE DEVELOPMENT PURPOSES
 //   const mapClicked = (event) => { 
 //     console.log(event.latLng.lat(), event.latLng.lng()) 
 // }
@@ -70,13 +70,15 @@ const GreeleyMap = () => {
                       label={marker.label}
                       // onClick={event => markerClicked(marker, index)}
                 >
-                  {
+                  
+                  {  /* //FOR FUTURE DEVELOPMENT PURPOSES 
+                    {
                     (activeInfoWindow === index)
                     &&
                     <InfoWindow position={marker.label}>
                       <b>{marker.label.text}</b>
                     </InfoWindow>
-                  }
+                  } */}
                 </Marker>
                 ))}
               

@@ -43,14 +43,14 @@ const GreeleyMap = () => {
     lng: -104.756334,
   }
 
-  const mapClicked = (event) => { 
-    console.log(event.latLng.lat(), event.latLng.lng()) 
-}
+//   const mapClicked = (event) => { 
+//     console.log(event.latLng.lat(), event.latLng.lng()) 
+// }
 
-const markerClicked = (marker, index) => {  
-  setActiveInfoWindow(index)
-  console.log(marker, index) 
-}
+// const markerClicked = (marker, index) => {  
+//   setActiveInfoWindow(index)
+//   console.log(marker, index) 
+// }
 
   return (
     <>
@@ -61,14 +61,14 @@ const markerClicked = (marker, index) => {
                 mapContainerStyle={containerStyle} 
                 center={center} 
                 zoom={13}
-                onClick={mapClicked}
+                // onClick={mapClicked}
             >
                 {markers.map((marker, index) => (
                   <Marker
                       key={index}
                       position={marker.position}
                       label={marker.label}
-                      onClick={event => markerClicked(marker, index)}
+                      // onClick={event => markerClicked(marker, index)}
                 >
                   {
                     (activeInfoWindow === index)

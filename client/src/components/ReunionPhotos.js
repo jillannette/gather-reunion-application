@@ -78,40 +78,43 @@ const ReunionPhotos = ({ loggedInMember }) => {
 
   return (
     <>
-      <div >
+      <div>
         <Container className="addreunionphoto-container">
-          <Col >
-          <br></br>
-          <Form className="form" onSubmit={addReunionPhoto}>
-            <Form.Group className="mb-3" controlId="addPhotoForm.ControlInput1">
-              <Form.Label>
-                Add image address to add photos to this reunion
-              </Form.Label>
-              <Form.Control
-                className="addreunionphoto-div"
-                key={newReunionPhoto.image_url}
-                name="image_url"
-                type="text"
-                placeholder="image address"
-                value={newReunionPhoto.image_url}
-                onChange={handleChange}
-              />
-              <Form.Label>Add photo description</Form.Label>
-              <Form.Control
-                name="description"
-                type="text"
-                placeholder="What's happening in this photo?"
-                maxLength={100}
-                value={newReunionPhoto.description}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Button variant="warning" type="submit">
-                Add Photo
-              </Button>
-            </Form.Group>
-          </Form>
+          <Col>
+            <br></br>
+            <Form className="form" onSubmit={addReunionPhoto}>
+              <Form.Group
+                className="mb-3"
+                controlId="addPhotoForm.ControlInput1"
+              >
+                <Form.Label>
+                  Add image address to add photos to this reunion
+                </Form.Label>
+                <Form.Control
+                  className="addreunionphoto-div"
+                  key={newReunionPhoto.image_url}
+                  name="image_url"
+                  type="text"
+                  placeholder="image address"
+                  value={newReunionPhoto.image_url}
+                  onChange={handleChange}
+                />
+                <Form.Label>Add photo description</Form.Label>
+                <Form.Control
+                  name="description"
+                  type="text"
+                  placeholder="What's happening in this photo?"
+                  maxLength={100}
+                  value={newReunionPhoto.description}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Button variant="warning" type="submit">
+                  Add Photo
+                </Button>
+              </Form.Group>
+            </Form>
           </Col>
         </Container>
       </div>
@@ -119,26 +122,20 @@ const ReunionPhotos = ({ loggedInMember }) => {
         <h1 className="center-headline">
           {selectedReunion.year} Photo Gallery
         </h1>
-
-        <Form.Group className="mb-3">
-          <Link to="/reunions">
-            <Button
-              className="reunionPhotos-button"
-              style={{ float: "right" }}
-              variant="warning"
-              type="submit"
-            >
-              Back to Reunions
-            </Button>
-          </Link>
-        </Form.Group>
       </div>
       <Container className="reunionPhotos-container">
         <Row>
           {reunionPhotos.map((reunionPhoto, index) => {
             return (
               <Col key={index}>
-                <Card className='reunionPhotos-card' s={12} md={6} lg={4} xl={4} style={{width: '20rem'}}>
+                <Card
+                  className="reunionPhotos-card"
+                  s={12}
+                  md={6}
+                  lg={4}
+                  xl={4}
+                  style={{ width: "20rem" }}
+                >
                   <Card.Img
                     className="reunionPhotos-card-image"
                     variant="top"

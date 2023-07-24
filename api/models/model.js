@@ -40,6 +40,33 @@ const nextReunionSchema = new Schema(
   { timestamps: true }
 );
 
+const mapSchema = new Schema(
+  {
+    container: { 
+      height: { type: String, required: true },
+      width: { type: String, required: true },
+    },
+    eventMarkers: [
+      {
+        position: {
+          lat: { type: String, required: true },
+          lng: { type: String, required: true },
+        },
+        label: {
+          color: { type: String, required: true },
+          text: { type: String, required: true },
+        },
+        draggable: Boolean,
+      },
+    ],
+    center: {
+      lat: { type: String, required: true },
+      lng: { type: String, required: true },
+    },
+    zoom: { type: String, required: true },
+  }
+);
+
 const reunionSchema = new Schema(   
   {
     year: { type: Number, required: true },
@@ -69,5 +96,6 @@ const Memory = mongoose.model("Memory", memorySchema);
 const NextReunion = mongoose.model("NextReunion", nextReunionSchema);
 const Reunion = mongoose.model("Reunion", reunionSchema);
 const ReunionPhoto = mongoose.model("ReunionPhoto", reunionPhotoSchema);
+const Map = mongoose.model("Map", mapSchema);
 
-module.exports = { Member, Memory, NextReunion, Reunion, ReunionPhoto };
+module.exports = { Member, Memory, NextReunion, Reunion, ReunionPhoto, Map };

@@ -4,10 +4,10 @@ import { Container, Form, Button } from "react-bootstrap";
 import axios from "axios";
 import { BASE_URL } from "../App.js";
 
-const CreateReunion = ({ loggedInMember }) => {
+const ArchiveReunion = ({ loggedInMember }) => {
   const navigate = useNavigate();
 
-  const [newReunion, setNewReunion] = useState({
+  const [completedReunion, setCompletedReunion] = useState({
     cover_image_url: "",
     year: "",
     description: "",
@@ -16,8 +16,8 @@ const CreateReunion = ({ loggedInMember }) => {
   const [error, setError] = useState(null);
 
   const handleChange = (e) => {
-    setNewReunion({
-      ...newReunion,
+    setCompletedReunion({
+      ...completedReunion,
       [e.target.name]: e.target.value,
     });
   };
@@ -26,7 +26,7 @@ const CreateReunion = ({ loggedInMember }) => {
     navigate("/reunions");
   };
 
-  async function createNewReunion(e) {
+  async function archiveReunion(e) {
     setLoading(true);
     e.preventDefault();
     const config = {
@@ -35,7 +35,7 @@ const CreateReunion = ({ loggedInMember }) => {
       },
     };
     axios
-      .post(`${BASE_URL}0/api/reunions`, newReunion, config)
+      .post(`${BASE_URL}/api/reunions`, completedReunion, config)
       .then((response) => {
         console.log(response.data);
         navigate("/reunions");
@@ -58,29 +58,30 @@ const CreateReunion = ({ loggedInMember }) => {
       <div className="join-background">
         <div>
           <br></br>
-          <h1 className="center-headline">Add A Reunion</h1>
+          <h1 className="center-headline">Add Completed Reunion To Reunions Page</h1>
         </div>
         <div>
           <Container className="login-border">
-            <Form className="form" onSubmit={createNewReunion}>
-              <Form.Group className="mb-3" controlId="formBasicImage">
+            <Form className="form" onSubmit={archiveReunion}>
+
+             <Form.Group className="mb-3" controlId="formBasicImage">
                 <Form.Label>Add reunion cover image </Form.Label>
                 <Form.Control
-                  type="image"
-                  placeholder="https://pathtophoto.jpg"
+                  type="url"
+                  placeholder="paste image url here"
                   name="cover_image_url"
-                  value={newReunion.cover_image_url}
+                  value={completedReunion.cover_image_url}
                   onChange={handleChange}
                 />
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formBasicImage">
+              <Form.Group className="mb-3" controlId="formBasicYear">
                 <Form.Label>Add reunion year </Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder=""
+                  placeholder="YYYY"
                   name="year"
-                  value={newReunion.year}
+                  value={completedReunion.year}
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -95,7 +96,7 @@ const CreateReunion = ({ loggedInMember }) => {
                   type="text"
                   placeholder="This reunion was..."
                   name="description"
-                  value={newReunion.description}
+                  value={completedReunion.description}
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -104,7 +105,7 @@ const CreateReunion = ({ loggedInMember }) => {
                 <Button variant="warning" type="submit">
                   Submit
                 </Button>
-                &nbsp;&nbsp&nbsp;
+                &nbsp;&nbsp;&nbsp;
                 <Button onClick={handleCancel} variant="warning" type="button">
                   {" "}
                   Cancel
@@ -118,4 +119,4 @@ const CreateReunion = ({ loggedInMember }) => {
   );
 };
 
-export default CreateReunion;
+export default ArchiveReunion;

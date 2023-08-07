@@ -33,9 +33,9 @@ const getReunion = async (req, res, next) => {
     .sort({ createdAt: -1 });
 
   if (!reunion) {
-    return res
-      .status(404)
-      .json({ err: "There are no images to display for this reunion" });
+    return res.status(404).json({ 
+      err: "There are no images to display for this reunion" 
+    });
   }
 
   res.status(200).json(reunion);
@@ -45,8 +45,8 @@ const getReunion = async (req, res, next) => {
   }
 };
 
-const createReunion = async (req, res, next) => {
-  console.log("create reunion", req.reunion);
+const archiveReunion = async (req, res, next) => {
+  console.log("archive reunion", req.reunion);
 
   if (!req.member) {
     next();
@@ -56,15 +56,15 @@ const createReunion = async (req, res, next) => {
   const { year, description, cover_image_url } = req.body;
 
   try {
-    const newReunion = await Reunion.create({
+    const completedReunion = await Reunion.create({
       year,
       description,
       cover_image_url,
     });
 
-    await newReunion.save();
+    await completedReunion.save();
 
-    res.status(200).json(newReunion);
+    res.status(200).json(completedReunion);
   } catch (error) {
     res.status(500).json({
       err: "Unable to complete request",
@@ -73,8 +73,7 @@ const createReunion = async (req, res, next) => {
 };
 
 const addReunionPhotos = async (req, res, next) => {
-  console.log("createReunionPhotos", req.addReunionPhotos);
-
+  
   if (!req.member) {
     next();
     return;
@@ -106,8 +105,7 @@ const addReunionPhotos = async (req, res, next) => {
 };
 
 const updateReunion = async (req, res, next) => {
-  console.log("update reunion", req.member);
-
+ 
   if (!req.member) {
     next();
     return;
@@ -134,7 +132,7 @@ const updateReunion = async (req, res, next) => {
 module.exports = {
   getReunions,
   getReunion,
-  createReunion,
+  archiveReunion,
   addReunionPhotos,
   updateReunion,
 };

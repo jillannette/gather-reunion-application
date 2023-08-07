@@ -4,7 +4,7 @@ const router = express.Router();
 const {
   getReunions,
   getReunion,
-  createReunion,
+  archiveReunion,
   addReunionPhotos,
   updateReunion,
 } = require("../controllers/reunionController");
@@ -13,7 +13,7 @@ router.get("/", getReunions);
 
 router.get("/:year", getReunion); //reunionPhotos
 
-router.post("/", createReunion);
+router.post("/", archiveReunion);
 
 router.post("/:year", addReunionPhotos);
 

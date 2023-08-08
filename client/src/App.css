@@ -203,7 +203,7 @@ image-resolution: unset;
 
 .map {
   height: auto;
-  width: 400px;
+  width: 600px;
   padding: 20px;
 }
 
@@ -259,15 +259,11 @@ image-resolution: unset;
   width: fluid;
 }
 
-
-
 .memories-border {
   width: 1200px;
   position: relative;
   border: 2px solid grey;
 }
-
-
 
 .memories-image {
   margin-left: auto;
@@ -292,13 +288,11 @@ image-resolution: unset;
   margin-top: -56px;
 }
 
-
 .nextReunion-card-col {
   height: auto;
   width: fluid;
   padding: 20px;
 }
-
 
 .nextReunion-container {
   width: fluid;
@@ -314,7 +308,8 @@ image-resolution: unset;
   display: flex;
   width: fluid;
   justify-content: center;
-  margin-right: 90px;
+  margin-right: auto;
+  margin-left: 190px;
   font-family: "Playfair";
   font-size: 50px;
 }
@@ -323,11 +318,21 @@ image-resolution: unset;
   height:auto;
   width: fluid;
   padding: 20px;
-
 }
 
 .nextReunion-image {
   object-fit: cover;
+}
+
+.nextReunion-map-container {
+  height: 80vh;
+  width: 100%;
+}
+
+.nextReunion-map-col {
+  height: auto;
+  width: 400px;
+  padding: 20px;
 }
 
 .profile-card-body {
@@ -390,8 +395,6 @@ image-resolution: unset;
 .reunionPhotos-card-body {
   height: 15vh;
   background-color: whitesmoke;
-  
-  
 }
 
 .reunionPhotos-card-image {
@@ -412,7 +415,6 @@ image-resolution: unset;
 .reunionPhotos-card {
   margin-left: auto;
   margin-right: auto;
-
 }
 
 .reunionPhotos-container {

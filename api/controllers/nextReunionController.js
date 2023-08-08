@@ -87,27 +87,28 @@ const addNextReunionMap = async (req, res, next) => {
 
   const { center, zoom, containerStyle } = req.body;
 
-  const nextReunionMap = new Map({
+  const newMap = new Map({
     center, 
     zoom, 
-    containerStyle, 
-    reunion: req.params.year
+    containerStyle,
+    reunion: req.params.year,
   });
 
-  nextReunionMap.save();
+  newMap.save();
 
-  let nextReunionYear = req.params.year;
-
+  let nextReunionYear = new NextReunion();
+  nextReunionYear = req.params.year;
+ 
   const nextReunionToUpdate = await NextReunion.findOneAndUpdate(
-    { year: nextReunionYear },
-    { $push: { maps: nextReunionMap }},
+    { year: reunionYear },
+    { $push: { maps: newMap} },
     { new: true }
-  )
+  );
 
-  console.log(nextReunionToUpdate.nextReunionMap);
+  console.log(nextReunionToUpdate.maps);
 
-  res.status(200).json(nextReunionMap);
-  };  
+  res.status(200).json(newMap);
+};
 
 const editNextReunion = async (req, res, next) => {
   if (!req.member) {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
@@ -44,17 +44,29 @@ const Reunions = ({ loggedInMember }) => {
 
   return (
     <div className="reunions">
-      {/* <div>
+     
           
           {//Addint a reunion is a feature that will be enabled once roles are added to app permissions.  
           //Once Add a reunion is enabled, css will be refactored to adjust for the added button
            <div style={{ float: "right" }}>
-            <Link to="/createReunion">
+            <Link to="/createNextReunion">
               <Button variant="light" size="lg" className="add-memory-button">
-                Add a Reunion
+                Add Upcoming Reunion
+              </Button>
+            </Link>
+          </div>}
+
+          {/* <div style={{ float: "right" }}>
+            <Link to="/archiveReunion">
+              <Button variant="light" size="lg" className="add-memory-button">
+                Add Completed Reunion to Page
               </Button>
             </Link>
           </div>} */}
+          <br></br>
+          <br></br>
+       
+          
 
       <div>
         <h1 className="reunion-headline">Reunions</h1>

@@ -31,7 +31,6 @@ const Members = ({ loggedInMember }) => {
     await axios
       .get(`${BASE_URL}/api/members`, config)
       .then((response) => {
-        console.log("members", response.data);
         setMembers(response.data);
       })
       .catch((error) => {

@@ -39,9 +39,9 @@ const NavBar = ({ loggedInMember, handleLogout }) => {
           </Nav.Link>
           <Nav.Link
             href="nextReunions"
-            onClick={() => navigate("/nextReunions")}
+            onClick={() => navigate("nextReunions")}
           >
-            2026 Reunion
+            NextReunion
           </Nav.Link>
           {loggedInMember && (
             <span id="logout" className="nav-link" onClick={handleClick}>

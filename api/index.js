@@ -40,11 +40,12 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 //FOR DEBUGGING
-// app.use((req, res, next) => {
-//   console.log(req.path, req.method);
-//   next();
-// });
+app.use((req, res, next) => {
+  console.log(req.path, req.method);
+  next();
+});
 
+// app.use("/api/maps", memberAccess, mapRoutes);
 app.use("/api/members", memberAccess, memberRoutes);
 app.use("/api/memories", memberAccess, memoryRoutes);
 app.use("/api/reunions", memberAccess, reunionRoutes);

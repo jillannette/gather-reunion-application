@@ -10,13 +10,14 @@ import MemberBio from "./components/MemberBio";
 import MemberProfile from "./components/MemberProfile";
 import Memories from "./components/Memories";
 import Reunions from "./components/Reunions";
-import CreateReunion from "./components/CreateReunion";
+import ArchiveReunion from "./components/ArchiveReunion";
+import CreateNextReunion from "./components/CreateNextReunion";
 import CreateMemory from "./components/CreateMemory";
 import ReunionPhotos from "./components/ReunionPhotos";
-import NextReunions from "./components/NextReunions";
+import NextReunion from "./components/NextReunion";
 
-export const BASE_URL = "https://gather-z3tj.onrender.com";
-// export const BASE_URL = "http://localhost:5000";
+// export const BASE_URL = "https://gather-z3tj.onrender.com";
+export const BASE_URL = "http://localhost:5000";
 
 const App = () => {
   const [loggedInMember, setLoggedInMember] = useState(null);
@@ -83,21 +84,27 @@ const App = () => {
             element={<Reunions loggedInMember={loggedInMember} />}
           />
           <Route
-            path="/createReunion"
-            element={<CreateReunion loggedInMember={loggedInMember} />}
+            path="/reunions"
+            element={<ArchiveReunion loggedInMember={loggedInMember} />}
           />
           <Route
-            path="/nextReunions"
-            element={<NextReunions loggedInMember={loggedInMember} />}
+            path="/nextReunions/:year"  //add NextReunion Map
+            element={<NextReunion loggedInMember={loggedInMember} />}
           />
-
+          <Route
+            path="/createNextReunion"  //add Upcoming Reunion
+            element={<CreateNextReunion loggedInMember={loggedInMember} />}
+          />
+          <Route
+            path="/nextReunions"  //get next reunion WITH map
+            element={<NextReunion loggedInMember={loggedInMember} />}
+          />
           <Route
             path="/createMemory"
             element={<CreateMemory loggedInMember={loggedInMember} />}
           />
-
           <Route
-            path="/reunions/:year"
+            path="/reunions/:year" //get reunion photo gallery
             element={<ReunionPhotos loggedInMember={loggedInMember} />}
           />
         </Routes>

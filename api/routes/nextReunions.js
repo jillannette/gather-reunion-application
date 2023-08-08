@@ -2,18 +2,21 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  createNextReunion,
   getNextReunions,
   getNextReunion,
+  createNextReunion,
+  addNextReunionMap,
   editNextReunion,
   deleteNextReunion,
 } = require("../controllers/nextReunionController");
 
+router.get("/", getNextReunions); 
+
+router.get("/:year", getNextReunion); //nextReunion and Map
+
 router.post("/", createNextReunion)
 
-router.get("/", getNextReunions) 
-
-router.get("/:id", getNextReunion)
+router.post("/:year", addNextReunionMap);
 
 router.patch('/:id', editNextReunion)
 

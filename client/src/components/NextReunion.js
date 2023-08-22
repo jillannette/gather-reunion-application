@@ -43,6 +43,8 @@ const NextReunion = ({ loggedInMember }) => {
     end_address: "",
   });
 
+  const [showDirections, setShowDirections] = useState(false);
+
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -67,8 +69,22 @@ const NextReunion = ({ loggedInMember }) => {
     });
   };
 
-  const handleCancel = () => {
-    navigate("/nextReunions");
+  const handleReset = () => {
+    setStartingPointData({
+      business: "",
+      address: "",
+      city: "",
+      state: "",
+    });
+    setShowDirections(false);
+    setDirectionsType("");
+    setDirections({
+      start_address: "",
+    distance: "",
+    duration: "",
+    steps: [],
+    end_address: "",
+    })
   };
 
   const getDirections = async (e) => {
@@ -83,8 +99,8 @@ const NextReunion = ({ loggedInMember }) => {
     };
     const startingPoint =
       directionsType === "business"
-        ? startingPointData.business
-        : startingPointData.address;
+        ? `${startingPointData.business},${startingPointData.state}`
+        : `${startingPointData.address},${startingPointData.city},${startingPointData.state}`
     await axios
       .post(
         `${BASE_URL}/api/nextReunions/directions`,
@@ -95,6 +111,7 @@ const NextReunion = ({ loggedInMember }) => {
         const directions = response.data.routes[0].legs[0];
         console.log(directions);
         setDirections(directions);
+        setShowDirections(true);
         console.log(directions);
         console.log(directions.start_address);
         console.log(directions.end_address);
@@ -103,10 +120,7 @@ const NextReunion = ({ loggedInMember }) => {
         console.log(directions.steps);
         const steps = directions.steps;
         console.log("steps", steps);
-        const instructions = steps.map((step) => {
-          return step.html_instructions;
-        });
-        console.log(instructions);
+        
 
         // console.log(response.data['end_address']);  //HOW TO GET END ADDRESS?????
         // console.log(response.data.html_instructions);  //undefined
@@ -174,6 +188,11 @@ const NextReunion = ({ loggedInMember }) => {
         setError(error);
       });
   }
+
+  const handleTypeChange = (e) => {
+    setDirectionsType(e.target.value);
+    setShowDirections(false)
+  };
 
   return (
     <>
@@ -245,7 +264,7 @@ const NextReunion = ({ loggedInMember }) => {
                   <strong>Choose Starting Point</strong>
                 </label>
                 <br></br>
-                <select onChange={(e) => setDirectionsType(e.target.value)}>
+                <select value={directionsType} onChange={handleTypeChange}>
                   <option value="">Choose One</option>
                   <option value="business">By Business Name and State</option>
                   <option value="address">
@@ -293,10 +312,7 @@ const NextReunion = ({ loggedInMember }) => {
                       </Button>
                       &nbsp;&nbsp;
                       <Button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleCancel(e);
-                        }}
+                        onClick={handleReset}
                         variant="warning"
                       >
                         Reset
@@ -357,20 +373,18 @@ const NextReunion = ({ loggedInMember }) => {
                         </Button>
                         &nbsp;&nbsp;
                         <Button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            handleCancel(e);
-                          }}
-                          variant="warning"
-                        >
-                          Reset
-                        </Button>
+                        onClick={handleReset}
+                        variant="warning"
+                      >
+                        Reset
+                      </Button>
                       </Form>
                     </>
                   )}
                 </Form>
                 <br></br>
-                <Card.Text>
+                {showDirections && (
+                  <Card.Text>
                   <strong>Directions:</strong>
                   <br></br>
                   <br></br>
@@ -382,10 +396,21 @@ const NextReunion = ({ loggedInMember }) => {
                   <strong>Trip duration:</strong> {directions.duration.text}
                   <br></br>
                   <strong>Driving Instructions:</strong>
-                  {directions.instructions.map((instruction) => {
-                    return <li>{instruction}</li>;
-                  })}
+                 
+                  {directions.steps.map((step) => {
+                    const updated = step.html_instructions.replaceAll("<b>", "").replaceAll("</b>", "").replaceAll("<wbr/>", "").replaceAll("<div>", "").replaceAll("</div>", "").replaceAll(`<div style="font-size:0.9em">`, "")
+                    
+                    return (
+                      <p>{updated}</p>
+                    )
+                  
+                 })
+                }
+        
+                  <br></br>
+                  <strong>Destination Address:</strong> {directions.end_address}
                 </Card.Text>
+                )}
               </Card.Body>
             </Col>
           </Row>

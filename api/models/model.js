@@ -8,6 +8,10 @@ const mapSchema = new Schema ({
     lat: { type: Number, required: true },
     lng: { type: Number, required: true },
   }, 
+  // startingPoint: {
+  //   lat: { type: Number},
+  //   lng: { type: Number}
+  // },
   zoom: { type: Number, required: true },
   containerStyle: { 
     height: { type: String, required: true },

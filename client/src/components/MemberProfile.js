@@ -95,10 +95,13 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
   return (
     <>
       <Container>
+      <Card.Title className="memory-headline">My Account Information</Card.Title>
         {loggedInMember && (
           <Row>
             <Col className="profile-col" style={{ width: 700, height: 400 }}>
+           
               <Card key={memberProfile._id}>
+                
                 <Card.Img
                   style={{ width: 300, height: 300 }}
                   className="profile-image"

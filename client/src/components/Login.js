@@ -29,7 +29,7 @@ const Login = ({ setLoggedInMember }) => {
     axios
       .post(`${BASE_URL}/api/login`, authMember)
       .then((response) => {
-        console.log(response.data);
+        console.log('login response', response.data);
         localStorage.setItem(
           "member",
           JSON.stringify({
@@ -44,6 +44,7 @@ const Login = ({ setLoggedInMember }) => {
         navigate("/members");
       })
       .catch((error) => {
+        console.log('login error', error)
         alert("Email or password does not match a registered member.  Try to login again", error);
         navigate('/login');
       });

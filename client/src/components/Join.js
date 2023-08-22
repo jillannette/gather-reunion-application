@@ -30,7 +30,10 @@ const Join = ({ setLoggedInMember }) => {
 
   const createMember = async (e) => {
     e.preventDefault();
-
+    if (!newMember.email || !newMember.password || !newMember.nameAtGraduation || !newMember.currentName || !newMember.residesIn || !newMember.image_url || !newMember.bio) {
+      alert('Please complete all fields to set up your account!')
+      return 
+    }
     await axios
 
       .post(`${BASE_URL}/api/join`, newMember)
@@ -50,7 +53,7 @@ const Join = ({ setLoggedInMember }) => {
         navigate("/members");
       })
       .catch((error) => {
-        alert("Email or password does not match registered member", error);
+        alert("This email is already registered! Try logging in instead", error);
         setError(error);
         navigate("/login");
       });

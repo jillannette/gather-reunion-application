@@ -32,7 +32,7 @@ const login = (req, res) => {
         })
         .catch((error) => {
           res.status(400).send({
-            alert: "Passwords does not match",
+            message: "Passwords does not match",
             error,
           });
         });

@@ -24,7 +24,6 @@ const app = express();
 // });
 
 app.use((req, res, next) => {
-  console.log("line 30");
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Headers",
@@ -40,10 +39,10 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 //FOR DEBUGGING
-app.use((req, res, next) => {
-  console.log(req.path, req.method);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log(req.path, req.method);
+//   next();
+// });
 
 // app.use("/api/maps", memberAccess, mapRoutes);
 app.use("/api/members", memberAccess, memberRoutes);

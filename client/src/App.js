@@ -11,7 +11,7 @@ import MemberProfile from "./components/MemberProfile";
 import Memories from "./components/Memories";
 import Reunions from "./components/Reunions";
 import ArchiveReunion from "./components/ArchiveReunion";
-import CreateNextReunion from "./components/CreateNextReunion";
+// import CreateNextReunion from "./components/CreateNextReunion";
 import CreateMemory from "./components/CreateMemory";
 import ReunionPhotos from "./components/ReunionPhotos";
 import NextReunion from "./components/NextReunion";
@@ -92,9 +92,13 @@ const App = () => {
             element={<NextReunion loggedInMember={loggedInMember} />}
           />
           <Route
+            path="/nextReunions/directions"  //get NextReunion Directions
+            element={<NextReunion loggedInMember={loggedInMember} />}
+          />
+          {/* <Route
             path="/createNextReunion"  //add Upcoming Reunion
             element={<CreateNextReunion loggedInMember={loggedInMember} />}
-          />
+          /> */}
           <Route
             path="/nextReunions"  //get next reunion WITH map
             element={<NextReunion loggedInMember={loggedInMember} />}

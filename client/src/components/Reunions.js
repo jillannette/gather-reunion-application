@@ -56,7 +56,9 @@ const Reunions = ({ loggedInMember }) => {
             </Link>
           </div>}
 
-          {/* <div style={{ float: "right" }}>
+
+          {// COMMENTED OUT UNTIL NEEDED TO ARCHIVE A REUNION AGAIN/////////
+          /* <div style={{ float: "right" }}>
             <Link to="/archiveReunion">
               <Button variant="light" size="lg" className="add-memory-button">
                 Add Completed Reunion to Page

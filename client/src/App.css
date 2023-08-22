@@ -203,7 +203,7 @@ image-resolution: unset;
 
 .map {
   height: auto;
-  width: 600px;
+  width: 450px;
   padding: 20px;
 }
 
@@ -308,8 +308,7 @@ image-resolution: unset;
   display: flex;
   width: fluid;
   justify-content: center;
-  margin-right: auto;
-  margin-left: 190px;
+  
   font-family: "Playfair";
   font-size: 50px;
 }

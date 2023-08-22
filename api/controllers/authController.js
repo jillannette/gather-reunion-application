@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const memberAccess = async (req, res, next) => {
   try {
     const token = await req.headers.authorization?.split(" ")[1]; //if, split on space
-    // console.log("memberAccess", token); //ok
+    console.log("memberAccess", token); //ok
 
     jwt.verify(token, "RANDOM-TOKEN", (err, decodedToken) => {
       if (err) {

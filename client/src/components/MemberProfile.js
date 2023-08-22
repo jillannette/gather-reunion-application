@@ -94,8 +94,12 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
 
   return (
     <>
+    <div>
+        <h1 className="profile-headline">View/Edit Profile Details </h1>
+      </div>
+
       <Container>
-      <Card.Title className="memory-headline">My Account Information</Card.Title>
+      
         {loggedInMember && (
           <Row>
             <Col className="profile-col" style={{ width: 700, height: 400 }}>

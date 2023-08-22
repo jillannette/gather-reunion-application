@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { GoogleMap, useLoadScript } from "@react-google-maps/api";
+import { states } from "../stateAbbrev.js";
 import { BASE_URL } from "../App.js";
-import { Col, Card, Row, Container, Button } from "react-bootstrap";
+import { Col, Card, Row, Container, Form, Button } from "react-bootstrap";
 import axios from "axios";
 import "../App.css";
 
@@ -24,7 +25,24 @@ const NextReunion = ({ loggedInMember }) => {
     },
     reunion: yearValue,
   });
-  
+
+  const [directionsType, setDirectionsType] = useState("");
+
+  const [startingPointData, setStartingPointData] = useState({
+    business: "",
+    address: "",
+    city: "",
+    state: "",
+  });
+
+  const [directions, setDirections] = useState({
+    start_address: "",
+    distance: "",
+    duration: "",
+    steps: [],
+    end_address: "",
+  });
+
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -39,27 +57,95 @@ const NextReunion = ({ loggedInMember }) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyCoRER8befUeFnrPEvaS6W4XMn9UYjQjbU",
   });
-  
-  async function addMap(e) {
-    setLoading(true);
+
+  const handleChange = (e) => {
+    //this works
+    console.log("startingPointData", startingPointData);
+    setStartingPointData({
+      ...startingPointData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleCancel = () => {
+    navigate("/nextReunions");
+  };
+
+  const getDirections = async (e) => {
+    console.log("getDirectionsRoute", getDirections);
+    console.log(startingPointData); //this works
     e.preventDefault();
+
     const config = {
       headers: {
         Authorization: `Bearer ${loggedInMember.token}`,
       },
     };
-    axios
-      .post(`${BASE_URL}/api/nextReunions/${params.year}`, eventMap, config)
+    const startingPoint =
+      directionsType === "business"
+        ? startingPointData.business
+        : startingPointData.address;
+    await axios
+      .post(
+        `${BASE_URL}/api/nextReunions/directions`,
+        { startingPoint },
+        config
+      )
       .then((response) => {
-        console.log(response.data);
-        setLoading(false);
-        setEventMap(response.data);
-            
-      })
-      .catch((error) => {
-        console.error("Error adding map entry:", error);
+        const directions = response.data.routes[0].legs[0];
+        console.log(directions);
+        setDirections(directions);
+        console.log(directions);
+        console.log(directions.start_address);
+        console.log(directions.end_address);
+        console.log(directions.duration.text);
+        console.log(directions.distance.text);
+        console.log(directions.steps);
+        const steps = directions.steps;
+        console.log("steps", steps);
+        const instructions = steps.map((step) => {
+          return step.html_instructions;
+        });
+        console.log(instructions);
+
+        // console.log(response.data['end_address']);  //HOW TO GET END ADDRESS?????
+        // console.log(response.data.html_instructions);  //undefined
+        // const distance = directions.distance.text;
+        // console.log(distance);
+        // const duration = directions.duration.text;
+        // console.log(duration);
+        // const drivingInstructions = directions.steps;   //will need to map over to get html_instructions??
+        // console.log(drivingInstructions);
+
+        navigate("/nextReunions");
       });
-  }
+  };
+
+  // const confirmClick = (e) => {
+  //   e.preventDefault();
+  //   console.log('click')
+  // }
+
+  // async function addMap(e) {
+  //   setLoading(true);
+  //   e.preventDefault();
+  //   const config = {
+  //     headers: {
+  //       Authorization: `Bearer ${loggedInMember.token}`,
+  //     },
+  //   };
+  //   axios
+  //     .post(`${BASE_URL}/api/nextReunions/map/${params.year}`, eventMap, config)
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       setLoading(false);
+  //       setEventMap(response.data);
+
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error adding map entry:", error);
+  //     });
+  // };
 
   async function getNextReunion() {
     const config = {
@@ -70,14 +156,15 @@ const NextReunion = ({ loggedInMember }) => {
     axios
       .get(`${BASE_URL}/api/nextReunions`, config)
       .then((response) => {
+        // console.log(response.data.nextReunions[0]) //same as 87 OK
         const nextReunion = response.data.nextReunions[0];
         setNextReunion(nextReunion);
-        console.log(nextReunion); //OK
+        // console.log(nextReunion); //OK
         const eventMap = nextReunion.maps[0];
-        console.log(eventMap); //OK
-        console.log(eventMap.center);
-        console.log(eventMap.containerStyle);
-        console.log(eventMap.zoom);
+        // console.log(eventMap); //OK
+        // console.log(eventMap.center);
+        // console.log(eventMap.containerStyle);
+        // console.log(eventMap.zoom);
       })
       .catch((error) => {
         alert(
@@ -90,17 +177,9 @@ const NextReunion = ({ loggedInMember }) => {
 
   return (
     <>
-      <div style={{ float: "right" }}>
-            {/* <Link to="/createNextReunion"> */}
-              <Button variant="light" size="lg" className="add-memory-button">
-                Add Event Map
-              </Button>
-            {/* </Link> */}
-          </div>
       <div>
         <h1 className="nextReunion-headline">You're Invited!</h1>
       </div>
-    
 
       <Container className="nextReunion-container" l={12}>
         <Card key={nextReunion._id}>
@@ -129,10 +208,10 @@ const NextReunion = ({ loggedInMember }) => {
                   </a>
                 </Card.Text>
                 <Card.Img
-                    className="reunionPhotos-card-image"
-                    variant="top"
-                    src={nextReunion.cover_image_url}
-                  />
+                  className="reunionPhotos-card-image"
+                  variant="top"
+                  src={nextReunion.cover_image_url}
+                />
               </Card.Body>
             </Col>
 
@@ -140,6 +219,7 @@ const NextReunion = ({ loggedInMember }) => {
               <Card.Title style={{ display: "flex" }}>
                 Map of Kenny's Steakhouse, Greeley
               </Card.Title>
+              <hr></hr>
 
               <div>
                 {isLoaded ? (
@@ -154,6 +234,159 @@ const NextReunion = ({ loggedInMember }) => {
                   <h1>Loading...</h1>
                 )}
               </div>
+            </Col>
+            <Col className="nextReunion-card-col">
+              <Card.Title style={{ display: "flex" }}>
+                Get Directions to Reunion
+              </Card.Title>
+              <hr></hr>
+              <Card.Body>
+                <label>
+                  <strong>Choose Starting Point</strong>
+                </label>
+                <br></br>
+                <select onChange={(e) => setDirectionsType(e.target.value)}>
+                  <option value="">Choose One</option>
+                  <option value="business">By Business Name and State</option>
+                  <option value="address">
+                    By Street Address, City & State
+                  </option>
+                </select>
+                <Form>
+                  {/* <Form onSubmit={getDirections}> */}
+                  {directionsType === "business" && (
+                    <>
+                      <br></br>
+                      <Form.Group controlId="formBasicText">
+                        <Form.Label>
+                          <strong>Enter Business Name</strong>
+                        </Form.Label>
+                        <Form.Control
+                          onChange={handleChange}
+                          type="text"
+                          name="business"
+                          value={startingPointData.business}
+                        />
+                      </Form.Group>
+                      <br></br>
+                      <Form.Group controlId="formBasicText">
+                        <Form.Label>
+                          <strong>Enter Business State</strong>
+                        </Form.Label>
+                        <Form.Control
+                          onChange={handleChange}
+                          type="text"
+                          name="state"
+                          value={startingPointData.state}
+                        />
+                      </Form.Group>
+                      <br></br>
+                      <Button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          getDirections(e);
+                        }}
+                        variant="warning"
+                        type="submit"
+                      >
+                        Get Directions
+                      </Button>
+                      &nbsp;&nbsp;
+                      <Button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleCancel(e);
+                        }}
+                        variant="warning"
+                      >
+                        Reset
+                      </Button>
+                    </>
+                  )}
+                  {directionsType === "address" && (
+                    <>
+                      <Form>
+                        {/* <Form onSubmit={getDirections}> */}
+                        <Form.Group>
+                          <br></br>
+                          <Form.Label>
+                            <strong>Enter Street Address</strong>
+                          </Form.Label>
+                          <Form.Control
+                            onChange={handleChange}
+                            type="text"
+                            name="address"
+                            value={startingPointData.address}
+                          />
+                        </Form.Group>
+                        <br></br>
+                        <Form.Group>
+                          <Form.Label>
+                            <strong>Enter City</strong>
+                          </Form.Label>
+                          <Form.Control
+                            onChange={handleChange}
+                            type="text"
+                            name="city"
+                            value={startingPointData.city}
+                          />
+                        </Form.Group>
+                        <br></br>
+                        <Form.Group>
+                          <Form.Label>
+                            <strong>Enter State</strong>
+                          </Form.Label>
+                          <Form.Control
+                            onChange={handleChange}
+                            type="text"
+                            name="state"
+                            value={startingPointData.state}
+                          />
+                        </Form.Group>
+                        <br></br>
+                        <br></br>
+                        <Button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            getDirections(e);
+                          }}
+                          variant="warning"
+                          type="submit"
+                        >
+                          Get Directions
+                        </Button>
+                        &nbsp;&nbsp;
+                        <Button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleCancel(e);
+                          }}
+                          variant="warning"
+                        >
+                          Reset
+                        </Button>
+                      </Form>
+                    </>
+                  )}
+                </Form>
+                <br></br>
+                <Card.Text>
+                  <strong>Directions:</strong>
+                  <br></br>
+                  <br></br>
+                  <strong>Starting Address:</strong> {directions.start_address}
+                  <br></br>
+                  <strong>Miles to destination:</strong>{" "}
+                  {directions.distance.text}
+                  <br></br>
+                  <strong>Trip duration:</strong> {directions.duration.text}
+                  <br></br>
+                  <strong>Driving Instructions:</strong>
+                  {directions.instructions.map((instruction) => {
+                    return <li>{instruction}</li>;
+                  })}
+                </Card.Text>
+              </Card.Body>
             </Col>
           </Row>
         </Card>

@@ -3,20 +3,23 @@ const router = express.Router();
 
 const {
   getNextReunions,
-  getNextReunion,
-  createNextReunion,
+  // getNextReunion,
+  // createNextReunion,
   addNextReunionMap,
+  getNextReunionDirections,
   editNextReunion,
   deleteNextReunion,
 } = require("../controllers/nextReunionController");
 
 router.get("/", getNextReunions); 
 
-router.get("/:year", getNextReunion); //nextReunion and Map
+// router.get("/", getNextReunion); //nextReunion and Map
 
-router.post("/", createNextReunion)
+// router.post("/", createNextReunion)
 
-router.post("/:year", addNextReunionMap);
+router.post("/map/:year", addNextReunionMap);
+
+router.post("/directions", getNextReunionDirections);
 
 router.patch('/:id', editNextReunion)
 

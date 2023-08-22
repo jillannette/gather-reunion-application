@@ -1,4 +1,5 @@
 const { NextReunion, Map } = require("../models/model");
+const axios = require('axios');
 
 const getNextReunions = async (req, res, next) => {
   if (!req.member) {
@@ -23,15 +24,17 @@ const getNextReunions = async (req, res, next) => {
 
 
 const getNextReunion = async (req, res, next) => {
+  console.log('getNextReunionRoute', req.member)
   if (!req.member) {
     next();
     return;
   }
 
-  const nextReunion = await NextReunion.findOne({ year: req.params.year })
+  const nextReunion = await NextReunion.find({ })
     .populate("year")
     .populate("maps")
     .sort({ createdAt: -1 });
+    console.log('getnextreunion', nextReunion)
 
   if (!nextReunion) {
     return res.status(404).json({ 
@@ -39,11 +42,8 @@ const getNextReunion = async (req, res, next) => {
     });
   }
 
-  res.status(200).json(nextReunion);
+  res.status(200).json(nextReunion[0]);
 
-  if (reunion.maps) {
-    alert("No maps have been added for this reunion");
-  }
 };
 
 
@@ -79,19 +79,23 @@ const createNextReunion = async (req, res, next) => {
 };
 
 const addNextReunionMap = async (req, res, next) => {
-  
+
   if (!req.member) {
     next();
     return;
   }
 
-  const { center, zoom, containerStyle } = req.body;
+  const { center } = req.body;
 
   const newMap = new Map({
-    center, 
-    zoom, 
-    containerStyle,
+    center: Number(center),
+    zoom: Number(16), 
+    containerStyle: {
+      height: "80vh",
+      width: "100%"
+    },
     reunion: req.params.year,
+    startingPoint: {}
   });
 
   newMap.save();
@@ -100,7 +104,7 @@ const addNextReunionMap = async (req, res, next) => {
   nextReunionYear = req.params.year;
  
   const nextReunionToUpdate = await NextReunion.findOneAndUpdate(
-    { year: reunionYear },
+    { year: nextReunionYear },
     { $push: { maps: newMap} },
     { new: true }
   );
@@ -109,6 +113,35 @@ const addNextReunionMap = async (req, res, next) => {
 
   res.status(200).json(newMap);
 };
+
+///////
+const getNextReunionDirections = async (req, res, next) => {
+  console.log("get directions", req.member);
+  
+  if (!req.member) {
+    next();
+    return;
+  };
+
+  const API_KEY = process.env.GOOGLE_MAPS_API_KEY;
+  console.log('apiKey', API_KEY)
+  const { startingPoint } = req.body;  
+  console.log('startingPoint', startingPoint)
+  const mapArray = await Map.find({});
+  console.log('mapArray', mapArray)
+  const center = mapArray[0].center
+  console.log('center', center);
+  
+
+  
+  let GOOGLE_URL = `https://maps.googleapis.com/maps/api/directions/json?origin=${encodeURIComponent(startingPoint)}&destination=${center.lat},${center.lng}&key=${API_KEY}`
+
+  const directions = await axios.get(GOOGLE_URL)
+    console.log('directions', directions.data)
+    res.json(directions.data)
+      
+    }
+   
 
 const editNextReunion = async (req, res, next) => {
   if (!req.member) {
@@ -164,6 +197,7 @@ module.exports = {
   getNextReunion,
   createNextReunion,
   addNextReunionMap,
+  getNextReunionDirections,
   editNextReunion,
   deleteNextReunion,
 };

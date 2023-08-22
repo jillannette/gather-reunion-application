@@ -52,12 +52,12 @@ app.use("/api/nextReunions", memberAccess, nextReunionRoutes);
 app.use("/api/join", joinRoutes);
 app.use("/api/login", loginRoutes);
 
-//USE WHEN IN PRODUCTION
-if (process.env.MODE === "production") {
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/build", "index.html"));
-  });
-}
+//USE WHEN IN PRODUCTION only if deploying back and front end together 
+// if (process.env.MODE === "production") {
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+//   });
+// }
 
 app.use(restrictedAccess);
 

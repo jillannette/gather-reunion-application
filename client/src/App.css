@@ -210,7 +210,7 @@ image-resolution: unset;
 .member-card-body {
   background-color: whitesmoke;
   width: fluid;
-  height: 28vh;
+  height: 24vh;
 }
 
 .members-card-image {
@@ -341,7 +341,7 @@ image-resolution: unset;
 }
 
 .profile-col {
-  margin-top: 90px;
+  margin-top: 150px;
   display: flex;
   width: fluid;
   justify-content: center;
@@ -380,7 +380,7 @@ image-resolution: unset;
 }
 
 .reunion-card-body {
-  height: 35vh;
+  height: 30vh;
   background-color: whitesmoke;
 }
 

@@ -130,7 +130,7 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
                     </>
                   ) : (
                     <>
-                      <br></br>
+                               
                       <FormGroup>
                         <Form onSubmit={updateMember}>
                           <Form.Control

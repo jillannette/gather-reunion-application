@@ -64,9 +64,6 @@ const Reunions = ({ loggedInMember }) => {
             </Link>
           </div>} */
         }
-        <br></br>
-        <br></br>
-
         <div>
           <h1 className="reunion-headline">Reunions</h1>
         </div>

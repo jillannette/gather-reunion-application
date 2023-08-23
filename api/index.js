@@ -16,13 +16,6 @@ const joinRoutes = require("./routes/join.js");
 
 const app = express();
 
-
-// //ENABLE WHEN BACK TO PRODUCTION ENVIRONMENT!
-// app.get("/*", function (req, res) {
-//   res.sendFile("this worked", filePath);
-//   console.log(filePath);
-// });
-
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -44,7 +37,6 @@ app.use(express.json());
 //   next();
 // });
 
-// app.use("/api/maps", memberAccess, mapRoutes);
 app.use("/api/members", memberAccess, memberRoutes);
 app.use("/api/memories", memberAccess, memoryRoutes);
 app.use("/api/reunions", memberAccess, reunionRoutes);

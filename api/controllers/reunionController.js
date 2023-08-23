@@ -14,9 +14,9 @@ const getReunions = async (req, res, next) => {
       .then((reunions) => {
         res.status(200).json({ reunions });
       });
-  } catch (err) {
+  } catch (error) {
     res.status(500).json({
-      err: "An unexpected error has occurred",
+      error: "An unexpected error has occurred",
     });
   }
 };
@@ -33,15 +33,15 @@ const getReunion = async (req, res, next) => {
     .sort({ createdAt: -1 });
 
   if (!reunion) {
-    return res.status(404).json({ 
-      err: "There are no images to display for this reunion" 
+    return res.status(404).json({
+      err: "There are no images to display for this reunion",
     });
   }
 
   res.status(200).json(reunion);
 
   if (reunion.photos) {
-    alert("No photos have been added for this reunion");
+    error("No photos have been added for this reunion");
   }
 };
 
@@ -67,13 +67,12 @@ const archiveReunion = async (req, res, next) => {
     res.status(200).json(completedReunion);
   } catch (error) {
     res.status(500).json({
-      err: "Unable to complete request",
+      error: "Unable to complete request",
     });
   }
 };
 
 const addReunionPhotos = async (req, res, next) => {
-  
   if (!req.member) {
     next();
     return;
@@ -91,21 +90,20 @@ const addReunionPhotos = async (req, res, next) => {
 
   let reunionYear = new Reunion();
   reunionYear = req.params.year;
-  console.log(reunionYear);
+  //console.log(reunionYear);
 
   const reunionToUpdate = await Reunion.findOneAndUpdate(
     { year: reunionYear },
-    { $push: { reunionPhotos: newReunionPhoto} },
+    { $push: { reunionPhotos: newReunionPhoto } },
     { new: true }
   );
 
-  console.log(reunionToUpdate.reunionPhotos);
+  //console.log(reunionToUpdate.reunionPhotos);
 
   res.status(200).json(newReunionPhoto);
 };
 
 const updateReunion = async (req, res, next) => {
- 
   if (!req.member) {
     next();
     return;
@@ -122,9 +120,9 @@ const updateReunion = async (req, res, next) => {
       message: "Reunion updated!",
       reunionToUpdate,
     });
-  } catch (err) {
+  } catch (error) {
     res.status(500).json({
-      err: "Unable to complete request",
+      error: "Unable to complete request",
     });
   }
 };

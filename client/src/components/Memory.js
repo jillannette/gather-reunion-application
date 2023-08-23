@@ -25,7 +25,7 @@ const Memory = ({ memory }) => {
             </Col>
           </Row>
         </Card>
-        
+
         <br></br>
         <br></br>
       </Container>

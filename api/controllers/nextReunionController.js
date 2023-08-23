@@ -1,5 +1,5 @@
 const { NextReunion, Map } = require("../models/model");
-const axios = require('axios');
+const axios = require("axios");
 
 const getNextReunions = async (req, res, next) => {
   if (!req.member) {
@@ -15,71 +15,60 @@ const getNextReunions = async (req, res, next) => {
       .then((nextReunions) => {
         res.status(200).json({ nextReunions });
       });
-  } catch (err) {
+  } catch (error) {
     res.status(500).json({
-      err: "An unexpected error has occurred",
+      error: "An unexpected error has occurred",
     });
   }
 };
 
-
 const getNextReunion = async (req, res, next) => {
-  console.log('getNextReunionRoute', req.member)
+  //console.log('getNextReunionRoute', req.member)
   if (!req.member) {
     next();
     return;
   }
 
-  const nextReunion = await NextReunion.find({ })
+  const nextReunion = await NextReunion.find({})
     .populate("year")
     .populate("maps")
     .sort({ createdAt: -1 });
-    console.log('getnextreunion', nextReunion)
+  console.log("getnextreunion", nextReunion);
 
   if (!nextReunion) {
-    return res.status(404).json({ 
-      err: "Next Reunion has not been added" 
+    return res.status(404).json({
+      error: "Next Reunion has not been added",
     });
   }
 
   res.status(200).json(nextReunion[0]);
-
 };
 
-
 const createNextReunion = async (req, res, next) => {
-  console.log('create nextReunion', req.nextReunion)
+  //console.log('create nextReunion', req.nextReunion)
 
   if (!req.member) {
     next();
     return;
   }
 
-  const { year, cover_image_url, date, location, maps, description } =
-    req.body;
+  const { year, cover_image_url, date, location, maps, description } = req.body;
 
-  
-    const newNextReunion = await NextReunion.create({
-      year,
-      cover_image_url,
-      date,
-      location,
-      maps,
-      description,
-    });
+  const newNextReunion = await NextReunion.create({
+    year,
+    cover_image_url,
+    date,
+    location,
+    maps,
+    description,
+  });
 
-    await newNextReunion.save();
+  await newNextReunion.save();
 
-    res.status(200).json(newNextReunion);
-  // } catch (error) {
-  //   res.status(500).json({
-  //     err: "Unable to complete request",
-  //   });
-  // }
+  res.status(200).json(newNextReunion);
 };
 
 const addNextReunionMap = async (req, res, next) => {
-
   if (!req.member) {
     next();
     return;
@@ -89,23 +78,23 @@ const addNextReunionMap = async (req, res, next) => {
 
   const newMap = new Map({
     center: Number(center),
-    zoom: Number(16), 
+    zoom: Number(16),
     containerStyle: {
       height: "80vh",
-      width: "100%"
+      width: "100%",
     },
     reunion: req.params.year,
-    startingPoint: {}
+    startingPoint: {},
   });
 
   newMap.save();
 
   let nextReunionYear = new NextReunion();
   nextReunionYear = req.params.year;
- 
+
   const nextReunionToUpdate = await NextReunion.findOneAndUpdate(
     { year: nextReunionYear },
-    { $push: { maps: newMap} },
+    { $push: { maps: newMap } },
     { new: true }
   );
 
@@ -114,34 +103,31 @@ const addNextReunionMap = async (req, res, next) => {
   res.status(200).json(newMap);
 };
 
-///////
 const getNextReunionDirections = async (req, res, next) => {
   console.log("get directions", req.member);
-  
+
   if (!req.member) {
     next();
     return;
-  };
+  }
 
   const API_KEY = process.env.GOOGLE_MAPS_API_KEY;
-  console.log('apiKey', API_KEY)
-  const { startingPoint } = req.body;  
-  console.log('startingPoint', startingPoint)
+  //console.log('apiKey', API_KEY)
+  const { startingPoint } = req.body;
+  //console.log('startingPoint', startingPoint)
   const mapArray = await Map.find({});
-  console.log('mapArray', mapArray)
-  const center = mapArray[0].center
-  console.log('center', center);
-  
+  //console.log('mapArray', mapArray)
+  const center = mapArray[0].center;
+  //console.log('center', center);
 
-  
-  let GOOGLE_URL = `https://maps.googleapis.com/maps/api/directions/json?origin=${encodeURIComponent(startingPoint)}&destination=${center.lat},${center.lng}&key=${API_KEY}`
+  let GOOGLE_URL = `https://maps.googleapis.com/maps/api/directions/json?origin=${encodeURIComponent(
+    startingPoint
+  )}&destination=${center.lat},${center.lng}&key=${API_KEY}`;
 
-  const directions = await axios.get(GOOGLE_URL)
-    console.log('directions', directions.data)
-    res.json(directions.data)
-      
-    }
-   
+  const directions = await axios.get(GOOGLE_URL);
+  //console.log('directions', directions.data)
+  res.json(directions.data);
+};
 
 const editNextReunion = async (req, res, next) => {
   if (!req.member) {
@@ -160,15 +146,14 @@ const editNextReunion = async (req, res, next) => {
       message: "Next Reunion updated!",
       editedReunion,
     });
-  } catch (err) {
+  } catch (error) {
     res.status(500).json({
-      err: "Unable to complete request",
+      error: "Unable to complete request",
     });
   }
 };
 
 const deleteNextReunion = async (req, res, next) => {
-  
   if (!req.member) {
     next();
     return;
@@ -179,15 +164,17 @@ const deleteNextReunion = async (req, res, next) => {
   console.log(nextReunionYear);
 
   try {
-    const deletedNextReunion = await NextReunion.findOneAndDelete({ year: nextReunionYear });
+    const deletedNextReunion = await NextReunion.findOneAndDelete({
+      year: nextReunionYear,
+    });
 
     res.status(200).json({
       message: "Upcoming reunion has been deleted from database",
       deletedNextReunion,
     });
-  } catch (err) {
+  } catch (error) {
     res.status(500).json({
-      err: "An unexpected error has occurred",
+      error: "An unexpected error has occurred",
     });
   }
 };

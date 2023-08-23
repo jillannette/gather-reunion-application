@@ -12,9 +12,9 @@ const getMembers = async (req, res, next) => {
     const members = await Member.find({}).sort({ createdAt: -1 });
 
     res.status(200).json(members);
-  } catch (err) {
+  } catch (error) {
     res.status(500).json({
-      err: "An unexpected error has occurred",
+      error: "An unexpected error has occurred",
     });
   }
 };
@@ -34,9 +34,9 @@ const getMember = async (req, res, next) => {
     console.log(member);
 
     res.status(200).json({ member });
-  } catch (err) {
+  } catch (error) {
     res.status(500).json({
-      err: { alert: "Unable to retrieve member from database" },
+      error: { message: "Unable to retrieve member from database" },
     });
   }
 };
@@ -64,9 +64,9 @@ const deleteMember = async (req, res, next) => {
       message: "Member has been deleted from database",
       member,
     });
-  } catch (err) {
+  } catch (error) {
     res.status(500).json({
-      err: "An unexpected error has occurred",
+      error: "An unexpected error has occurred",
     });
   }
 };
@@ -93,12 +93,12 @@ const updateMember = async (req, res, next) => {
 
     if (!member) {
       return res.status(404).json({
-        err: "Member does not exist in database",
+        error: "Member does not exist in database",
       });
     }
-  } catch (err) {
+  } catch (error) {
     res.status(500).json({
-      err: "An unexpected error has occurred",
+      error: "An unexpected error has occurred",
     });
   }
 };

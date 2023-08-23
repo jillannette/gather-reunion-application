@@ -1,3 +1,5 @@
+//AFTER "NEXT REUNION" IS COMPLETED, THIS COMPONENT WILL ADD IT TO THE HISTORICAL LIST OF REUNIONS
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Form, Button } from "react-bootstrap";
@@ -58,13 +60,14 @@ const ArchiveReunion = ({ loggedInMember }) => {
       <div className="join-background">
         <div>
           <br></br>
-          <h1 className="center-headline">Add Completed Reunion To Reunions Page</h1>
+          <h1 className="center-headline">
+            Add Completed Reunion To Reunions Page
+          </h1>
         </div>
         <div>
           <Container className="login-border">
             <Form className="form" onSubmit={archiveReunion}>
-
-             <Form.Group className="mb-3" controlId="formBasicImage">
+              <Form.Group className="mb-3" controlId="formBasicImage">
                 <Form.Label>Add reunion cover image </Form.Label>
                 <Form.Control
                   type="url"

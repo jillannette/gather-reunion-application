@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Card, Col, Container, Row, Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { BASE_URL } from "../App.js";
@@ -52,10 +52,10 @@ const ReunionPhotos = ({ loggedInMember }) => {
     });
   };
 
-  console.log(newReunionPhoto);
+  //CHECK IF NEWREUNIONPHOTO IS AS EXPECTED
+  // console.log(newReunionPhoto);
 
   async function addReunionPhoto(e) {
-    // e.preventDefault();
     const config = {
       headers: {
         Authorization: `Bearer ${loggedInMember.token}`,
@@ -144,6 +144,7 @@ const ReunionPhotos = ({ loggedInMember }) => {
                   <Card.Body className="reunionPhotos-card-body">
                     <Card.Title>{reunionPhoto.description} </Card.Title>
                   </Card.Body>
+                  <Button variant="warning">Delete Photo</Button>
                 </Card>
                 <br></br>
               </Col>

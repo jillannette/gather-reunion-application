@@ -54,13 +54,13 @@ const Members = ({ loggedInMember }) => {
         <h1 className="center-headline">Class Members</h1>
       </div>
 
-      <div >
+      <div>
         <Container className="members-container">
           <Row>
             {members.map((member) => {
               return (
                 <Col key={member._id} s={12} md={6} lg={4} xl={4}>
-                  <Card >
+                  <Card>
                     <Card.Img
                       className="members-card-image"
                       variant="top"
@@ -89,7 +89,7 @@ const Members = ({ loggedInMember }) => {
                         {member.residesIn}
                       </Card.Title>
                     </Card.Body>
-                 
+
                     <Button
                       onClick={() => getMemberBio(member._id)}
                       variant="warning"

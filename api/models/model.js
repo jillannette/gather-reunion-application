@@ -1,22 +1,17 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-
-const mapSchema = new Schema ({
+const mapSchema = new Schema({
   reunion: { type: Schema.Types.Number, required: true, ref: "Reunion" },
   center: {
     lat: { type: Number, required: true },
     lng: { type: Number, required: true },
-  }, 
-  // startingPoint: {
-  //   lat: { type: Number},
-  //   lng: { type: Number}
-  // },
+  },
   zoom: { type: Number, required: true },
-  containerStyle: { 
+  containerStyle: {
     height: { type: String, required: true },
-    width: { type: String, required: true }
-  }
+    width: { type: String, required: true },
+  },
 });
 
 const memberSchema = new Schema(
@@ -37,7 +32,7 @@ const memberSchema = new Schema(
   },
   { timestamps: true }
 );
-    
+
 const memorySchema = new Schema(
   {
     image_url: { type: String, required: true },
@@ -48,23 +43,21 @@ const memorySchema = new Schema(
   { timestamps: true }
 );
 
-const nextReunionSchema = new Schema(
-  {
-    year: { type: Number, required: true },
-    cover_image_url: { type: String, required: true },
-    date: { type: String, required: true },
-    location: { type: String, required: true },
-    description: { type: String, required: true },
-    maps: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Map",
-      },
-    ]
-},
-);
+const nextReunionSchema = new Schema({
+  year: { type: Number, required: true },
+  cover_image_url: { type: String, required: true },
+  date: { type: String, required: true },
+  location: { type: String, required: true },
+  description: { type: String, required: true },
+  maps: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Map",
+    },
+  ],
+});
 
-const reunionSchema = new Schema(   
+const reunionSchema = new Schema(
   {
     year: { type: Number, required: true },
     description: { type: String, required: true },

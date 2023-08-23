@@ -46,10 +46,10 @@ const MemberBio = ({ loggedInMember }) => {
 
   return (
     <>
-      <Container className='bio-container'>
+      <Container className="bio-container">
         <Row>
           <Col className="bio-col">
-            <Card key={memberBio._id} className='bio-card'>
+            <Card key={memberBio._id} className="bio-card">
               <Card.Img
                 className="bio-image"
                 style={{ width: 350, height: 350 }}

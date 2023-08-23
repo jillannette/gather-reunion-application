@@ -1,7 +1,7 @@
 const { Memory, Member } = require("../models/model");
 
 const getMemories = async (req, res, next) => {
-  console.log("get memories", req.member);
+  //console.log("get memories", req.member);
 
   if (!req.member) {
     next();
@@ -14,9 +14,9 @@ const getMemories = async (req, res, next) => {
       .populate("member", "nameAtGraduation");
 
     res.status(200).json({ memories });
-  } catch (err) {
+  } catch (error) {
     res.status(500).json({
-      err: "An unexpected error has occurred",
+      error: "An unexpected error has occurred",
     });
   }
 };
@@ -35,7 +35,7 @@ const getMemory = async (req, res, next) => {
 
     .sort({ createdAt: -1 });
 
-  res.status(200).json(memory);
+    res.status(200).json(memory);
 };
 
 const createMemory = async (req, res, next) => {
@@ -68,7 +68,7 @@ const createMemory = async (req, res, next) => {
     res.status(200).json(newMemory);
   } catch (error) {
     res.status(500).json({
-      err: "Unable to complete request",
+      error: "Unable to complete request",
     });
   }
 };
@@ -85,32 +85,31 @@ const deleteMemory = async (req, res, next) => {
 
   try {
     const memory = await Memory.findOne({ _id: id });
-    console.log(memory);
+    //console.log(memory);
 
     if (!memory) {
       return res.status(404).json({
-        err: "Memory does not exist in database",
+        error: "Memory does not exist in database",
       });
     }
 
     const member = memory.member.toString();
-    console.log("memory.member", member);
-    console.log("req.member.memberid", req.member.memberId);
+    //console.log("memory.member", member);
+    //console.log("req.member.memberid", req.member.memberId);
 
     const deletedMemory = await Memory.deleteOne(memory);
-
-    console.log(deletedMemory);
+    //console.log(deletedMemory);
 
     const memberId = req.member.memberId;
-    console.log(memberId);
+    //console.log(memberId);
 
     const memberToUpdate = await Member.findById(memberId);
-    console.log(memberToUpdate);
+    //console.log(memberToUpdate);
 
     const index = memberToUpdate.memories.findIndex(
       (mem) => mem.toString() === id
     );
-    console.log(index);
+    //console.log(index);
 
     if (index !== -1) {
       memberToUpdate.memories.splice(index, 1);
@@ -118,21 +117,21 @@ const deleteMemory = async (req, res, next) => {
 
     await memberToUpdate.save();
 
-    console.log(memberToUpdate.memories);
+    //console.log(memberToUpdate.memories);
 
     res.status(200).json({
       message: "Memory has been deleted from database",
       deletedMemory,
     });
-  } catch (err) {
+  } catch (error) {
     res.status(500).json({
-      err: "Unable to complete request",
+      error: "Unable to complete request",
     });
   }
 };
 
 const updateMemory = async (req, res, next) => {
-  console.log("update memory", req.member);
+//  console.log("update memory", req.member);
 
   if (!req.member) {
     next();
@@ -150,9 +149,9 @@ const updateMemory = async (req, res, next) => {
       message: "Memory updated!",
       memory,
     });
-  } catch (err) {
+  } catch (error) {
     res.status(500).json({
-      err: "Unable to complete request",
+      error: "Unable to complete request",
     });
   }
 };

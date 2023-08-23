@@ -94,18 +94,15 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
 
   return (
     <>
-    <div>
+      <div>
         <h1 className="profile-headline">View/Edit Profile Details </h1>
       </div>
 
       <Container>
-      
         {loggedInMember && (
           <Row>
             <Col className="profile-col" style={{ width: 700, height: 400 }}>
-           
               <Card key={memberProfile._id}>
-                
                 <Card.Img
                   style={{ width: 300, height: 300 }}
                   className="profile-image"
@@ -130,7 +127,6 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
                     </>
                   ) : (
                     <>
-                               
                       <FormGroup>
                         <Form onSubmit={updateMember}>
                           <Form.Control
@@ -151,7 +147,7 @@ const MemberProfile = ({ loggedInMember, handleLogout }) => {
                             name="email"
                             value={memberProfile.email}
                           />
-                           <Form.Control
+                          <Form.Control
                             onChange={handleChange}
                             type="text"
                             name="residesIn"

@@ -11,7 +11,7 @@ const {
 
 router.get("/", getReunions);
 
-router.get("/:year", getReunion); //reunionPhotos
+router.get("/:year", getReunion); //gets reunionPhotos
 
 router.post("/", archiveReunion);
 

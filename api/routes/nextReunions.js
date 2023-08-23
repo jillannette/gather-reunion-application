@@ -4,7 +4,7 @@ const router = express.Router();
 const {
   getNextReunions,
   // getNextReunion,
-  // createNextReunion,
+  createNextReunion,
   addNextReunionMap,
   getNextReunionDirections,
   editNextReunion,
@@ -15,7 +15,7 @@ router.get("/", getNextReunions);
 
 // router.get("/", getNextReunion); //nextReunion and Map
 
-// router.post("/", createNextReunion)
+router.post("/", createNextReunion)
 
 router.post("/map/:year", addNextReunionMap);
 

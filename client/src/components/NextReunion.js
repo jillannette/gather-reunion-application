@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { GoogleMap, useLoadScript } from "@react-google-maps/api";
-import { states } from "../stateAbbrev.js";
 import { BASE_URL } from "../App.js";
 import { Col, Card, Row, Container, Form, Button } from "react-bootstrap";
 import axios from "axios";
@@ -15,13 +14,13 @@ const NextReunion = ({ loggedInMember }) => {
   const [nextReunion, setNextReunion] = useState({});
   const [eventMap, setEventMap] = useState({
     center: {
-      lat: 40.4225,
-      lng: -104.73516,
+      lat: null,
+      lng: null,
     },
-    zoom: 16,
+    zoom: null,
     containerStyle: {
-      height: "80vh",
-      weight: "100%",
+      height: "",
+      weight: "",
     },
     reunion: yearValue,
   });
@@ -46,7 +45,6 @@ const NextReunion = ({ loggedInMember }) => {
   const [showDirections, setShowDirections] = useState(false);
 
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (loggedInMember) {
@@ -61,8 +59,8 @@ const NextReunion = ({ loggedInMember }) => {
   });
 
   const handleChange = (e) => {
-    //this works
-    console.log("startingPointData", startingPointData);
+    //Check if startingPointData is as expected
+    //console.log("startingPointData", startingPointData);
     setStartingPointData({
       ...startingPointData,
       [e.target.name]: e.target.value,
@@ -80,16 +78,16 @@ const NextReunion = ({ loggedInMember }) => {
     setDirectionsType("");
     setDirections({
       start_address: "",
-    distance: "",
-    duration: "",
-    steps: [],
-    end_address: "",
-    })
+      distance: "",
+      duration: "",
+      steps: [],
+      end_address: "",
+    });
   };
 
   const getDirections = async (e) => {
-    console.log("getDirectionsRoute", getDirections);
-    console.log(startingPointData); //this works
+    // console.log("getDirectionsRoute", getDirections);
+    // console.log(startingPointData);
     e.preventDefault();
 
     const config = {
@@ -100,7 +98,7 @@ const NextReunion = ({ loggedInMember }) => {
     const startingPoint =
       directionsType === "business"
         ? `${startingPointData.business},${startingPointData.state}`
-        : `${startingPointData.address},${startingPointData.city},${startingPointData.state}`
+        : `${startingPointData.address},${startingPointData.city},${startingPointData.state}`;
     await axios
       .post(
         `${BASE_URL}/api/nextReunions/directions`,
@@ -109,37 +107,26 @@ const NextReunion = ({ loggedInMember }) => {
       )
       .then((response) => {
         const directions = response.data.routes[0].legs[0];
-        console.log(directions);
+        // console.log(directions);
         setDirections(directions);
         setShowDirections(true);
-        console.log(directions);
-        console.log(directions.start_address);
-        console.log(directions.end_address);
-        console.log(directions.duration.text);
-        console.log(directions.distance.text);
-        console.log(directions.steps);
-        const steps = directions.steps;
-        console.log("steps", steps);
-        
-
-        // console.log(response.data['end_address']);  //HOW TO GET END ADDRESS?????
-        // console.log(response.data.html_instructions);  //undefined
+        // console.log(directions);
+        // console.log(directions.start_address);
+        // console.log(directions.end_address);
+        // console.log(directions.duration.text);
+        // console.log(directions.distance.text);
+        // console.log(directions.steps);
         // const distance = directions.distance.text;
         // console.log(distance);
         // const duration = directions.duration.text;
         // console.log(duration);
-        // const drivingInstructions = directions.steps;   //will need to map over to get html_instructions??
+        // const drivingInstructions = directions.steps;
         // console.log(drivingInstructions);
-
         navigate("/nextReunions");
       });
   };
 
-  // const confirmClick = (e) => {
-  //   e.preventDefault();
-  //   console.log('click')
-  // }
-
+  //COMMENTED OUT UNTIL APP NEEDS TO BE ADDED TO NEXT UPCOMING REUNION
   // async function addMap(e) {
   //   setLoading(true);
   //   e.preventDefault();
@@ -174,7 +161,7 @@ const NextReunion = ({ loggedInMember }) => {
         const nextReunion = response.data.nextReunions[0];
         setNextReunion(nextReunion);
         // console.log(nextReunion); //OK
-        const eventMap = nextReunion.maps[0];
+        setEventMap(nextReunion.maps[0]);
         // console.log(eventMap); //OK
         // console.log(eventMap.center);
         // console.log(eventMap.containerStyle);
@@ -191,7 +178,7 @@ const NextReunion = ({ loggedInMember }) => {
 
   const handleTypeChange = (e) => {
     setDirectionsType(e.target.value);
-    setShowDirections(false)
+    setShowDirections(false);
   };
 
   return (
@@ -272,7 +259,6 @@ const NextReunion = ({ loggedInMember }) => {
                   </option>
                 </select>
                 <Form>
-                  {/* <Form onSubmit={getDirections}> */}
                   {directionsType === "business" && (
                     <>
                       <br></br>
@@ -311,10 +297,7 @@ const NextReunion = ({ loggedInMember }) => {
                         Get Directions
                       </Button>
                       &nbsp;&nbsp;
-                      <Button
-                        onClick={handleReset}
-                        variant="warning"
-                      >
+                      <Button onClick={handleReset} variant="warning">
                         Reset
                       </Button>
                     </>
@@ -322,7 +305,6 @@ const NextReunion = ({ loggedInMember }) => {
                   {directionsType === "address" && (
                     <>
                       <Form>
-                        {/* <Form onSubmit={getDirections}> */}
                         <Form.Group>
                           <br></br>
                           <Form.Label>
@@ -372,12 +354,9 @@ const NextReunion = ({ loggedInMember }) => {
                           Get Directions
                         </Button>
                         &nbsp;&nbsp;
-                        <Button
-                        onClick={handleReset}
-                        variant="warning"
-                      >
-                        Reset
-                      </Button>
+                        <Button onClick={handleReset} variant="warning">
+                          Reset
+                        </Button>
                       </Form>
                     </>
                   )}
@@ -385,31 +364,32 @@ const NextReunion = ({ loggedInMember }) => {
                 <br></br>
                 {showDirections && (
                   <Card.Text>
-                  <strong>Directions:</strong>
-                  <br></br>
-                  <br></br>
-                  <strong>Starting Address:</strong> {directions.start_address}
-                  <br></br>
-                  <strong>Miles to destination:</strong>{" "}
-                  {directions.distance.text}
-                  <br></br>
-                  <strong>Trip duration:</strong> {directions.duration.text}
-                  <br></br>
-                  <strong>Driving Instructions:</strong>
-                 
-                  {directions.steps.map((step) => {
-                    const updated = step.html_instructions.replaceAll("<b>", "").replaceAll("</b>", "").replaceAll("<wbr/>", "").replaceAll("<div>", "").replaceAll("</div>", "").replaceAll(`<div style="font-size:0.9em">`, "")
-                    
-                    return (
-                      <p>{updated}</p>
-                    )
-                  
-                 })
-                }
-        
-                  <br></br>
-                  <strong>Destination Address:</strong> {directions.end_address}
-                </Card.Text>
+                    <strong>DIRECTIONS:</strong>
+                    <br></br>
+                    <br></br>
+                    <strong>FROM:</strong> {directions.start_address}
+                    <br></br>
+                    <strong>DISTANCE:</strong> {directions.distance.text}
+                    <br></br>
+                    <strong>DURATION:</strong> {directions.duration.text}
+                    <br></br>
+                    <strong>DRIVING INSTRUCTIONS:</strong>
+                    <br></br>
+                    {directions.steps.map((step) => {
+                      const updated = step.html_instructions
+                        .replaceAll("<b>", "")
+                        .replaceAll("</b>", "")
+                        .replaceAll("<wbr/>", "")
+                        .replaceAll("<div>", "")
+                        .replaceAll("</div>", "")
+                        .replaceAll(`<div style="font-size:0.9em">`, "");
+
+                      return <p>{updated}</p>;
+                    })}
+                    <br></br>
+                    <strong>Destination Address:</strong>{" "}
+                    {directions.end_address}
+                  </Card.Text>
                 )}
               </Card.Body>
             </Col>
@@ -417,8 +397,6 @@ const NextReunion = ({ loggedInMember }) => {
         </Card>
       </Container>
     </>
-
-    //    );
   );
 };
 

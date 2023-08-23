@@ -144,7 +144,6 @@ const ReunionPhotos = ({ loggedInMember }) => {
                   <Card.Body className="reunionPhotos-card-body">
                     <Card.Title>{reunionPhoto.description} </Card.Title>
                   </Card.Body>
-                  <Button variant="warning">Delete Photo</Button>
                 </Card>
                 <br></br>
               </Col>

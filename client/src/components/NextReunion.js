@@ -386,8 +386,8 @@ const NextReunion = ({ loggedInMember }) => {
 
                       return <p>{updated}</p>;
                     })}
-                    <br></br>
-                    <strong>Destination Address:</strong>{" "}
+                  
+                  <strong>DESTINATION ADDRESS:</strong>{" "}
                     {directions.end_address}
                   </Card.Text>
                 )}
